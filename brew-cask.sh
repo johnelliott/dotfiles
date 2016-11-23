@@ -12,4 +12,4 @@ brew cask install vlc 2> /dev/null
 brew cask install spectacle 2> /dev/null
 brew cask install slack 2> /dev/null
 brew cask install firefox 2> /dev/null
-brew cask install sequel-pro 2> /dev/null
+brew cask install atom 2> /dev/null
