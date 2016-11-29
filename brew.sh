@@ -53,7 +53,6 @@ brew install mysql
 brew install redis
 brew install postgresql
 brew install awscli
-brew install nvm
 
 # Remove outdated versions from the cellar.
 brew cleanup
