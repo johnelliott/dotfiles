@@ -15,5 +15,7 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/git/bin:$PATH
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export PATH=$HOME/bin:$PATH
+
 # node developer #protip: add `node_modules/.bin` to your `PATH` so that all the bin scripts installed by npm modules are available on the cli from the root of the project directory, e.g., mocha, browserify, gulp.
 # export PATH=node_modules/.bin:$PATH

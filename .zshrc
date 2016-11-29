@@ -12,8 +12,8 @@
 #ZSH_THEME="frisk"
 #ZSH_THEME="sunaku"
 #ZSH_THEME="fishy"
-ZSH_THEME="john"
 #ZSH_THEME="random"
+ZSH_THEME="john"
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -77,14 +77,11 @@ for file in ~/.{path,exports,aliases,functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
-#
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH";
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Make NVM available
-export NVM_DIR="/Users/john/.nvm"
+export NVM_DIR="/usr/local/opt/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # You may need to manually set your language environment
