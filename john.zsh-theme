@@ -8,12 +8,9 @@
 ZSH_EMOJIS=("😀" "😬" "😁" "😂" "😃" "😄" "😅" "😆" "😇" "😉" "😊" "🙂" "🙃" "☺️" "😋" "😌" "😍" "😘" "😗" "😙" "😚" "😜" "😝" "😛" "🤑" "🤓" "😎" "🤗" "😏" "😶" "😑" "🙄" "🤔" "😳" "😞" "😟" "😠" "😔" "😕" "🙁" "😣" "😖" "😩" "😤" "😮" "😱" "😨" "😰" "😯" "😦" "😧" "😢" "😥" "😪" "😓" "😭" "😲" "🤐" "😷" "😴" "💩" "😺" "😸" "😹" "😻" "😼" "😽" "🙀" "😿" "😾" "👏" "👋" "👂" "👁" "💋" "🕶" "🐶" "🐱" "🐭" "🐹" "🐰" "🐻" "🐼" "🐨" "🐯" "🦁" "🐮" "🐷" "🐽" "🐸" "🐙" "🐵" "🙈" "🙉" "🙊" "🐒" "🐔" "🐧" "🐦" "🐤" "🐣" "🐥" "🐺" "🐗" "🐴" "🦄" "🐝" "🐛" "🐌" "🐞" "🐜" "🕷" "🦂" "🦀" "🐍" "🐢" "🐠" "🐟" "🐡" "🐬" "🐳" "🐋" "🐊" "🐆" "🐅" "🐃" "🐂" "🐄" "🐪" "🐫" "🐘" "🐐" "🐏" "🐑" "🐎" "🐖" "🐀" "🐁" "🐓" "🦃" "🕊" "🐕" "🐩" "🐈" "🐇" "🐿" "🐾" "🐉" "🐲" "🕸" "🍤" "🏇")
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[cyan]%}"
-#ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
-#ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[white]%}✔"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
 MODE_INDICATOR="%{$fg_bold[green]%}-- NORMAL --%{$reset_color%} "
-RPROMPT=''
 
 function {
     if [[ -n "$SSH_CLIENT" ]]; then
@@ -23,6 +20,4 @@ function {
     fi
 }
 
-
-#PROMPT='%{$fg_bold[cyan]%}%n${ZSH_EMOJIS[$RANDOM % 152]} %m%{$reset_color%}:%{$fg[yellow]%}%c %{$reset_color%}%$(git_prompt_info)%% '
 PROMPT='${ZSH_EMOJIS[$RANDOM % 152]}  ${PROMPT_HOST}%{$fg[yellow]%}%c %{$reset_color%}%$(git_prompt_info) $(vi_mode_prompt_info)%% '
