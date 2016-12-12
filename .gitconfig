@@ -61,7 +61,8 @@
 	contributors = shortlog --summary --numbered
 
     # Fix merge conflict files
-	fix = "!f() { ${EDITOR} `git diff --name-only`; }; f"
+	fix = "!f() { open -a atom `git diff --name-only`; }; f"
+	vfix = "!f() { ${EDITOR} `git diff --name-only`; }; f"
 
 	# view tree
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
