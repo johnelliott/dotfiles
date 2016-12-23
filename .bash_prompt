@@ -130,8 +130,8 @@ PS1+="\$(promptNVM)";
 PS1+="\[${reset}\] in ";
 PS1+="\[${bold}${green}\]\w"; # working directory
 PS1+="\$(prompt_git \"${reset} on ${magenta}\")"; # Git repository details
-PS1+="\n";
-PS1+="\[${reset}${bold}\]\$ \[${reset}\]"; # `$` (and reset color)
+PS1+="\[${reset}\]\n";
+PS1+="\[${reset}${bold}\] \$ \[${reset}\]"; # `$` (and reset color)
 export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
