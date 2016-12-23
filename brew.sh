@@ -2,17 +2,22 @@
 
 # Install command-line tools using Homebrew.
 
-# Ask for the administrator password upfront.
+# Ask for the administrator password
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Make sure we’re using the latest Homebrew.
-brew update
+# Make sure homebrew is installed first
+if [[ ! "$(type -P brew)" ]]; then
+	echo "Installing Homebrew"
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 # Upgrade any already-installed formulae.
 brew upgrade --all
+brew doctor
+brew update
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -33,7 +38,7 @@ brew install zsh
 brew tap homebrew/versions
 brew install bash-completion2
 brew install wget --with-iri
-brew install vim --override-system-vi
+brew install vim --with-override-system-vi
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
