@@ -97,6 +97,9 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 # Set the icon size of Dock items to 48 pixels
 defaults write com.apple.dock tilesize -int 48
 
+# stop iTunes
+sudo chmod 000 /Applications/iTunes.app
+
 # Kill affected applications
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
@@ -106,4 +109,3 @@ for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
 
-# TODO chmod itunes
