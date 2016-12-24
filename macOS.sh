@@ -18,12 +18,18 @@ sudo scutil --set HostName "duffie"
 sudo scutil --set LocalHostName "duffie"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "duffie"
 
+# Set a blazingly fast keyboard repeat rate
+# 15 InitialKeyRepeat and 2 KeyRepeat are max settings of the Settings.app sliders
+# could go something like 1 and 10, but that seems crazy fast
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 14
+
 # Dark mode and reduce transparency
 defaults write .GlobalPreferences AppleInterfaceStyle -string "Dark"
 defaults write com.apple.universalaccess reduceTransparency -int 1
 
 # Set highlight color to hi-viz green
-defaults write NSGlobalDomain AppleHighlightColor -string "0.847911 1.000000 0.000000"
+defaults write NSGlobalDomain AppleHighlightColor -string "0.840000 1.000000 0.000000"
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -int 1
