@@ -50,3 +50,6 @@ complete -W "NSGlobalDomain" defaults;
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Chrome Safari iTunes SystemUIServer Terminal Twitter" killall;
+
+# set up fuzzy finder
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

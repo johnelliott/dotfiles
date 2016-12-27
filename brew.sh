@@ -48,6 +48,7 @@ brew install hub # https://github.com/github/hub
 brew install tree
 brew install ack
 brew install the_silver_searcher
+brew install fzf
 brew install tmux
 brew install nmap
 brew install certbot
