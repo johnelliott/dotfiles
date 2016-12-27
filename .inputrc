@@ -23,6 +23,7 @@ set completion-query-items 200
 
 # Show extra file information when completing, like `ls -F` does
 set visible-stats on
+set colored-stats on
 
 # Be more intelligent when autocompleting by also looking at the text after
 # the cursor. For example, when the current line is "cd ~/src/mozil", and
@@ -37,7 +38,19 @@ set output-meta on
 set convert-meta off
 
 # Use Alt/Meta + Delete to delete the preceding word
-"\e[3;3~": kill-word
+#"\e[3;3~": kill-word
 
-# vi mode
-set show-mode-in-prompt on
+# vi mode settings, see bash man pages
+$if mode=vi
+  set show-mode-in-prompt on
+  # normal mode
+  set keymap vi-command
+  "k": previous-history
+  "j": next-history
+  "h": backward-char
+  "l": forward-char
+  # insert mode
+  set keymap vi-insert
+  "\C-p": previous-history
+  "\C-n": next-history
+$endif
