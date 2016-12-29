@@ -13,20 +13,58 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 defaults write com.apple.PowerChime ChimeOnAllHardware -bool true
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "duffie"
-sudo scutil --set HostName "duffie"
-sudo scutil --set LocalHostName "duffie"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "duffie"
+sudo scutil --set ComputerName "diffie"
+sudo scutil --set HostName "diffie"
+sudo scutil --set LocalHostName "diffie"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "diffie"
 
-# Set a blazingly fast keyboard repeat rate
+# Learn about defaults:
+# https://github.com/kevinSuttle/macOS-Defaults/blob/master/REFERENCE.md
+# Touch bar Fn key: pressing function key down shows control strip and not F1, F2 etc.
+defaults write com.apple.touchbar.agent PresentationModeFnModes -dict \
+  app fullControlStrip \
+  appWithControlStrip fullControlStrip
+
+# Customize Control Strip in Sierra
+defaults write com.apple.controlstrip MiniCustomized -array \
+  com.apple.system.media-play-pause \
+  com.apple.system.brightness \
+  com.apple.system.volume \
+  com.apple.system.mute
+
+defaults write com.apple.controlstrip FullCustomized -array \
+  com.apple.system.sleep \
+  com.apple.system.mission-control \
+  com.apple.system.group.media \
+  com.apple.system.group.volume \
+  com.apple.system.group.keyboard-brightness \
+  com.apple.system.group.brightness
+
+# Keyboard speeds
 # 15 InitialKeyRepeat and 2 KeyRepeat are max settings of the Settings.app sliders
 # could go something like 1 and 10, but that seems crazy fast
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 14
 
+# Trackpad
+defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1 # speed
+defaults write com.apple.AppleMultitouchTrackpad ActuationStrength -int 0 # silent clicking
+defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 0
+defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 0
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.dock showLaunchpadGestureEnabled -bool false
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+# Bluetooth Trackpad
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+
 # Dark mode and reduce transparency
 defaults write .GlobalPreferences AppleInterfaceStyle -string "Dark"
 defaults write com.apple.universalaccess reduceTransparency -int 1
+
+# Prefer tabs when opening documents
+defaults write NSGlobalDomain AppleWindowTabbingMode -string "always" # always fullscreen manual
 
 # Set highlight color to hi-viz green
 defaults write NSGlobalDomain AppleHighlightColor -string "0.840000 1.000000 0.000000"
@@ -45,6 +83,10 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# No delay for spring-loaded drags?
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+defaults write NSGlobalDomain com.apple.springing.delay -float 0 # No delay in seconds
 
 # Set Help Viewer windows to non-floating mode
 defaults write com.apple.helpviewer DevMode -bool true
@@ -65,6 +107,8 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -int 0
 
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
@@ -97,17 +141,18 @@ defaults write com.apple.safari "com.apple.Safari.ContentPageGroupIdentifier.Web
 
 # Dock
 # Remove the auto-hiding Dock delay
+defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
 # Set the icon size of Dock items to 48 pixels
-defaults write com.apple.dock tilesize -int 48
+defaults write com.apple.dock tilesize -int 64
 
 # stop iTunes
 sudo chmod 000 /Applications/iTunes.app
 
 # Kill affected applications
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+for app in "TouchBarAgent" "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
 	"Opera" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
 	"Transmission" "Twitter" "iCal"; do
