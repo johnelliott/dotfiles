@@ -125,6 +125,10 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 # Show the ~/Library folder
 chflags nohidden ~/Library
 
+# save screenshots to /Desktop/Screenshots
+mkdir -p "${HOME}/Desktop/Screenshots"
+defaults write com.apple.screencapture location -string "${HOME}/Desktop/Screenshots"
+
 # Allow hitting the Backspace key to go to the previous page in history
 defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" -bool true
 defaults write com.apple.safari Command1Through9SwitchesTabs -int 1
@@ -135,7 +139,7 @@ defaults write com.apple.safari ShowOverlayStatusBar -int 1
 defaults write com.apple.safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -int 1
 defaults write com.apple.safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" -int 1
 #defaults write com.apple.safari NewWindowBehavior -int 4
-#defaults write com.apple.safari TabCreationPolicy -int 0
+defaults write com.apple.safari TabCreationPolicy -int 2
 #defaults write com.apple.safari WebKitDeveloperExtrasEnabledPreferenceKey -int 1
 #defaults write com.apple.safari WebKitTabToLinksPreferenceKey -int 1
 
