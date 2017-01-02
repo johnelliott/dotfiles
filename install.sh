@@ -46,6 +46,15 @@ if [[ $(uname) == 'Darwin' ]]; then
 	fi
 fi
 
+# Install node version manager
+if which npm > /dev/null; then
+  read -p "Would you like to install node version manager? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    PROFILE=~/.bash_profile curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+  fi
+fi
+
 # Install npm packages
 if which npm > /dev/null; then
 	read -p "Would you like to install npm packages? (y/n) " -n 1 -r
@@ -54,3 +63,4 @@ if which npm > /dev/null; then
 		./npm.sh
 	fi
 fi
+
