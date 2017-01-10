@@ -60,6 +60,7 @@
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
+    conflicts = "diff --name-only --diff-filter=U"
     # Fix merge conflict files
 	fix = "!f() { open -a atom `git diff --name-only`; }; f"
 	vfix = "!f() { ${EDITOR} `git diff --name-only`; }; f"
