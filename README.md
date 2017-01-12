@@ -1,9 +1,8 @@
 # dotfiles
 
-manageable dotfiles
-
+## Vim editor
 [.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
 
-## missing
-no automatic chsh and /etc/shells addition
-no man pages and gnu utils?
+## What's missing?
+- no automatic `chsh` and `/etc/shells` addition
+- no `man` pages and GNU utils?
