@@ -53,4 +53,5 @@ $if mode=vi
   set keymap vi-insert
   "\C-p": previous-history
   "\C-n": next-history
+  "\C-l": clear-screen
 $endif
