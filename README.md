@@ -2,14 +2,8 @@
 
 manageable dotfiles
 
-## updates and multiple machines
-diverging is OK, apply useful departures back to repository with a diff tool
+[.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
 
-### notes
-[nvm](https://github.com/creationix/nvm#installation) (don't install with homebrew)
-
-## missing stuff
+## missing
 no automatic chsh and /etc/shells addition
-no oh-my-zsh
-no fzf
 no man pages and gnu utils?
