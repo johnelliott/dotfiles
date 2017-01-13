@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Install cask
-brew install cask
-brew install caskroom/cask/brew-cask
-
 # Install homebrew cask apps
 brew cask install spectacle 2> /dev/null
 brew cask install iterm2 2> /dev/null
