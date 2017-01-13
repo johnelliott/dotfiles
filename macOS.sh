@@ -45,6 +45,10 @@ defaults write com.apple.controlstrip FullCustomized -array \
 # could go something like 1 and 10, but that seems crazy fast
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 14
+# map caps to control on macbook pro 13,2
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1452-631-0 -dict HIDKeyboardModifierMappingDst 30064771296 HIDKeyboardModifierMappingSrc 30064771129
+# WASD code keybaord 87-key
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1241-617-0 -dict HIDKeyboardModifierMappingDst 3ya0064771296 HIDKeyboardModifierMappingSrc 30064771129
 
 # Trackpad
 defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1 # speed
