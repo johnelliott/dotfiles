@@ -24,9 +24,10 @@ alias gd="git diff"
 alias gg="git tree"
 alias gl="git l"
 alias gco="git checkout"
-alias gcb="git checkout -b"
+alias gcob="git checkout -b"
 alias gcv="git commit -v"
-#alias gp="git pull"
+alias gau="git add -u"
+alias gp="git pull"
 alias gpr="git pull --rebase"
 
 # Additional Shortcuts
