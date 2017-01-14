@@ -1,0 +1,38 @@
+set nocompatible
+set encoding=utf-8 nobomb " Use UTF-8 without BOM
+set modelines=0
+set backupskip=/tmp/*,/private/tmp/*
+set noswapfile
+set tabstop=4
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+set backspace=indent,eol,start " Allow backspace in insert mode
+set nojoinspaces
+set gdefault " default s//g
+set wildmenu
+set ignorecase " of searches
+set wildignore+=.*
+
+noremap ,s :update<CR>
+noremap  s :update<CR>
+nnoremap Q <nop>
+
+if exists("&undodir")
+  set undodir=~/.vim/undo
+endif
+if has("clipboard")
+  set clipboard=unnamed "OS clipboard
+endif
+if exists("&wildignorecase")
+  set wildignorecase
+endif
+if has("syntax")
+  syntax on
+  set synmaxcol=300
+endif
+if has("mouse")
+  set mouse=a " Enable mouse in all modes
+  set ttymouse=xterm2
+endif
+
