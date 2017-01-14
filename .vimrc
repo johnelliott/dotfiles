@@ -96,18 +96,18 @@ endif
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
-Plug 'airblade/vim-gitgutter'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'moll/vim-node', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-Plug 'chriskempson/base16-vim'
-Plug 'vim-syntastic/syntastic', { 'for': ['javascript', 'javascript.jsx', 'jsx'] }
-Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'junegunn/fzf', { 'on': 'FZF' }
-Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
+silent! Plug 'airblade/vim-gitgutter'
+silent! Plug 'editorconfig/editorconfig-vim'
+silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+silent! Plug 'moll/vim-node', { 'for': 'javascript' }
+silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+silent! Plug 'chriskempson/base16-vim'
+silent! Plug 'vim-syntastic/syntastic', { 'for': ['javascript', 'javascript.jsx', 'jsx'] }
+silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
+silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
 silent! call plug#end()
 noremap <Leader>t :NERDTreeToggle<CR>
 if has('gui_macvim')
@@ -144,6 +144,9 @@ if has('termguicolors')
   try
     set termguicolors
     colorscheme base16-default-dark
+  catch
+    set notermguicolors
+    colorscheme default
   endtry
 endif
 if has('gui_macvim')
