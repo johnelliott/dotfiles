@@ -3,7 +3,8 @@
 ## shortcuts
 [.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
 
-[applestore.sh](https://gist.githubusercontent.com/johnelliott/63641cf449d271bbf0a53ea34b5286f7/raw/3c72f0346d7acb1e2a716e4bd26c19065322a4e8/applestore.sh)
+[applestore.sh](https://gist.githubusercontent.com/johnelliott/63641cf449d271bbf0a53ea34b5286f7/raw/683eb280dcb63fcad8fd55f19e5fefffb984dda3/applestore.sh)
+
 
 
 ## What's missing?
