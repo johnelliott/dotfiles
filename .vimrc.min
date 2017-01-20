@@ -17,6 +17,7 @@ set wildignore+=.*
 noremap ,s :update<CR>
 noremap  s :update<CR>
 nnoremap Q <nop>
+silent! colorscheme desert
 
 if exists("&undodir")
   set undodir=~/.vim/undo

@@ -1,5 +1,4 @@
 set nocompatible
-set ttyfast
 set encoding=utf-8 nobomb " Use UTF-8 without BOM
 set modelines=0
 set noswapfile
@@ -26,18 +25,20 @@ if exists("&wildignorecase")
 endif
 
 set title
-set list
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
+set nolist
 set incsearch
-set scrolloff=2
-set shortmess=atI
-set showmode
+set scrolloff=1
+set linebreak
 set showcmd
-set ruler
-set laststatus=2
-set number
-set relativenumber
-set nohlsearch
+set nowrap
+"set shortmess=atI
+"set showmode
+"set ruler
+"set laststatus=2
+"set number
+"set relativenumber
+"set nohlsearch
 
 " disable ex mode Q
 nnoremap Q <nop>
@@ -99,6 +100,7 @@ silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
+" vim-scripts/applescript.vim
 silent! call plug#end()
 let g:gitgutter_enabled = 1
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
@@ -126,14 +128,17 @@ else
   noremap <Leader>f :FZF<CR>
 endif
 
-" let vim v7.4 use default colorscheme
+" let vim v7.4 use desert colorscheme
 if has('termguicolors')
   try
     set termguicolors
-    colorscheme base16-default-dark
+    colorscheme base16-bright
   catch
     set notermguicolors
+    silent! colorscheme desert
   endtry
+else
+  silent! colorscheme desert
 endif
 if has('gui_macvim')
   silent! colorscheme base16-solar-flare
