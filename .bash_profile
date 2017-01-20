@@ -10,8 +10,8 @@ unset file;
 export NVM_DIR="/Users/john/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# Use vi editing mode in Bash
-set -o vi
+# Use emacs editing mode in Bash
+set -o emacs
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
