@@ -25,8 +25,8 @@ if exists("&wildignorecase")
 endif
 
 set title
+"set list
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
-set nolist
 set incsearch
 set scrolloff=1
 set linebreak
@@ -95,7 +95,7 @@ silent! Plug 'moll/vim-node', { 'for': 'javascript' }
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'chriskempson/base16-vim'
-silent! Plug 'vim-syntastic/syntastic', { 'for': ['javascript', 'javascript.jsx', 'jsx'] }
+silent! Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticCheck', 'for': ['javascript', 'javascript.jsx', 'jsx'] }
 silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
@@ -141,5 +141,5 @@ else
   silent! colorscheme desert
 endif
 if has('gui_macvim')
-  silent! colorscheme base16-solar-flare
+  silent! colorscheme base16-bright
 endif

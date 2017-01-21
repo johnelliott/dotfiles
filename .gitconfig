@@ -62,8 +62,8 @@
 
     conflicts = "diff --name-only --diff-filter=U"
     # Fix merge conflict files
-	fix = "!f() { open -a atom `git diff --name-only`; }; f"
-	vfix = "!f() { ${EDITOR} `git diff --name-only`; }; f"
+	fix = "!f() { atom `git conflicts`; }; f"
+	vfix = "!f() ${VISUAL} `git conflicts`; }; f"
 
 	# view tree
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
