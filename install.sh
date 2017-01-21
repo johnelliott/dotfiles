@@ -1,17 +1,17 @@
-#!/bin/bash
+#/!/bin/bash
 
 cd "$(dirname "${BASH_SOURCE}")" || exit
 
 function removeOldFiles() {
-  for file in ~/.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,hub-completion.sh,git-completion.sh}; do
+  for file in ~/.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,}; do
     rm "$file" >/dev/null 2>&1
   done
 }
 
 function copyNewFiles() {
-  cp .bash_profile ~/.bash_profile
-  cp .bashrc ~/.bashrc
-  cp .gitconfig ~/.gitconfig
+  for file in ./.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,}; do
+    cp "$file" ~/ 2>&1
+  done
 }
 
 function doIt() {
@@ -44,32 +44,22 @@ if [[ $(uname) == 'Darwin' ]]; then
     ./brew-cask.sh
   fi
 
-  read -p "Would you like to set up OS X preferences? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    ./macOS.sh
-  fi
-fi
-
-# Install node version manager
-if which npm > /dev/null; then
+  # Install node version manager
   read -p "Would you like to install node version manager? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     PROFILE=~/.bash_profile curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
   fi
-fi
 
-# Install npm packages
-if which npm > /dev/null; then
-  read -p "Would you like to install npm packages? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    ./npm.sh
+  # Install npm packages
+  if which npm > /dev/null; then
+    read -p "Would you like to install npm packages? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      ./npm.sh
+    fi
   fi
-fi
 
-if which npm > /dev/null; then
   read -p "Would you like to install .vimrc and vim-plug? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -77,5 +67,11 @@ if which npm > /dev/null; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
-fi
 
+  read -p "Would you like to set up OS X preferences? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    ./macOS.sh
+  fi
+
+fi

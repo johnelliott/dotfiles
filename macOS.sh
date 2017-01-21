@@ -13,10 +13,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 defaults write com.apple.PowerChime ChimeOnAllHardware -bool true
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "diffie"
-sudo scutil --set HostName "diffie"
-sudo scutil --set LocalHostName "diffie"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "diffie"
+#sudo scutil --set ComputerName "diffie"
+#sudo scutil --set HostName "diffie"
+#sudo scutil --set LocalHostName "diffie"
+#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "diffie"
 
 # Learn about defaults:
 # https://github.com/kevinSuttle/macOS-Defaults/blob/master/REFERENCE.md
