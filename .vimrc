@@ -28,14 +28,12 @@ set title
 "set list
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
 set incsearch
-set scrolloff=1
-set linebreak
-set showcmd
-set nowrap
+set scrolloff=2
 "set shortmess=atI
 "set showmode
-"set ruler
-"set laststatus=2
+"set showcmd
+set ruler
+set laststatus=2
 "set number
 "set relativenumber
 "set nohlsearch
@@ -46,7 +44,6 @@ let mapleader=" "
 noremap <Leader>s :update<CR>
 noremap ,s :update<CR>
 nnoremap <leader>h :set hlsearch!<CR>
-nnoremap <Leader>l :set wrap! lbr!<CR>
 nnoremap <Leader>r :set number! relativenumber!<CR>
 nnoremap <Leader>d o<esc>:r!date<CR><esc>o<esc>
 nnoremap <Leader>ev :vs ~/.vimrc<CR>
@@ -109,17 +106,9 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
 " Have es-lint installed globally even when `npm bin` returns local path
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
 
 noremap <Leader>t :NERDTreeToggle<CR>
 if has('gui_macvim')
