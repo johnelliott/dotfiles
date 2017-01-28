@@ -3,12 +3,6 @@ set encoding=utf-8 nobomb " Use UTF-8 without BOM
 set modelines=0
 set noswapfile
 set backupskip=/tmp/*,/private/tmp/*
-if exists("&undodir")
-  set undodir=~/.vim/undo
-endif
-if has("clipboard")
-  set clipboard=unnamed "OS clipboard
-endif
 
 set tabstop=4
 set expandtab
@@ -16,24 +10,22 @@ set softtabstop=2
 set shiftwidth=2
 set backspace=indent,eol,start " Allow backspace in insert mode
 set nojoinspaces
-set gdefault " default s//g
+set gdefault
 set wildmenu
-set ignorecase " of searches
+set ignorecase
 set wildignore+=.*
-if exists("&wildignorecase")
-  set wildignorecase
-endif
 
 set title
-"set list
-set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
+set ruler
+set nowrap
+set scrolloff=1
+set laststatus=2
 set incsearch
-set scrolloff=2
+set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
+"set list
 "set shortmess=atI
 "set showmode
 "set showcmd
-set ruler
-set laststatus=2
 "set number
 "set relativenumber
 "set nohlsearch
@@ -44,16 +36,27 @@ let mapleader=" "
 noremap <Leader>s :update<CR>
 noremap ,s :update<CR>
 nnoremap <leader>h :set hlsearch!<CR>
+nnoremap <leader>l :set wrap!<CR>
 nnoremap <Leader>r :set number! relativenumber!<CR>
 nnoremap <Leader>d o<esc>:r!date<CR><esc>o<esc>
 nnoremap <Leader>ev :vs ~/.vimrc<CR>
-nnoremap <Leader>! :source ~/.vimrc<CR>
-nnoremap <Leader>x :colo default<CR>
 nnoremap <Leader>c :colo base16-darktooth<CR>
 nnoremap <Leader>v :colo base16-solar-flare<CR>
 nnoremap <Leader>b :colo base16-bright<CR>
 nnoremap <Leader>n :colo base16-google-light<CR>
 nnoremap <Leader>m :colo base16-default-dark<CR>
+
+if exists("&undodir")
+  set undodir=~/.vim/undo
+endif
+
+if has("clipboard")
+  set clipboard=unnamed "OS clipboard
+endif
+
+if exists("&wildignorecase")
+  set wildignorecase
+endif
 
 if has("syntax")
   syntax on
@@ -121,7 +124,7 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    colorscheme base16-bright
+    colorscheme base16-google-light
   catch
     set notermguicolors
     silent! colorscheme desert
@@ -130,5 +133,5 @@ else
   silent! colorscheme desert
 endif
 if has('gui_macvim')
-  silent! colorscheme base16-bright
+  silent! colorscheme base16-google-light
 endif
