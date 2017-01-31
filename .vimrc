@@ -16,16 +16,16 @@ set ignorecase
 set wildignore+=.*
 
 set title
+set showcmd
 set ruler
 set nowrap
 set scrolloff=1
-set laststatus=2
+set laststatus=1
 set incsearch
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
 "set list
 "set shortmess=atI
 "set showmode
-"set showcmd
 "set number
 "set relativenumber
 "set nohlsearch
@@ -102,7 +102,7 @@ silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
 " vim-scripts/applescript.vim
 silent! call plug#end()
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
