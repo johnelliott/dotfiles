@@ -124,7 +124,8 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    colorscheme base16-google-light
+    "colorscheme base16-google-light
+    colorscheme base16-bright
   catch
     set notermguicolors
     silent! colorscheme desert
@@ -133,5 +134,6 @@ else
   silent! colorscheme desert
 endif
 if has('gui_macvim')
-  silent! colorscheme base16-google-light
+  "silent! colorscheme base16-google-light
+  silent! colorscheme base16-bright
 endif
