@@ -15,7 +15,6 @@ if [[ ! "$(type -P brew)" ]]; then
 fi
 
 # Upgrade any already-installed formulae.
-brew upgrade --all
 brew doctor
 brew update
 
