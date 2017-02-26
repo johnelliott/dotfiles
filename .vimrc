@@ -11,9 +11,7 @@ set shiftwidth=2
 set backspace=indent,eol,start " Allow backspace in insert mode
 set nojoinspaces
 set gdefault
-set wildmenu
 set ignorecase
-set wildignore+=.*
 
 set title
 set showcmd
@@ -30,7 +28,7 @@ set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
 "set relativenumber
 "set nohlsearch
 
-" disable ex mode Q
+" disable Q entering ex mode
 nnoremap Q <nop>
 let mapleader=" "
 noremap <Leader>s :update<CR>
@@ -54,13 +52,21 @@ if has("clipboard")
   set clipboard=unnamed "OS clipboard
 endif
 
+if has("wildmenu")
+  set wildmenu
+endif
+
+if has("wildignore")
+  set wildignore+=.*
+endif
+
 if exists("&wildignorecase")
   set wildignorecase
 endif
 
 if has("syntax")
   syntax on
-  set synmaxcol=300
+  "set synmaxcol=300
 endif
 
 if has("mouse")
@@ -100,9 +106,8 @@ silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
-" vim-scripts/applescript.vim
 silent! call plug#end()
-let g:gitgutter_enabled = 0
+"let g:gitgutter_enabled = 0
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
@@ -114,6 +119,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
 noremap <Leader>t :NERDTreeToggle<CR>
+noremap ^p :CtrlP<CR>
 if has('gui_macvim')
   noremap <Leader>f :CtrlP<CR>
 else
@@ -124,8 +130,8 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    "colorscheme base16-google-light
-    colorscheme base16-bright
+    colorscheme base16-google-light
+    "colorscheme base16-bright
   catch
     set notermguicolors
     silent! colorscheme desert
@@ -134,6 +140,6 @@ else
   silent! colorscheme desert
 endif
 if has('gui_macvim')
-  "silent! colorscheme base16-google-light
-  silent! colorscheme base16-bright
+  silent! colorscheme base16-google-light
+  "silent! colorscheme base16-bright
 endif
