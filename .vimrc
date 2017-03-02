@@ -14,7 +14,7 @@ set gdefault
 set ignorecase
 
 set title
-set showcmd
+"set showcmd
 set ruler
 set nowrap
 set scrolloff=1
@@ -22,7 +22,7 @@ set laststatus=1
 set incsearch
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
 "set list
-"set shortmess=atI
+set shortmess=atI
 "set showmode
 "set number
 "set relativenumber
@@ -38,11 +38,9 @@ nnoremap <leader>l :set wrap!<CR>
 nnoremap <Leader>r :set number! relativenumber!<CR>
 nnoremap <Leader>d o<esc>:r!date<CR><esc>o<esc>
 nnoremap <Leader>ev :vs ~/.vimrc<CR>
-nnoremap <Leader>c :colo base16-darktooth<CR>
-nnoremap <Leader>v :colo base16-solar-flare<CR>
-nnoremap <Leader>b :colo base16-bright<CR>
+
+nnoremap <Leader>m :colo base16-bright<CR>
 nnoremap <Leader>n :colo base16-google-light<CR>
-nnoremap <Leader>m :colo base16-default-dark<CR>
 
 if exists("&undodir")
   set undodir=~/.vim/undo
@@ -58,6 +56,8 @@ endif
 
 if has("wildignore")
   set wildignore+=.*
+  set wildignore+=*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/coverage/*
+  set wildignore+=*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/dist/*,*/doc/*,*/.DS_Store
 endif
 
 if exists("&wildignorecase")
@@ -66,7 +66,7 @@ endif
 
 if has("syntax")
   syntax on
-  "set synmaxcol=300
+  set synmaxcol=1000
 endif
 
 if has("mouse")
@@ -119,7 +119,11 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
 noremap <Leader>t :NERDTreeToggle<CR>
-noremap ^p :CtrlP<CR>
+
+nnoremap <c-b> :CtrlPBuffer<cr>
+nnoremap <c-p> :CtrlP<cr>
+"If a file is already open, open it again in a new pane instead of switching to the existing pane
+"let g:ctrlp_switch_buffer = 'et'
 if has('gui_macvim')
   noremap <Leader>f :CtrlP<CR>
 else
