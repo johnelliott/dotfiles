@@ -1,11 +1,9 @@
 set nocp
+set noswapfile nobk
 set ts=4 et sts=2 sw=2
 set bs=indent,eol,start
-set nojoinspaces gdefault ignorecase showcmd
-set noswapfile nobk
-noremap  s :update<CR>
-nnoremap Q <nop>
-silent! colo desert
+set nojoinspaces gdefault ignorecase
+nnoremap  s :update<CR>
 silent! syntax on
 silent! set wildmenu
 silent! set wildignore+=.*
