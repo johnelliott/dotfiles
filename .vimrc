@@ -130,20 +130,12 @@ else
   noremap <Leader>f :FZF<CR>
 endif
 
-" let vim v7.4 use desert colorscheme
 if has('termguicolors')
   try
     set termguicolors
-    colorscheme base16-google-light
-    "colorscheme base16-bright
+    silent! colorscheme base16-google-light
+    "silent! colorscheme base16-bright
   catch
     set notermguicolors
-    silent! colorscheme desert
   endtry
-else
-  silent! colorscheme desert
-endif
-if has('gui_macvim')
-  silent! colorscheme base16-google-light
-  "silent! colorscheme base16-bright
 endif
