@@ -39,8 +39,11 @@ nnoremap <Leader>r :set number! relativenumber!<CR>
 nnoremap <Leader>d o<esc>:r!date<CR><esc>o<esc>
 nnoremap <Leader>ev :vs ~/.vimrc<CR>
 
-nnoremap <Leader>m :colo base16-bright<CR>
-nnoremap <Leader>n :colo base16-google-light<CR>
+nnoremap <Leader>m :set tgc<CR>:colo base16-bright<CR>
+nnoremap <Leader>n :set tgc<CR>:colo base16-google-light<CR>
+nnoremap <Leader>b :set notermguicolors<CR>:colo default<CR>
+nnoremap <Leader>v :set tgc<CR>:colo base16-solarized-light<CR>
+nnoremap <Leader>c :set tgc<CR>:colo base16-solarflare<CR>
 
 if exists("&undodir")
   set undodir=~/.vim/undo
@@ -115,8 +118,11 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 " Have es-lint installed globally even when `npm bin` returns local path
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint', 'standard']
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+let g:syntastic_javascript_standard_exe = '$(npm bin)/standard'
+" http://stackoverflow.com/questions/28573553
+"autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['standard']
 
 noremap <Leader>t :NERDTreeToggle<CR>
 
