@@ -93,6 +93,8 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
   " Treat .md files as Markdown
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+  " Easier git commits
+  autocmd FileType gitcommit set textwidth=72
 endif
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
@@ -122,7 +124,7 @@ let g:syntastic_javascript_checkers = ['eslint', 'standard']
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 let g:syntastic_javascript_standard_exe = '$(npm bin)/standard'
 " http://stackoverflow.com/questions/28573553
-"autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['standard']
+autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['standard']
 
 noremap <Leader>t :NERDTreeToggle<CR>
 
@@ -139,8 +141,7 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    silent! colorscheme base16-google-light
-    "silent! colorscheme base16-bright
+    silent! colorscheme base16-solarized-light
   catch
     set notermguicolors
   endtry
