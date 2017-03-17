@@ -1,6 +1,33 @@
 #/!/bin/bash
 
+function removeOldFiles() {
+  for file in ~/.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,.npmrc,}; do
+    rm "$file" >/dev/null 2>&1
+  done
+}
+
+function copyNewFiles() {
+  for file in ./.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,.npmrc,}; do
+    cp "$file" ~/ 2>&1
+  done
+}
+
+function doIt() {
+  removeOldFiles
+  copyNewFiles
+  source ~/.bash_profile
+}
+
 cd "$(dirname "${BASH_SOURCE}")" || exit
+
+read -p "Would you like to install .vimrc and vim-plug? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  cp .vimrc ~/.vimrc
+  cp .gvimrc ~/.gvimrc
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 if [[ $(uname) == 'Darwin' ]]; then
 
@@ -8,21 +35,6 @@ if [[ $(uname) == 'Darwin' ]]; then
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     xcode-select -install
-  fi
-
-  read -p "Would you like to set up OS X preferences? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    ./macOS.sh
-  fi
-
-  read -p "Would you like to install .vimrc and vim-plug? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    cp .vimrc ~/.vimrc
-    cp .gvimrc ~/.gvimrc
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
 
   # Install Node Version Manager
@@ -46,33 +58,21 @@ if [[ $(uname) == 'Darwin' ]]; then
     ./brew.sh
   fi
 
-fi
+  if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
+    doIt
+  else
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      doIt
+    fi
+  fi
 
-function removeOldFiles() {
-  for file in ~/.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,.npmrc,}; do
-    rm "$file" >/dev/null 2>&1
-  done
-}
-
-function copyNewFiles() {
-  for file in ./.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,.npmrc,}; do
-    cp "$file" ~/ 2>&1
-  done
-}
-
-function doIt() {
-  removeOldFiles
-  copyNewFiles
-  source ~/.bash_profile
-}
-
-if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
-  doIt
-else
-  read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1 -r
+  read -p "Would you like to set up OS X preferences? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
-    doIt
+    ./macOS.sh
   fi
+
 fi
 
