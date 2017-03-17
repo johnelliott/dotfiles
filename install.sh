@@ -4,6 +4,12 @@ cd "$(dirname "${BASH_SOURCE}")" || exit
 
 if [[ $(uname) == 'Darwin' ]]; then
 
+  read -p "Would you like to set up xcode CLI tools? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    xcode-select -install
+  fi
+
   read -p "Would you like to set up OS X preferences? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
