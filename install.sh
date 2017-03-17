@@ -49,13 +49,13 @@ if [[ $(uname) == 'Darwin' ]]; then
 fi
 
 function removeOldFiles() {
-  for file in ~/.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,}; do
+  for file in ~/.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,.npmrc,}; do
     rm "$file" >/dev/null 2>&1
   done
 }
 
 function copyNewFiles() {
-  for file in ./.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,}; do
+  for file in ./.{aliases,bash_profile,bash_prompt,bashrc,curlrc,exports,gitconfig,gitignore,hushlogin,inputrc,path,tmux.conf,wgetrc,zshrc,.npmrc,}; do
     cp "$file" ~/ 2>&1
   done
 }
