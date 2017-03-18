@@ -75,8 +75,10 @@ white=$(tput setaf 7)
 # Highlight the hostname when connected via SSH.
   if [[ "${SSH_TTY}" ]]; then
   hostStyle="${bold}${red}";
+  hostText=" \u@\h"
   else
-  hostStyle="${reset}${white}";
+  #hostStyle="${reset}${white}";
+  hostText=""
   fi;
 
 # Provide notification of node version
@@ -90,10 +92,10 @@ white=$(tput setaf 7)
 PS1="\[\033]0;\w\007\]";
 PS1+="\[${bold}${yellow}\]\w"; # working directory
 PS1+="\$(prompt_git \" ${reset}${cyan}\")"; # Git repository details
-PS1+="\$(promptNVM)";
-PS1+="\[${userStyle}\] \u"; # username
-PS1+="\[${reset}\]@";
-PS1+="\[${hostStyle}\]\h"; # host
+#PS1+="\$(promptNVM)";
+#PS1+="\[${userStyle}\] \u"; # username
+#PS1+="\[${reset}\]@";
+PS1+="\[${hostStyle}\]${hostText}"; # host
 PS1+="\[${reset}\]\n";
 PS1+="\[${reset}${bold}\]\$ \[${reset}\]"; # `$` (and reset color)
 
