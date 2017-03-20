@@ -1,6 +1,5 @@
 set nocompatible
 set encoding=utf-8 nobomb " Use UTF-8 without BOM
-set modelines=0
 set noswapfile
 set backupskip=/tmp/*,/private/tmp/*
 
@@ -36,14 +35,15 @@ noremap ,s :update<CR>
 nnoremap <leader>h :set hlsearch!<CR>
 nnoremap <leader>l :set wrap!<CR>
 nnoremap <Leader>r :set number! relativenumber!<CR>
-nnoremap <Leader>d o<esc>:r!date<CR><esc>o<esc>
-nnoremap <Leader>ev :vs ~/.vimrc<CR>
+nnoremap <Leader>d :pu _<CR>:r!date<CR>:pu _<CR> 
+nnoremap <Leader>ev :vs $MYVIMRC<CR>
 
 nnoremap <Leader>m :set tgc<CR>:colo base16-bright<CR>
 nnoremap <Leader>n :set tgc<CR>:colo base16-google-light<CR>
 nnoremap <Leader>b :set notermguicolors<CR>:colo default<CR>
 nnoremap <Leader>v :set tgc<CR>:colo base16-solarized-light<CR>
 nnoremap <Leader>c :set tgc<CR>:colo base16-solarflare<CR>
+nnoremap <Leader>x :set tgc<CR>:colo base16-default-dark<CR>
 
 if exists("&undodir")
   set undodir=~/.vim/undo
