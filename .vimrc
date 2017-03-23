@@ -1,4 +1,16 @@
 set nocompatible
+
+" Overrides for pairing
+set list&vim
+set showmode&vim
+set nu&vim
+set rnu&vim
+set hls&vim
+set cursorline&vim
+set smartcase&vim
+set statusline&vim
+set wildmode&vim
+
 set encoding=utf-8 nobomb " Use UTF-8 without BOM
 set noswapfile
 set backupskip=/tmp/*,/private/tmp/*
@@ -31,7 +43,8 @@ set shortmess=atI
 nnoremap Q <nop>
 let mapleader=" "
 noremap <Leader>s :update<CR>
-noremap ,s :update<CR>
+nnoremap ,s :update<CR>
+nnoremap <leader>w :w<CR>
 nnoremap <leader>h :set hlsearch!<CR>
 nnoremap <leader>l :set wrap!<CR>
 nnoremap <Leader>r :set number! relativenumber!<CR>
@@ -69,7 +82,7 @@ endif
 
 if has("syntax")
   syntax on
-  set synmaxcol=1000
+  set synmaxcol=400
 endif
 
 if has("mouse")
@@ -107,7 +120,7 @@ silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'chriskempson/base16-vim'
 silent! Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticCheck', 'for': ['javascript', 'javascript.jsx', 'jsx'] }
-silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPBuffer'] }
 silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
@@ -141,7 +154,7 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    silent! colorscheme base16-solarized-light
+    silent! colorscheme base16-solarflare
   catch
     set notermguicolors
   endtry
