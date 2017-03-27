@@ -3,13 +3,13 @@ set nocompatible
 " Overrides for pairing
 set list&vim
 set showmode&vim
-set nu&vim
-set rnu&vim
+set nu&vim rnu&vim
 set hls&vim
 set cursorline&vim
 set smartcase&vim
 set statusline&vim
 set wildmode&vim
+set shortmess&vim
 
 set encoding=utf-8 nobomb " Use UTF-8 without BOM
 set noswapfile
@@ -25,7 +25,7 @@ set gdefault
 set ignorecase
 
 set title
-"set showcmd
+set showcmd
 set ruler
 set nowrap
 set scrolloff=1
@@ -33,11 +33,12 @@ set laststatus=1
 set incsearch
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
 "set list
-set shortmess=atI
+"set shortmess=atI
 "set showmode
 "set number
 "set relativenumber
 "set nohlsearch
+set timeoutlen=550
 
 " disable Q entering ex mode
 nnoremap Q <nop>
@@ -52,11 +53,13 @@ nnoremap <Leader>d :pu _<CR>:r!date<CR>:pu _<CR>
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
 
 nnoremap <Leader>m :set tgc<CR>:colo base16-bright<CR>
+nnoremap <Leader>mm :set tgc<CR>:colo base16-tomorrow-night<CR>
 nnoremap <Leader>n :set tgc<CR>:colo base16-google-light<CR>
-nnoremap <Leader>b :set notermguicolors<CR>:colo default<CR>
-nnoremap <Leader>v :set tgc<CR>:colo base16-solarized-light<CR>
-nnoremap <Leader>c :set tgc<CR>:colo base16-solarflare<CR>
-nnoremap <Leader>x :set tgc<CR>:colo base16-default-dark<CR>
+nnoremap <Leader>nn :set tgc<CR>:colo base16-tomorrow<CR>
+nnoremap <Leader>b :set tgc<CR>:colo base16-solarflare<CR>
+nnoremap <Leader>bb :set tgc<CR>:colo base16-solarized-light<CR>
+nnoremap <Leader>bbb :set tgc<CR>:colo base16-darktooth<CR>
+nnoremap <Leader>v :set notermguicolors<CR>:colo default<CR>
 
 if exists("&undodir")
   set undodir=~/.vim/undo
@@ -125,7 +128,7 @@ silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
 silent! call plug#end()
-"let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 0
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
