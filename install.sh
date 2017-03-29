@@ -34,7 +34,7 @@ if [[ $(uname) == 'Darwin' ]]; then
   read -p "Would you like to set up xcode CLI tools? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
-    xcode-select -install
+    xcode-select --install
   fi
 
   # Install Node Version Manager
