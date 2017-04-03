@@ -1,10 +1,10 @@
-set guifont=Menlo:h13
+set guifont=Inconsolata:h15
 set linespace=0
 set guioptions=mg
 
 " macvim window size
-set lines=46
-set columns=127
+set lines=42
+set columns=114
 
 " grep with ag
 set grepprg=ag\ --vimgrep\ $*

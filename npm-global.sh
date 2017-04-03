@@ -8,6 +8,7 @@
 # Install npm modules
 
 npm install -g eslint
+npm install -g standard
 npm install -g nodemon
 npm install -g budo
 npm install -g browserify

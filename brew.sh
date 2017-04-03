@@ -33,31 +33,33 @@ brew install gnu-sed --with-default-names
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
 # running `chsh`.
 brew install bash
-brew install zsh
 brew tap homebrew/versions
+
+#brew install imagemagick --with-webp
+#brew install mysql
+#brew install webkit2png
+#brew install zsh
+brew install ack
+brew install awscli
 brew install bash-completion2
-brew install wget --with-iri
-brew install vim --with-override-system-vi
+brew install certbot
+brew install couchdb
+brew install fzf
+brew install git
+brew install git-lfs
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
-brew install git
-brew install git-lfs
 brew install hub # https://github.com/github/hub
-brew install tree
-brew install ack
-brew install the_silver_searcher
-brew install fzf
-brew install tmux
 brew install nmap
-brew install certbot
-brew install imagemagick --with-webp
-brew install ssh-copy-id
-brew install webkit2png
-brew install mysql
-brew install redis
 brew install postgresql
-brew install awscli
+brew install redis
+brew install ssh-copy-id
+brew install the_silver_searcher
+brew install tmux
+brew install tree
+brew install vim --with-override-system-vi
+brew install wget --with-iri
 
 # Remove outdated versions from the cellar.
 brew cleanup
