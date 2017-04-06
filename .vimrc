@@ -1,14 +1,7 @@
 set nocompatible
 
 " Overrides for pairing
-set list&vim
-set showmode&vim
-set nu&vim rnu&vim
-set hls&vim
-set smartcase&vim
 set statusline&vim
-set wildmode&vim
-set shortmess&vim
 
 set encoding=utf-8 nobomb " Use UTF-8 without BOM
 set nomodeline
@@ -32,15 +25,16 @@ set nocursorline
 set nowrap
 set scrolloff=3
 set sidescrolloff=16
-set laststatus=1
+set laststatus=2
 set incsearch
 set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
-"set list
-"set shortmess=atI
-"set showmode
-"set number
-"set relativenumber
-"set nohlsearch
+set nolist
+set shortmess=atI
+set showmode
+set number
+set relativenumber
+set nohlsearch
+set wildmode=full
 set timeoutlen=550
 
 " disable Q entering ex mode
@@ -140,7 +134,7 @@ silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
 silent! call plug#end()
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 
 " Code linting via Syntastic.vim
@@ -187,7 +181,7 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    silent! colorscheme base16-solarflare
+    silent! colorscheme base16-bright
   catch
     set notermguicolors
   endtry
