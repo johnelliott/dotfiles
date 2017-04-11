@@ -31,8 +31,8 @@ set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
 set nolist
 set shortmess=atI
 set showmode
-set number
-set relativenumber
+set nonumber
+set norelativenumber
 set nohlsearch
 set wildmode=full
 set timeoutlen=550
@@ -45,22 +45,23 @@ nnoremap ,s :update<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>h :set hlsearch!<CR>
 nnoremap <leader>l :set lbr! wrap!<CR>
-nnoremap <Leader>r :set number! relativenumber!<CR>
+nnoremap <Leader>r :set nu! nornu<CR>
+nnoremap <Leader>e :set rnu!<CR>
 nnoremap <Leader>d :pu _<CR>:r!date<CR>:pu _<CR> 
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
 " Use these for eslint
 nnoremap ]e :lnext<CR>
 nnoremap [e :lprevious<CR>
 
-nnoremap <Leader>m :set tgc<CR>:colo base16-bright<CR>
-nnoremap <Leader>mm :set tgc<CR>:colo base16-tomorrow-night<CR>
-nnoremap <Leader>mmm :set tgc<CR>:colo base16-default-dark<CR>
-nnoremap <Leader>n :set tgc<CR>:colo base16-google-light<CR>
-nnoremap <Leader>nn :set tgc<CR>:colo base16-tomorrow<CR>
-nnoremap <Leader>nnn :set tgc<CR>:colo base16-default-light<CR>
+nnoremap <Leader>m :set tgc<CR>:colo base16-default-dark<CR>
+nnoremap <Leader>mm :set tgc<CR>:colo base16-bright<CR>
+nnoremap <Leader>mmm :set tgc<CR>:colo base16-tomorrow-night<CR>
+nnoremap <Leader>n :set tgc<CR>:colo base16-solarized-light<CR>
+nnoremap <Leader>nn :set tgc<CR>:colo base16-google-light<CR>
+nnoremap <Leader>nnn :set tgc<CR>:colo base16-tomorrow<CR>
+nnoremap <Leader>nnnn :set tgc<CR>:colo base16-default-light<CR>
 nnoremap <Leader>b :set tgc<CR>:colo base16-solarflare<CR>
-nnoremap <Leader>bb :set tgc<CR>:colo base16-solarized-light<CR>
-nnoremap <Leader>bbb :set tgc<CR>:colo base16-darktooth<CR>
+nnoremap <Leader>bb :set tgc<CR>:colo base16-darktooth<CR>
 nnoremap <Leader>v :set notermguicolors<CR>:colo default<CR>
 
 if exists("&undodir")
@@ -181,7 +182,7 @@ endif
 if has('termguicolors')
   try
     set termguicolors
-    silent! colorscheme base16-bright
+    silent! colorscheme base16-solarized-light
   catch
     set notermguicolors
   endtry
