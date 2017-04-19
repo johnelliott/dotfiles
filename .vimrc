@@ -1,124 +1,10 @@
-set nocompatible
-
-" Overrides for pairing
-set statusline&vim
-
-set encoding=utf-8 nobomb " Use UTF-8 without BOM
-set nomodeline
-set noswapfile
-set backupskip=/tmp/*,/private/tmp/*
-set history=200
-
-set tabstop=4
-set expandtab
-set softtabstop=2
-set shiftwidth=2
-set backspace=indent,eol,start " Allow backspace in insert mode
-set nojoinspaces
-set gdefault
-set ignorecase
-
-set title
-set showcmd
-set ruler
-set nocursorline
-set nowrap
-set scrolloff=3
-set sidescrolloff=16
-set laststatus=2
-set incsearch
-set listchars=tab:»\ ,trail:·,eol:¬,nbsp:_ " invisible characters to show
-set nolist
-set shortmess=atI
-set showmode
-set nonumber
-set norelativenumber
-set nohlsearch
-set wildmode=full
-set timeoutlen=550
-
-" disable Q entering ex mode
-nnoremap Q <nop>
-let mapleader=" "
-noremap <Leader>s :update<CR>
-nnoremap ,s :update<CR>
-nnoremap <leader>w :w<CR>
-nnoremap <leader>h :set hlsearch!<CR>
-nnoremap <leader>l :set lbr! wrap!<CR>
-nnoremap <Leader>r :set nu! nornu<CR>
-nnoremap <Leader>e :set rnu!<CR>
-nnoremap <Leader>d :pu _<CR>:r!date<CR>:pu _<CR> 
-nnoremap <Leader>ev :vs $MYVIMRC<CR>
-" Use these for eslint
-nnoremap ]e :lnext<CR>
-nnoremap [e :lprevious<CR>
-
-nnoremap <Leader>m :set tgc<CR>:colo base16-default-dark<CR>
-nnoremap <Leader>mm :set tgc<CR>:colo base16-bright<CR>
-nnoremap <Leader>mmm :set tgc<CR>:colo base16-tomorrow-night<CR>
-nnoremap <Leader>n :set tgc<CR>:colo base16-solarized-light<CR>
-nnoremap <Leader>nn :set tgc<CR>:colo base16-google-light<CR>
-nnoremap <Leader>nnn :set tgc<CR>:colo base16-tomorrow<CR>
-nnoremap <Leader>nnnn :set tgc<CR>:colo base16-default-light<CR>
-nnoremap <Leader>b :set tgc<CR>:colo base16-solarflare<CR>
-nnoremap <Leader>bb :set tgc<CR>:colo base16-darktooth<CR>
-nnoremap <Leader>v :set notermguicolors<CR>:colo default<CR>
-
-if exists("&undodir")
-  set undodir=~/.vim/undo
-endif
-
-if has("clipboard")
-  set clipboard=unnamed "OS clipboard
-endif
-
-if has("wildmenu")
-  set wildmenu
-endif
-
-if has("wildignore")
-  set wildignore+=.*
-  set wildignore+=*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/coverage/*
-  set wildignore+=*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/dist/*,*/doc/*,*/.DS_Store
-endif
-
-if exists("&wildignorecase")
-  set wildignorecase
-endif
-
-if has("syntax")
-  syntax on
-  set synmaxcol=400
-endif
-
-if has("mouse")
-  set mouse=a " Enable mouse in all modes
-  set ttymouse=xterm2
-endif
-
-if has('belloff')
-  silent! set belloff=error,esc
-endif
-
-if has("spell")
-  set spelllang=en_us
-  nnoremap <leader>p :set spell!<CR>
-endif
-
-if executable('ag')
-  set grepprg=ag\ --vimgrep\ $*
-endif
-
-if has("autocmd")
-  " Enable file type detection
-  filetype on
-  " Treat .json files as .js
-  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-  " Treat .md files as Markdown
-  autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-  " Easier git commits
-  autocmd FileType gitcommit set textwidth=72
-endif
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+set nocp noswapfile nobk nojs gd ic wmnu wic
+set ts=4 et sts=2 sw=2 bs=indent,eol,start
+set udir=~/.vim/undo cb=unnamed mouse=a
+sy on
+nnoremap  s :up<CR>
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
@@ -135,10 +21,14 @@ silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
 silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
 silent! call plug#end()
-let g:gitgutter_enabled = 1
+
+" JSX
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 
-" Code linting via Syntastic.vim
+" GitGutter
+let g:gitgutter_enabled = 1
+
+" Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 let g:syntastic_auto_loc_list = 0
@@ -167,22 +57,31 @@ endif
 " http://stackoverflow.com/questions/28573553
 autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['standard']
 
+let mapleader=" "
+" NERDTree
 noremap <Leader>t :NERDTreeToggle<CR>
 
+" CtrlP
 nnoremap <c-b> :CtrlPBuffer<cr>
 nnoremap <c-p> :CtrlP<cr>
-"If a file is already open, open it again in a new pane instead of switching to the existing pane
-"let g:ctrlp_switch_buffer = 'et'
 if has('gui_macvim')
   noremap <Leader>f :CtrlP<CR>
 else
   noremap <Leader>f :FZF<CR>
 endif
+if executable('ag')
+  set grepprg=ag\ --vimgrep\ $*
+endif
 
+" Colors
 if has('termguicolors')
   try
     set termguicolors
-    silent! colorscheme base16-solarized-light
+    if (&background == "light")
+      silent! colorscheme base16-google-light
+    else
+      silent! colorscheme base16-default-dark
+    endif
   catch
     set notermguicolors
   endtry
