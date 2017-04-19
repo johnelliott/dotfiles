@@ -26,7 +26,7 @@ silent! call plug#end()
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 
 " GitGutter
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
