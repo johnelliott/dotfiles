@@ -16,17 +16,13 @@ silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'chriskempson/base16-vim'
 silent! Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticCheck', 'for': ['javascript', 'javascript.jsx', 'jsx'] }
-silent! Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPBuffer'] }
-silent! Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-silent! Plug 'junegunn/fzf', { 'on': 'FZF' }
-silent! Plug 'junegunn/fzf.vim', { 'on': 'FZF' }
 silent! call plug#end()
 
 " JSX
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 
 " GitGutter
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -57,18 +53,7 @@ endif
 " http://stackoverflow.com/questions/28573553
 autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['standard']
 
-let mapleader=" "
-" NERDTree
-noremap <Leader>t :NERDTreeToggle<CR>
-
-" CtrlP
-nnoremap <c-b> :CtrlPBuffer<cr>
-nnoremap <c-p> :CtrlP<cr>
-if has('gui_macvim')
-  noremap <Leader>f :CtrlP<CR>
-else
-  noremap <Leader>f :FZF<CR>
-endif
+" make grep faster on OSX with ag
 if executable('ag')
   set grepprg=ag\ --vimgrep\ $*
 endif
