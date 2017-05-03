@@ -65,7 +65,7 @@ if has('termguicolors')
     if (&background == "light")
       silent! colorscheme base16-google-light
     else
-      silent! colorscheme base16-default-dark
+      silent! colorscheme base16-bright
     endif
   catch
     set notermguicolors
