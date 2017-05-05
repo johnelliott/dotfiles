@@ -4,7 +4,7 @@ set nocp noswapfile nobk nojs gd ic wmnu wic
 set ts=4 et sts=2 sw=2 bs=indent,eol,start
 set udir=~/.vim/undo cb=unnamed mouse=a
 sy on
-nnoremap  s :up<CR>
+nnoremap <space>s :up<CR>
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
