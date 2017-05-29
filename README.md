@@ -1,9 +1,8 @@
 # dotfiles
 
-## shortcuts
-[.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
+#### [.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
 
-[applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/applestore.sh)
+#### [applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/applestore.sh)
 
 ## missing steps
 - no automatic `chsh` and `/etc/shells` addition
