@@ -11,7 +11,7 @@ silent! call plug#begin()
 silent! Plug 'airblade/vim-gitgutter'
 silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-"silent! Plug 'moll/vim-node', { 'for': 'javascript' }
+silent! Plug 'digitaltoad/vim-pug',
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'chriskempson/base16-vim'
