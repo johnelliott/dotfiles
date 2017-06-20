@@ -58,6 +58,7 @@ brew install ssh-copy-id
 brew install the_silver_searcher
 brew install tmux
 brew install tree
+brew install htop
 brew install vim --with-override-system-vi
 brew install wget --with-iri
 
