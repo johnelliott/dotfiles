@@ -47,9 +47,9 @@ brew install couchdb
 brew install fzf
 brew install git
 brew install git-lfs
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
+brew install grep
+brew install openssh
+brew install screen
 brew install hub # https://github.com/github/hub
 brew install nmap
 brew install postgresql
