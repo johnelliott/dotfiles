@@ -1,8 +1,8 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-set nocp noswapfile nobk nojs gd ic wmnu wic
-set ts=4 et sts=2 sw=2 bs=indent,eol,start
-set udir=~/.vim/undo cb=unnamed mouse=a
+se nocp noswapfile nobk nojs gd ic wmnu wic
+se ts=4 et sts=2 sw=2 bs=indent,eol,start
+se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 nnoremap <space>s :up<CR>
 
@@ -60,12 +60,11 @@ endif
 
 " Colors
 if has('termguicolors')
-  try
-    set notermguicolors
-    if (&background == "light")
-      silent! colorscheme base16-google-light
-    else
-      silent! colorscheme base16-monokai
-    endif
-  endtry
+  set notermguicolors
+endif
+
+if (&background == "light")
+  silent! colorscheme base16-google-light
+else
+  silent! colorscheme base16-monokai
 endif

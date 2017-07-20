@@ -1,11 +1,11 @@
-set guifont=Inconsolata:h15
-set linespace=0
-set guioptions=mg
+se guifont=Inconsolata:h15
+se linespace=0
+se guioptions=mg
 
 " macvim window size
-set lines=42
-set columns=114
+se lines=56
+se columns=128
 
 " grep with ag
-set grepprg=ag\ --vimgrep\ $*
-set grepformat=%f:%l:%c:%m
+se grepprg=ag\ --vimgrep\ $*
+se grepformat=%f:%l:%c:%m
