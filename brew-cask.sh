@@ -8,10 +8,7 @@ fi
 
 # Install homebrew cask apps
 brew cask install atom 2> /dev/null
-brew cask install firefox 2> /dev/null
 brew cask install google-chrome 2> /dev/null
-brew cask install google-chrome-canary 2> /dev/null
-brew cask install iterm2 2> /dev/null
 brew cask install macvim 2> /dev/null
 brew cask install postgres 2> /dev/null
 brew cask install slack 2> /dev/null

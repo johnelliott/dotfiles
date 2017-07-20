@@ -61,13 +61,11 @@ endif
 " Colors
 if has('termguicolors')
   try
-    set termguicolors
+    set notermguicolors
     if (&background == "light")
       silent! colorscheme base16-google-light
     else
-      silent! colorscheme base16-bright
+      silent! colorscheme base16-monokai
     endif
-  catch
-    set notermguicolors
   endtry
 endif
