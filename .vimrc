@@ -62,9 +62,9 @@ endif
 if has('termguicolors')
   set notermguicolors
 endif
-
 if (&background == "light")
   silent! colorscheme base16-google-light
 else
   silent! colorscheme base16-monokai
 endif
+nnoremap <Space>m :colo base16-

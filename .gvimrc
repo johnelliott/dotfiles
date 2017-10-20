@@ -3,8 +3,8 @@ se linespace=0
 se guioptions=mg
 
 " macvim window size
-se lines=56
-se columns=128
+se lines=74
+se columns=136
 
 " grep with ag
 se grepprg=ag\ --vimgrep\ $*
