@@ -67,4 +67,4 @@ if (&background == "light")
 else
   silent! colorscheme base16-monokai
 endif
-nnoremap <Space>m :colo base16-
+nnoremap <Space>c :colo base16-
