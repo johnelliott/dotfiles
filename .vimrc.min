@@ -1,5 +1,5 @@
-set nocp noswapfile nobk nojs gd ic wmnu wic
-set ts=4 et sts=2 sw=2 bs=indent,eol,start
-set udir=~/.vim/undo cb=unnamed mouse=a
+se nocp noswapfile nobk nojs gd ic wmnu wic
+se ts=4 et sts=2 sw=2 bs=indent,eol,start
+se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 nnoremap <space>s :up<CR>
