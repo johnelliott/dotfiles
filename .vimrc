@@ -5,6 +5,8 @@ se ts=4 et sts=2 sw=2 bs=indent,eol,start
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 nnoremap <space>s :up<CR>
+nnoremap <space>r :tabe $MYVIMRC<CR>:sp $MYGVIMRC<CR>
+nnoremap <space>h :se hls!<CR>
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
@@ -16,6 +18,7 @@ silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'chriskempson/base16-vim'
 silent! Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticCheck', 'for': ['javascript', 'javascript.jsx', 'jsx'] }
+silent! Plug 'jparise/vim-graphql'
 silent! call plug#end()
 
 " JSX
@@ -62,10 +65,6 @@ endif
 if has('termguicolors')
   set notermguicolors
 endif
-if (&background == "light")
-  silent! colorscheme base16-google-light
-else
-  silent! colorscheme base16-monokai
-endif
-nnoremap <Space>c :colo base16-*
+silent! colorscheme base16-monokai
+nnoremap <Space>c :colo *
 

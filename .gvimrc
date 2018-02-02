@@ -1,13 +1,19 @@
-se guifont=Inconsolata:h15
+se guifont=Inconsolata:h16
 se linespace=0
 se guioptions=mg
 
 " macvim window size
-se lines=74
-se columns=136
+se lines=70
+se columns=140
 
-" grep with ag
-se grepprg=ag\ --vimgrep\ $*
-se grepformat=%f:%l:%c:%m
+" make grep faster on OSX with ag
+if executable('ag')
+  se grepprg=ag\ --vimgrep\ $*
+  se grepformat=%f:%l:%c:%m
+endif
 
-silent! colo base16-monokai
+if strftime("%H") < 16
+  silent! colo base16-atelier-forest-light
+else
+  silent! colo base16-materia
+endif
