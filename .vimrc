@@ -1,18 +1,20 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 se nocp noswapfile nobk nojs gd ic wmnu wic
-se ts=4 et sts=2 sw=2 bs=indent,eol,start
+se ts=4 et sts=2 sw=2 bs=indent,eol,start ls=2
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 nnoremap <space>s :up<CR>
 nnoremap <space>r :tabe $MYVIMRC<CR>:sp $MYGVIMRC<CR>
 nnoremap <space>h :se hls!<CR>
+nnoremap <Space>c :colo *
 
 " daily JS coding
 se nu nornu lbr wrap ls=2
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
+silent! Plug 'Glench/Vim-Jinja2-Syntax'
 silent! Plug 'airblade/vim-gitgutter'
 silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -71,6 +73,7 @@ let g:ale_sign_column_always = 1
 " make grep faster on OSX with ag
 if executable('ag')
   set grepprg=ag\ --vimgrep\ $*
+  "se grepformat=%f:%l:%c:%m
 endif
 
 " Colors
@@ -78,5 +81,3 @@ if has('termguicolors')
   set notermguicolors
   silent! colorscheme base16-monokai
 endif
-nnoremap <Space>c :colo *
-
