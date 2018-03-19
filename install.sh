@@ -41,7 +41,7 @@ if [[ $(uname) == 'Darwin' ]]; then
   read -p "Would you like to install node version manager? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
   fi
 
   # GUI apps via Homebrew
