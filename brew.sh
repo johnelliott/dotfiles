@@ -35,10 +35,6 @@ brew install gnu-sed --with-default-names
 brew install bash
 brew tap homebrew/versions
 
-#brew install imagemagick --with-webp
-#brew install mysql
-#brew install webkit2png
-#brew install zsh
 brew install ack
 brew install awscli
 brew install bash-completion2
@@ -48,17 +44,19 @@ brew install fzf
 brew install git
 brew install git-lfs
 brew install grep
-brew install openssh
-brew install screen
+brew install htop
 brew install hub # https://github.com/github/hub
+brew install imagemagick --with-webp
+brew install jq
 brew install nmap
+brew install openssh
 brew install postgresql
 brew install redis
+brew install screen
 brew install ssh-copy-id
 brew install the_silver_searcher
 brew install tmux
 brew install tree
-brew install htop
 brew install vim --with-override-system-vi
 brew install wget --with-iri
 
