@@ -5,13 +5,13 @@ se ts=4 et sts=2 sw=2 bs=indent,eol,start ls=2
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 nnoremap <space>s :up<CR>
-"nnoremap <space>r :tabe $MYVIMRC<CR>:sp $MYGVIMRC<CR>
 nnoremap <space>r :tabe $MYVIMRC<CR>
 nnoremap <space>h :se hls!<CR>
 nnoremap <Space>c :colo *
+nnoremap <Space>d o<esc>:r!date<CR><esc>o<esc>
 
 " daily JS coding
-se nu nornu lbr wrap ls=2
+"se nu nornu lbr wrap ls=2
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
@@ -75,8 +75,24 @@ if executable('ag')
   "se grepformat=%f:%l:%c:%m
 endif
 
-" Colors
-if has('termguicolors')
-  set notermguicolors
-  silent! colorscheme base16-monokai
+" Colors & GUI
+if has('gui_running')
+  se go-=e "remove native tab pages
+  se go-=r "remove permenant right scrollbar
+  se go-=L "remove some other scrollbar
+  try
+    se guifont=Inconsolata:h15
+  catch
+    se guifont=Menlo:h14
+  endtry
+  if strftime("%H") < 17
+    silent! colo base16-atelier-forest-light
+  else
+    silent! colo base16-solarflare
+  endif
+else
+  if has('termguicolors')
+    se notermguicolors
+    silent! colorscheme base16-monokai
+  endif
 endif
