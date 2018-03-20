@@ -11,7 +11,7 @@ nnoremap <Space>c :colo *
 nnoremap <Space>d o<esc>:r!date<CR><esc>o<esc>
 
 " daily JS coding
-"se nu nornu lbr wrap ls=2
+"se nu nornu lbr wrap
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
