@@ -1,6 +1,6 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-se nocp noswapfile nobk nojs gd ic wmnu wic
+se nocp noswapfile nobk nojs gd ic wmnu wic nu nornu lbr wrap
 se ts=4 et sts=2 sw=2 bs=indent,eol,start ls=2
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
@@ -9,9 +9,6 @@ nnoremap <space>r :tabe $MYVIMRC<CR>
 nnoremap <space>h :se hls!<CR>
 nnoremap <Space>c :colo *
 nnoremap <Space>d o<esc>:r!date<CR><esc>o<esc>
-
-" daily JS coding
-"se nu nornu lbr wrap
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
