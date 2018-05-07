@@ -1,14 +1,21 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-se nocp noswapfile nobk nojs gd ic wmnu wic nu nornu lbr wrap
-se ts=4 et sts=2 sw=2 bs=indent,eol,start ls=2
+se nocp noswapfile nobk nojs gd ic wmnu wic
+se ts=4 et sts=2 sw=2 bs=indent,eol,start
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
+
+" Departures
+"se nu lbr nowrap so=1 ls=2
 nnoremap <space>s :up<CR>
 nnoremap <space>r :tabe $MYVIMRC<CR>
 nnoremap <space>h :se hls!<CR>
-nnoremap <Space>c :colo *
-nnoremap <Space>d o<esc>:r!date<CR><esc>o<esc>
+nnoremap <space>n :noh<CR>
+nnoremap <space>c :colo *
+nnoremap <space>d o<esc>:r!date<CR><esc>o<esc>
+nnoremap <space>e :Vex<CR>
+nnoremap <space>g :GitGutterLineHighlightsToggle<CR>
+let g:netrw_banner = 0
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
@@ -32,11 +39,8 @@ let g:gitgutter_enabled = 1
 
 " Ale, async linter
 let g:ale_linters = { 'javascript': ['eslint', 'standard'] }
-let g:ale_sign_column_always = 1
 "let g:ale_javascript_standard_executable = 'semistandard'
-
 " Have es-lint installed globally even when `npm bin` returns local path
-
 " Find local .eslint if it exists
 let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
 if matchstr(local_eslint, "^\/\\w") == ''
@@ -82,11 +86,11 @@ if has('gui_running')
   catch
     se guifont=Menlo:h14
   endtry
-  if strftime("%H") < 17
-    silent! colo base16-atelier-forest-light
-  else
-    silent! colo base16-solarflare
-  endif
+    if strftime("%H") < 17
+      silent! colo base16-one-light
+    else
+     silent! colo base16-eighties
+    endif
 else
   if has('termguicolors')
     se notermguicolors
