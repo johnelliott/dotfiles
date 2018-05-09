@@ -6,15 +6,17 @@ se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 
 " Departures
-"se nu lbr nowrap so=1 ls=2
-nnoremap <space>s :up<CR>
-nnoremap <space>r :tabe $MYVIMRC<CR>
-nnoremap <space>h :se hls!<CR>
-nnoremap <space>n :noh<CR>
-nnoremap <space>c :colo *
-nnoremap <space>d o<esc>:r!date<CR><esc>o<esc>
-nnoremap <space>e :Vex<CR>
-nnoremap <space>g :GitGutterLineHighlightsToggle<CR>
+se nu lbr nowrap so=1 ls=2
+nn <space>s :up<CR>
+nn <space>r :vsp $MYVIMRC<CR>
+nn <space>h :se hls!<CR>
+nn <space>n :noh<CR>
+nn <space>c :colo *
+nn <space>d o<esc>:r!date<CR><esc>o<esc>
+nn <space>g :GitGutterLineHighlightsToggle<CR>
+" go to things easily
+nn <space>e :Vex<CR>
+nn <c-p> :vs %:h/**/*
 let g:netrw_banner = 0
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
