@@ -14,6 +14,7 @@ nn <space>n :noh<CR>
 nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
 nn <space>g :GitGutterLineHighlightsToggle<CR>
+nn <space>f :ALEFix<CR>
 " go to things easily
 nn <space>e :Vex<CR>
 nn <c-p> :vs %:h/**/*
@@ -40,7 +41,10 @@ let g:jsx_ext_required = 0 " Highlight .js as .jsx
 let g:gitgutter_enabled = 1
 
 " Ale, async linter
+ let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
 let g:ale_linters = { 'javascript': ['eslint', 'standard'] }
+let g:ale_fixers = { 'javascript': ['standard'] }
 "let g:ale_javascript_standard_executable = 'semistandard'
 " Have es-lint installed globally even when `npm bin` returns local path
 " Find local .eslint if it exists
