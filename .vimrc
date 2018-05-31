@@ -1,4 +1,4 @@
-unlet! skip_defaults_vim
+:x
 source $VIMRUNTIME/defaults.vim
 se nocp noswapfile nobk nojs gd ic wmnu wic
 se ts=4 et sts=2 sw=2 bs=indent,eol,start
@@ -15,9 +15,9 @@ nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
 nn <space>g :GitGutterLineHighlightsToggle<CR>
 nn <space>f :ALEFix<CR>
-" go to things easily
-nn <space>e :Vex<CR>
 nn <c-p> :vs %:h/**/*
+nn <space>e :Sex<CR>
+nn <space>v :Vex<CR>
 let g:netrw_banner = 0
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
@@ -41,7 +41,7 @@ let g:jsx_ext_required = 0 " Highlight .js as .jsx
 let g:gitgutter_enabled = 1
 
 " Ale, async linter
- let g:ale_set_loclist = 0
+let g:ale_set_loclist = 0
 " let g:ale_set_quickfix = 1
 let g:ale_linters = { 'javascript': ['eslint', 'standard'] }
 let g:ale_fixers = { 'javascript': ['standard'] }
