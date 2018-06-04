@@ -1,4 +1,3 @@
-:x
 source $VIMRUNTIME/defaults.vim
 se nocp noswapfile nobk nojs gd ic wmnu wic
 se ts=4 et sts=2 sw=2 bs=indent,eol,start
