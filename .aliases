@@ -30,6 +30,7 @@ alias guap="git add -u -p"
 alias gaup="git add -u -p"
 alias gp="git pull"
 alias gpr="git pull --rebase"
+alias prs='hub pr list -f "%sC%>(8)%i%Creset (%NC) %au 👾 %t% l%n"'
 
 # Additional Shortcuts
 alias h="history"
