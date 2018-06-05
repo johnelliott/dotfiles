@@ -1,4 +1,3 @@
-:x
 source $VIMRUNTIME/defaults.vim
 se nocp noswapfile nobk nojs gd ic wmnu wic
 se ts=4 et sts=2 sw=2 bs=indent,eol,start
@@ -42,6 +41,10 @@ let g:gitgutter_enabled = 1
 
 " Ale, async linter
 let g:ale_set_loclist = 0
+if has('gui_running')
+  "fix stupid theme hi
+  hi link ALEError SpellLocal
+endif
 " let g:ale_set_quickfix = 1
 let g:ale_linters = { 'javascript': ['eslint', 'standard'] }
 let g:ale_fixers = { 'javascript': ['standard'] }
