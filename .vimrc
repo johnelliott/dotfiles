@@ -41,10 +41,6 @@ let g:gitgutter_enabled = 1
 
 " Ale, async linter
 let g:ale_set_loclist = 0
-if has('gui_running')
-  "fix stupid theme hi
-  hi link ALEError SpellLocal
-endif
 " let g:ale_set_quickfix = 1
 let g:ale_linters = { 'javascript': ['eslint', 'standard'] }
 let g:ale_fixers = { 'javascript': ['standard'] }
@@ -90,19 +86,20 @@ if has('gui_running')
   se go-=e "remove native tab pages
   se go-=r "remove permenant right scrollbar
   se go-=L "remove some other scrollbar
-  try
-    se guifont=Inconsolata:h15
-  catch
-    se guifont=Menlo:h14
-  endtry
-  silent! colo base16-eighties
+  se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
+  if strftime("%H") < 17
+    silent! colo base16-one-light
+  elseif strftime("%H") > 20
+    se ls=1 nonu nornu
+    silent! colo base16-black-metal
+  else
+   silent! colo base16-eighties
+  endif
+  hi link ALEError SpellLocal
 else
   if has('termguicolors')
     se notermguicolors
     silent! colorscheme base16-eighties
     silent! hi link AleWarning SpellLocal
   endif
-endif
-if strftime("%H") > 20
-  se ls=1
 endif
