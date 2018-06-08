@@ -37,9 +37,11 @@ brew tap homebrew/versions
 
 brew install ack
 brew install awscli
-brew install bash-completion2
+brew install bash-completion@2
 brew install certbot
 brew install couchdb
+brew install ext2fuse
+brew install ext4fuse
 brew install fzf
 brew install git
 brew install git-lfs
@@ -54,11 +56,13 @@ brew install postgresql
 brew install redis
 brew install screen
 brew install ssh-copy-id
+brew install ssh-copy-id
 brew install the_silver_searcher
 brew install tmux
 brew install tree
 brew install vim --with-override-system-vi
 brew install wget --with-iri
+brew install youtube-dl
 
 # Remove outdated versions from the cellar.
 brew cleanup
