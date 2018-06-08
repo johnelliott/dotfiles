@@ -7,7 +7,7 @@ sy on
 " Departures
 se nu lbr nowrap so=1 ls=2
 nn <space>s :up<CR>
-nn <space>r :vsp $MYVIMRC<CR>
+nn <space>r :tabe $MYVIMRC<CR>
 nn <space>h :se hls!<CR>
 nn <space>n :noh<CR>
 nn <space>c :colo *
@@ -23,18 +23,18 @@ let g:netrw_banner = 0
 silent! call plug#begin()
 silent! Plug 'Glench/Vim-Jinja2-Syntax'
 silent! Plug 'airblade/vim-gitgutter'
-silent! Plug 'editorconfig/editorconfig-vim'
-silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-silent! Plug 'digitaltoad/vim-pug',
-silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'chriskempson/base16-vim'
-silent! Plug 'w0rp/ale'
+silent! Plug 'digitaltoad/vim-pug',
+silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'jparise/vim-graphql'
+silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+silent! Plug 'w0rp/ale'
 silent! call plug#end()
 
 " JSX
-let g:jsx_ext_required = 0 " Highlight .js as .jsx
+"let g:jsx_ext_required = 0 " Highlight .js as .jsx
 
 " GitGutter
 let g:gitgutter_enabled = 1
@@ -95,14 +95,14 @@ if has('gui_running')
   catch
     se guifont=Menlo:h14
   endtry
-    if strftime("%H") < 17
-      silent! colo base16-one-light
-    else
-     silent! colo base16-eighties
-    endif
+  silent! colo base16-eighties
 else
   if has('termguicolors')
     se notermguicolors
-    silent! colorscheme base16-monokai
+    silent! colorscheme base16-eighties
+    silent! hi link AleWarning SpellLocal
   endif
+endif
+if strftime("%H") > 20
+  se ls=1
 endif
