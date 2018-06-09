@@ -20,7 +20,7 @@ alias gs="git status"
 alias gb="hub browse"
 alias gd="git diff"
 alias gg="git tree"
-alias gl="git log --relative-date --abbrev-commit"
+alias gl="git log --relative-date"
 alias glo="git log --oneline"
 alias gco="git checkout"
 alias gcob="git checkout -b"
@@ -31,7 +31,6 @@ alias gaup="git add -u -p"
 alias gp="git pull"
 alias gpr="git pull --rebase"
 alias prs='hub pr list -f "%sC%>(8)%i%Creset (%NC) %au 👾 %t% l%n"'
-alias browsers="echo safari.app firefox.app \'Google\ Chrome\' |xargs -n1 -I %d open -a %d"
 
 # Additional Shortcuts
 alias h="history"
@@ -46,13 +45,16 @@ alias treeacl='tree -A -C -L 2'
 # use silver-searcher with just filenames as output
 alias agl='ag -l'
 # use npm offline with this one weird trick
-#alias npm-offline='npm --cache-min 9999999 '
+alias p='cat package.json |jq'
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
 else # OS X `ls`
 	colorflag="-G"
 fi
+# open things in safari from time to time, e.g. for reader mode
+alias saf='open -a safari'
+alias browsers="echo safari.app firefox.app \'Google\ Chrome\' |xargs -n1 -I %d open -a %d"
 
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
