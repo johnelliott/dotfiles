@@ -42,38 +42,19 @@ let g:gitgutter_enabled = 1
 " Ale, async linter
 let g:ale_set_loclist = 0
 " let g:ale_set_quickfix = 1
-let g:ale_linters = { 'javascript': ['eslint', 'standard'] }
+let g:ale_linters = { 'javascript': ['standard'] }
 let g:ale_fixers = { 'javascript': ['standard'] }
-"let g:ale_javascript_standard_executable = 'semistandard'
-" Have es-lint installed globally even when `npm bin` returns local path
-" Find local .eslint if it exists
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-  let local_eslint = getcwd() . "/" . local_eslint
-endif
-" Set eslint executable if we found it
-if executable(local_eslint)
-  let g:ale_javascript_eslint_executable = local_eslint
-else
-  let g:ale_javascript_eslint_executable = '$(npm bin)/eslint'
-endif
-" Find local semistandard  if it exists
-let local_standard = finddir('node_modules', '.;') . '/.bin/semistandard'
-" Find local semistandard  if it exists
-if local_standard == ''
-  let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
-endif
-" Set standard/semistandard executable if we found it
-if matchstr(local_standard, "^\/\\w") == ''
-  let local_standard = getcwd() . "/" . local_standard
-endif
+" Set local semistandard, standard as available
+let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
 if executable(local_standard)
   let g:ale_javascript_standard_executable = local_standard
-else
-  let g:ale_javascript_standard_executable = '$(npm bin)/standard'
 endif
-" http://stackoverflow.com/questions/28573553 Updated for w0rp/ale
-autocmd FileType javascript let b:ale_linters = findfile('.eslintrc', '.;') != '' ? { 'javascript': ['eslint'] } : { 'javascript': ['standard'] }
+let local_standard = finddir('node_modules', '.;') . '/.bin/semistandard'
+if executable(local_standard)
+  let g:ale_javascript_standard_executable = local_standard
+endif
+" use Eslint if we have estlintrc
+"autocmd FileType javascript let b:ale_linters = findfile('.eslintrc', '.;') != '' ? { 'javascript': ['eslint'] }
 
 " make grep faster on OSX with ag
 if executable('ag')
@@ -87,15 +68,15 @@ if has('gui_running')
   se go-=r "remove permenant right scrollbar
   se go-=L "remove some other scrollbar
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
-  if strftime("%H") < 17
-    silent! colo base16-one-light
+  hi link ALEError SpellLocal
+  if strftime("%w%H") < 517 " weekdays before 5
+   silent! colo base16-one-light
   elseif strftime("%H") > 20
     se ls=1 nonu nornu
     silent! colo base16-black-metal
   else
    silent! colo base16-eighties
   endif
-  hi link ALEError SpellLocal
 else
   if has('termguicolors')
     se notermguicolors
