@@ -14,7 +14,7 @@ nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
 nn <space>g :GitGutterLineHighlightsToggle<CR>
 nn <space>f :ALEFix<CR>
-nn <c-p> :vs %:h/**/*
+nn <c-p> :e %:h/*
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
 let g:netrw_banner = 0
@@ -31,6 +31,7 @@ silent! Plug 'jparise/vim-graphql'
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'w0rp/ale'
+silent! Plug 'stephenway/postcss.vim'
 silent! call plug#end()
 
 " JSX
@@ -41,6 +42,8 @@ let g:gitgutter_enabled = 1
 
 " Ale, async linter
 let g:ale_set_loclist = 0
+" fix annoting base16 error hightlighting
+hi link ALEError SpellLocal
 " let g:ale_set_quickfix = 1
 let g:ale_linters = { 'javascript': ['standard'] }
 let g:ale_fixers = { 'javascript': ['standard'] }
@@ -68,12 +71,8 @@ if has('gui_running')
   se go-=r "remove permenant right scrollbar
   se go-=L "remove some other scrollbar
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
-  hi link ALEError SpellLocal
   if strftime("%w%H") < 517 " weekdays before 5
    silent! colo base16-one-light
-  elseif strftime("%H") > 20
-    se ls=1 nonu nornu
-    silent! colo base16-black-metal
   else
    silent! colo base16-eighties
   endif
@@ -81,6 +80,5 @@ else
   if has('termguicolors')
     se notermguicolors
     silent! colorscheme base16-eighties
-    silent! hi link AleWarning SpellLocal
   endif
 endif
