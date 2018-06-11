@@ -76,12 +76,15 @@ endif
 
 " Colors & GUI
 if has('gui_running')
-  se go-=e "remove native tab pages
-  se go-=r "remove permenant right scrollbar
-  se go-=L "remove some other scrollbar
+  "must set go one-at-a-time
+  se go-=e "native tab pages
+  se go-=r "permenant right scrollbar
+  se go-=L "some other scrollbar
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
-  if strftime("%w%H") < 517 " weekdays before 5
-   silent! colo base16-one-light
+  let day = strftime("%w")
+  let hour = strftime("%H")
+  if day < 6 && day > 0 && hour < 17
+    silent! colo base16-one-light
   else
    silent! colo base16-eighties
   endif
