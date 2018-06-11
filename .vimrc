@@ -31,7 +31,7 @@ silent! Plug 'jparise/vim-graphql'
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'w0rp/ale'
-silent! Plug 'stephenway/postcss.vim'
+"silent! Plug 'stephenway/postcss.vim'
 silent! call plug#end()
 
 " JSX
@@ -45,19 +45,28 @@ let g:ale_set_loclist = 0
 " fix annoting base16 error hightlighting
 hi link ALEError SpellLocal
 " let g:ale_set_quickfix = 1
-let g:ale_linters = { 'javascript': ['standard'] }
 let g:ale_fixers = { 'javascript': ['standard'] }
-" Set local semistandard, standard as available
-let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
-if executable(local_standard)
-  let g:ale_javascript_standard_executable = local_standard
+
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if executable(local_eslint)
+  let g:ale_javascript_eslint_executable = local_eslint
+  let g:ale_linters = { 'javascript': ['eslint'] }
+else
+  let g:ale_javascript_eslint_executable = '$(npm bin)/eslint'
 endif
+
 let local_standard = finddir('node_modules', '.;') . '/.bin/semistandard'
+if !executable(local_standard)
+  let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
+endif
 if executable(local_standard)
   let g:ale_javascript_standard_executable = local_standard
+  let g:ale_linters = { 'javascript': ['standard'] }
+else
+  let g:ale_javascript_standard_executable = '$(npm bin)/semistandard'
 endif
-" use Eslint if we have estlintrc
-"autocmd FileType javascript let b:ale_linters = findfile('.eslintrc', '.;') != '' ? { 'javascript': ['eslint'] }
+" http://stackoverflow.com/questions/28573553 Updated for w0rp/ale
+autocmd FileType javascript let b:ale_linters = findfile('.eslintrc', '.;') != '' ? { 'javascript': ['eslint'] } : { 'javascript': ['standard'] }
 
 " make grep faster on OSX with ag
 if executable('ag')
