@@ -28,6 +28,7 @@ silent! Plug 'chriskempson/base16-vim'
 silent! Plug 'digitaltoad/vim-pug',
 silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'jparise/vim-graphql'
+silent! Plug 'moll/vim-node'
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'w0rp/ale'
