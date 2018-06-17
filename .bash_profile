@@ -6,10 +6,6 @@ for file in ~/.{path,exports,aliases,functions,extra}; do
 done;
 unset file;
 
-# Make NVM available
-export NVM_DIR="/Users/john/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
-
 # Use emacs editing mode in Bash
 set -o emacs
 
@@ -46,6 +42,11 @@ fi;
 
 # set up fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Make NVM available
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm, try --no-use
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_D-R/bash_completion"  # This loads nvm bash_completion
 
 # bold yellow \[\033[1;33m\]
 # reset \[\033[0m\]

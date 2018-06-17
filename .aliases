@@ -30,6 +30,9 @@ alias gp="git pull"
 #alias gpr="git pull --rebase"
 alias prs='hub pr list -f "%sC%>(8)%i%Creset (%NC) %au • %t% l%n"'
 
+#Docker shortcuts
+alias dc="docker-compose -f ~/code/api/docker-compose.yml"
+
 # Additional Shortcuts
 alias h="history"
 alias j="jobs"

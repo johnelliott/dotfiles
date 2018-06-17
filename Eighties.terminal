@@ -223,6 +223,8 @@
 	<true/>
 	<key>ShowShellCommandInTitle</key>
 	<false/>
+	<key>ShowTTYNameInTabTitle</key>
+	<false/>
 	<key>ShowTTYNameInTitle</key>
 	<false/>
 	<key>ShowWindowSettingsNameInTitle</key>
