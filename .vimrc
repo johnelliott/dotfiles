@@ -13,8 +13,8 @@ nn <space>n :noh<CR>
 nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
 nn <space>g :GitGutterLineHighlightsToggle<CR>
-nn <space>l :ALEFix<CR>
-nn <space>f :FZF<CR>
+nn <space>f :ALEFix<CR>
+nn <space>t :FZF<CR>
 nn <c-p> :e %:h/*
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
