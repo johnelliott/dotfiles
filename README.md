@@ -9,3 +9,12 @@
 - no `man` pages and GNU utils?
 - no bash completion for npm, see https://docs.npmjs.com/cli/completion or just do `$ npm completion > /usr/local/etc/bash_completion.d/npm`
 - no fzf install, run `/usr/local/opt/fzf/install` in shell for that or see `brew info fzf`
+
+1. if brew fails, hub alias screws up subsequent things
+2. # Make NVM available
+export NVM_DIR="/Users/$user/.nvm"
+
+add brew link pkg-config
+
+add iterm config
+general settings for scroll bar behavior
