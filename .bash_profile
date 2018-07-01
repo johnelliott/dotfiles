@@ -44,6 +44,14 @@ fi;
 ## You could just use `-g` instead, but I like being explicit
 #complete -W "NSGlobalDomain" defaults;
 
+# add google cloud sdk completion
+if which brew > /dev/null && [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc" ]; then
+  source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+fi
+if which brew > /dev/null && [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc" ]; then
+  source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
+fi
+
 # set up fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
