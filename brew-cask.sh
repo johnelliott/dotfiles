@@ -6,11 +6,7 @@ if [[ ! "$(type -P brew)" ]]; then
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# Install homebrew cask apps
-brew cask install atom 2> /dev/null
-brew cask install google-chrome 2> /dev/null
-brew cask install macvim 2> /dev/null
-brew cask install postgres 2> /dev/null
-brew cask install slack 2> /dev/null
-brew cask install spectacle 2> /dev/null
-brew cask install vlc 2> /dev/null
+for app in atom cyberduck firefox google-chrome google-cloud-sdk macvim postgres slack spectacle vlc
+do
+  brew cask install $app
+done
