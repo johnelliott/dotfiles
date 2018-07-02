@@ -1,6 +1,7 @@
 # dotfiles
 
 #### [.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
+`curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc >|~/.vimrc 2>&1`
 
 #### [applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/applestore.sh)
 
