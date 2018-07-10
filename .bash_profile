@@ -60,9 +60,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm, try --no-use
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+
 # bold yellow \[\033[1;33m\]
 # reset \[\033[0m\]
 PS1="\[\033[0;35m\]@\h\[\033[1;33m\]\w\[\033[0;36m\]$\[\033[0m\] "
 PS2="\[\033[1;33m\]→ \[\033[0m\]";
 export PS1;
 export PS2;
+
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+    #tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
+    tmux new-session -A -s ssh_tmux
+fi

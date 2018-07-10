@@ -13,7 +13,6 @@ alias .....="cd ../../../.."
 # Shortcuts
 # Git shortcuts
 alias git="hub"
-alias g="git"
 alias gs="git status"
 alias gb="hub browse"
 alias gd="git diff"
