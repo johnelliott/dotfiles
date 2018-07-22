@@ -13,20 +13,6 @@ alias .....="cd ../../../.."
 # Shortcuts
 # Git shortcuts
 alias git="hub"
-alias gs="git status"
-alias gb="hub browse"
-alias gd="git diff"
-alias gg="git tree"
-alias gl="git log --relative-date"
-alias glo="git log --oneline"
-alias gco="git checkout"
-alias gcob="git checkout -b"
-alias gcv="git commit -v"
-alias gau="git add -u"
-alias guap="git add -u -p"
-alias gaup="git add -u -p"
-alias gp="git pull"
-#alias gpr="git pull --rebase"
 alias prs='hub pr list -f "%sC%>(8)%i%Creset (%NC) %au • %t% l%n"'
 
 #Docker shortcuts
@@ -37,29 +23,24 @@ alias h="history"
 alias j="jobs"
 alias du='du -ch --max-depth=1'
 alias ll="ls -alrtFG"
-alias treeacl='tree -A -C -L 2'
-# use silver-searcher with just filenames as output
-alias agl='ag -l'
-# use npm offline with this one weird trick
 alias p='cat package.json |jq'
+
+# open things in safari from time to time, e.g. for reader mode
+alias safari='open -a safari'
+alias chrome="open -a Google\ Chrome"
+alias firefox="open -a firefox"
+alias browsers="echo safari.app firefox.app \'Google\ Chrome\' |xargs -n1 -I %d open -a %d"
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
 else # OS X `ls`
 	colorflag="-G"
 fi
-# open things in safari from time to time, e.g. for reader mode
-alias saf='open -a safari'
-alias browsers="echo safari.app firefox.app \'Google\ Chrome\' |xargs -n1 -I %d open -a %d"
-
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
-
 # List all files colorized in long format, including dot files
 alias la="ls -laF ${colorflag}"
-
-# List only directories
-#alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 
 # Always use color output for `ls`
 alias ls="command ls ${colorflag}"
@@ -68,12 +49,8 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
-# Get week number
-alias week='date +%V'
-
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # OS X has no `md5sum`, so use `md5` as a fallback

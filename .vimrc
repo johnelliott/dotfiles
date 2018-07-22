@@ -85,14 +85,7 @@ if has('gui_running')
   se go-=r "permenant right scrollbar
   se go-=L "some other scrollbar
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
- " let day = strftime("%w")
- " let hour = strftime("%H")
- " if day < 6 && day > 0 && hour > 8 && hour < 17
- "   silent! colo base16-one-light
- " else
- "  silent! colo base16-eighties
- " endif
- silent! colo base16-onedark
+  silent! colo base16-onedark
 else
   if has('termguicolors')
     se notermguicolors
