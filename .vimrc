@@ -18,6 +18,8 @@ nn <space>t :FZF<CR>
 nn <c-p> :e %:h/*
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
+nn <space>[ :se co=124<CR><C-W>=
+nn <space>] :se co=226<CR><C-W>=
 let g:netrw_banner = 0
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
@@ -85,10 +87,22 @@ if has('gui_running')
   se go-=r "permenant right scrollbar
   se go-=L "some other scrollbar
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
-  silent! colo base16-onedark
+ let day = strftime("%w")
+ let hour = strftime("%H")
+ if day < 6 && day > 0 && hour > 8 && hour < 17
+    "silent! colo base16-google-light
+    silent! colo base16-one-light
+    "silent! colo base16-atelier-forest-light
+    "silent! colo base16-gruvbox-light-hard
+ else
+  "silent! colo base16-eighties
+  "silent! colo base16-onedark
+  silent! colo base16-gruvbox-dark-hard
+  "silent! colo base16-monokai
+ endif
 else
   if has('termguicolors')
     se notermguicolors
-    silent! colorscheme base16-eighties
+    silent! colo base16-eighties
   endif
 endif
