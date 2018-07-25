@@ -18,7 +18,7 @@ nn <space>t :FZF<CR>
 nn <c-p> :e %:h/*
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
-nn <space>[ :se co=124<CR><C-W>=
+nn <space>[ :se co=128<CR><C-W>=
 nn <space>] :se co=226<CR><C-W>=
 let g:netrw_banner = 0
 
