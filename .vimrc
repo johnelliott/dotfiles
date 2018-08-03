@@ -1,4 +1,4 @@
-source $VIMRUNTIME/defaults.vim
+silent! source $VIMRUNTIME/defaults.vim
 se nocp noswapfile nobk nojs gd ic wmnu wic
 se ts=4 et sts=2 sw=2 bs=indent,eol,start
 se udir=~/.vim/undo cb=unnamed mouse=a
@@ -18,8 +18,8 @@ nn <space>t :FZF<CR>
 nn <c-p> :e %:h/*
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
-nn <space>[ :se co=128<CR><C-W>=
-nn <space>] :se co=226<CR><C-W>=
+nn <space>[ :se co=130<CR><C-W>=
+nn <space>] :se co=224<CR><C-W>=
 let g:netrw_banner = 0
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
