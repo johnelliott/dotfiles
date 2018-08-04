@@ -96,8 +96,8 @@ if has('gui_running')
     "silent! colo base16-gruvbox-light-hard
  else
   "silent! colo base16-eighties
-  "silent! colo base16-onedark
-  silent! colo base16-gruvbox-dark-hard
+  silent! colo base16-onedark
+  "silent! colo base16-gruvbox-dark-hard
   "silent! colo base16-monokai
  endif
 else
