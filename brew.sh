@@ -50,7 +50,6 @@ brew install goaccess
 brew install graphicsmagick
 brew install grep
 brew install htop
-brew install hub
 brew install hub # https://github.com/github/hub
 brew install imagemagick --with-webp
 brew install jq
