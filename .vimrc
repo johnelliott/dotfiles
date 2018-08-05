@@ -38,6 +38,7 @@ silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'w0rp/ale'
 silent! Plug 'stephenway/postcss.vim'
+silent! Plug 'ekalinin/Dockerfile.vim'
 silent! call plug#end()
 
 " JSX
