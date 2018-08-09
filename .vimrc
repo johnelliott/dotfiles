@@ -92,6 +92,7 @@ if has('gui_running')
   se go-=e "native tab pages
   se go-=r "permenant right scrollbar
   se go-=L "some other scrollbar
+  se go+=k "keep window size
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
   if has('touchbar')
     "remove items
