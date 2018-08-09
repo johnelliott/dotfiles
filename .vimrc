@@ -6,10 +6,15 @@ sy on
 
 " Departures
 "se nu lbr nowrap so=1 ls=2
+
+let dark = 'base16-harmonic-dark'
+let light = 'base16-one-light'
+
 nn <space>s :up<CR>
 nn <space>r :tabe $MYVIMRC<CR>
-nn <space>h :se hls!<CR>
-nn <space>n :noh<CR>
+"nn <space>h :se hls!<CR>
+"nn <space>n :noh<CR>
+nn <space>m :! open -a macvim.app %<CR><CR>
 nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
 nn <space>g :GitGutterLineHighlightsToggle<CR>
@@ -88,19 +93,40 @@ if has('gui_running')
   se go-=r "permenant right scrollbar
   se go-=L "some other scrollbar
   se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
- let day = strftime("%w")
- let hour = strftime("%H")
- if day < 6 && day > 0 && hour > 8 && hour < 17
-    "silent! colo base16-google-light
-    silent! colo base16-one-light
-    "silent! colo base16-atelier-forest-light
-    "silent! colo base16-gruvbox-light-hard
- else
-  "silent! colo base16-eighties
-  silent! colo base16-onedark
-  "silent! colo base16-gruvbox-dark-hard
-  "silent! colo base16-monokai
- endif
+  if has('touchbar')
+    "remove items
+    silent! aun TouchBar
+    "add items
+    "nme TouchBar.buffers :buffers<CR>
+    nme TouchBar.marks :marks<CR>
+    nme TouchBar.registers :registers<CR>
+    "nme TouchBar.history :history<CR>
+    "nme TouchBar.node\ % :!node %<CR>
+    "nme icon=NSTouchBarSkipBackTemplate TouchBar.\<\< :cpf<CR>
+    nme TouchBar.-flexspacenode- :
+    nme icon=NSTouchBarRewindTemplate TouchBar.\< :cprevious<CR>
+    nme TouchBar.clist :clist<CR>
+    nme icon=NSTouchBarFastForwardTemplate TouchBar.\> :cnext<CR>
+    nme TouchBar.-smain- :
+    nme TouchBar.dark :silent! exec "colo ".dark<CR>
+    nme TouchBar.light :silent! exec "colo ".light<CR>
+    "nme icon=NSTouchBarSkipAheadTemplate TouchBar.\>\> :cnf<CR>
+    nme TouchBar.-s3- :
+    for i in ['🧐', '🔮', '🤖', '🎾', '🐠', '👿', '🤮', '👾', '⚠️', '🚨', '👻', '🤡']
+      exec "ime TouchBar.".i." ".i
+    endfor
+    "an TouchBar.\.vimrc :tabe $MYVIMRC<CR>
+    "an icon=NSTouchBarColorPickerStroke TouchBar.colo :colo *
+    "an TouchBar.Escape\ Escape\ Escape\ Escape <Esc>
+  endif
+
+  let day = strftime("%w")
+  let hour = strftime("%H")
+  if day < 6 && day > 0 && hour > 8 && hour < 17
+    silent! exec "colo ".light
+  else
+    silent! exec "colo ".dark
+  endif
 else
   if has('termguicolors')
     se notermguicolors

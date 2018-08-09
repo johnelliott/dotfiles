@@ -63,6 +63,7 @@ else
 fi;
 # bold yellow \[\033[1;33m\]
 # reset \[\033[0m\]
+# https://en.wikipedia.org/wiki/ANSI_escape_code
 PS1="\[\033[00;33m\]\u@\h $sshWarning\[\033[01;36m\]\w \$\[\033[00m\] "
 PS2="\[\033[1;32m\]→ \[\033[0m\]";
 export PS1;
