@@ -30,7 +30,7 @@ nn <space>[ :se co=130<CR><C-W>=
 nn <space>] :se co=224<CR><C-W>=
 let g:netrw_banner = 0
 
-autocmd BufNewFile,BufRead .babelrc,.nycrc set syntax=json
+autocmd BufNewFile,BufRead .babelrc,.nycrc,.firebaserc set syntax=json
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
