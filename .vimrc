@@ -4,28 +4,33 @@ se ts=4 et sts=2 sw=2 bs=indent,eol,start
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 
-" Departures
-"se nu lbr nowrap so=1 ls=2
-
-let dark = 'base16-harmonic-dark'
-let light = 'base16-one-light'
+"Departures
+"se nu
+"se lbr
+"se nowrap
+"se so=1
+se ls=2
+"nn <space>h :se hls!<CR>
+"nn <space>n :noh<CR>
+nn gn :bn<CR>
+nn gN :bp<CR>
+nn gp :bp<CR>
 
 nn <space>s :up<CR>
 nn <space>r :tabe $MYVIMRC<CR>
-"nn <space>h :se hls!<CR>
-"nn <space>n :noh<CR>
 nn <space>m :! open -a macvim.app %<CR><CR>
 nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
 nn <space>g :GitGutterLineHighlightsToggle<CR>
 nn <space>f :ALEFix<CR>
-nn <space>t :FZF<CR>
-nn <c-p> :e %:h/*
+nn <c-p> :FZF<CR>
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
 nn <space>[ :se co=130<CR><C-W>=
 nn <space>] :se co=224<CR><C-W>=
 let g:netrw_banner = 0
+
+autocmd BufNewFile,BufRead .babelrc,.nycrc set syntax=json
 
 " Plugins via vim-plug: https://github.com/junegunn/vim-plug
 silent! call plug#begin()
@@ -88,6 +93,16 @@ endif
 
 " Colors & GUI
 if has('gui_running')
+  let dark = 'base16-harmonic-dark'
+  let light = 'base16-one-light'
+  let day = strftime("%w")
+  let hour = strftime("%H")
+  if day < 6 && day > 0 && hour > 8 && hour < 18
+    silent! exec "colo ".light
+  else
+    silent! exec "colo ".dark
+  endif
+
   "must set go one-at-a-time
   se go-=e "native tab pages
   se go-=r "permenant right scrollbar
@@ -113,20 +128,12 @@ if has('gui_running')
     nme TouchBar.light :silent! exec "colo ".light<CR>
     "nme icon=NSTouchBarSkipAheadTemplate TouchBar.\>\> :cnf<CR>
     nme TouchBar.-s3- :
-    for i in ['🧐', '🔮', '🤖', '🎾', '🐠', '👿', '🤮', '👾', '⚠️', '🚨', '👻', '🤡']
+    for i in ['🧐', '🤖', '🤮', '🐠', '👻', '⚠️', '🔮', '🤡', '🚨', '🎾', '👿', ]
       exec "ime TouchBar.".i." ".i
     endfor
     "an TouchBar.\.vimrc :tabe $MYVIMRC<CR>
     "an icon=NSTouchBarColorPickerStroke TouchBar.colo :colo *
     "an TouchBar.Escape\ Escape\ Escape\ Escape <Esc>
-  endif
-
-  let day = strftime("%w")
-  let hour = strftime("%H")
-  if day < 6 && day > 0 && hour > 8 && hour < 17
-    silent! exec "colo ".light
-  else
-    silent! exec "colo ".dark
   endif
 else
   if has('termguicolors')
