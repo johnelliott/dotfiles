@@ -49,6 +49,7 @@ silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'w0rp/ale'
 silent! Plug 'stephenway/postcss.vim'
 silent! Plug 'ekalinin/Dockerfile.vim'
+silent! Plug 'prettier/vim-prettier'
 silent! call plug#end()
 
 " JSX
@@ -59,31 +60,25 @@ let g:gitgutter_enabled = 1
 
 " Ale, async linter
 let g:ale_set_loclist = 0
-" fix annoting base16 error hightlighting
 hi link ALEError SpellLocal
-" let g:ale_set_quickfix = 1
-let g:ale_fixers = { 'javascript': ['standard'], 'scss': ['stylelint'] }
-
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if executable(local_eslint)
-  let g:ale_javascript_eslint_executable = local_eslint
-  let g:ale_linters = { 'javascript': ['eslint'] }
-else
-  let g:ale_javascript_eslint_executable = '$(npm bin)/eslint'
+let g:ale_linters_explicit = 1
+let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
+let local_semistandard = finddir('node_modules', '.;') . '/.bin/semistandard'
+if executable(local_semistandard)
+  let g:ale_javascript_standard_executable = local_semistandard
 endif
-
-let local_standard = finddir('node_modules', '.;') . '/.bin/semistandard'
-if !executable(local_standard)
-  let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
-endif
-if executable(local_standard)
-  let g:ale_javascript_standard_executable = local_standard
-  let g:ale_linters = { 'javascript': ['standard'] }
-else
-  let g:ale_javascript_standard_executable = '$(npm bin)/semistandard'
+let local_prettier = finddir('node_modules', '.;') . '/.bin/prettier'
+if executable(local_prettier)
+  let g:ale_linters = {}
+  let g:ale_fixers = { '*': ['prettier'] }
+  let b:ale_fix_on_save = 1
 endif
 " http://stackoverflow.com/questions/28573553 Updated for w0rp/ale
-autocmd FileType javascript let b:ale_linters = findfile('.eslintrc', '.;') != '' ? { 'javascript': ['eslint'] } : { 'javascript': ['standard'] }
+let eslintrc = findfile('.eslintrc', '.;')
+if eslintrc != ''
+  let g:ale_linters = { 'javascript': ['eslint'] }
+endif
 
 " make grep faster on OSX with ag
 if executable('ag')
