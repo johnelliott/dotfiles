@@ -10,8 +10,6 @@ sy on
 "se nowrap
 "se so=1
 se ls=2
-"nn <space>h :se hls!<CR>
-"nn <space>n :noh<CR>
 nn gn :bn<CR>
 nn gN :bp<CR>
 nn gp :bp<CR>
@@ -26,8 +24,8 @@ nn <space>f :ALEFix<CR>
 nn <c-p> :FZF<CR>
 nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
-nn <space>[ :se co=130<CR><C-W>=
-nn <space>] :se co=224<CR><C-W>=
+nn <space>[ :se co=106<CR><C-W>=
+nn <space>] :se co=212<CR><C-W>=
 let g:netrw_banner = 0
 
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.firebaserc set syntax=json
