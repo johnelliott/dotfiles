@@ -48,7 +48,11 @@ silent! Plug 'w0rp/ale'
 silent! Plug 'stephenway/postcss.vim'
 silent! Plug 'ekalinin/Dockerfile.vim'
 silent! Plug 'prettier/vim-prettier'
+silent! Plug 'lifepillar/pgsql.vim'
 silent! call plug#end()
+
+"PostgreSQL
+let g:sql_type_default = 'pgsql'
 
 " JSX
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
