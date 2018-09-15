@@ -21,26 +21,13 @@ let g:netrw_banner = 0
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.firebaserc set syntax=json
 
 func! PostPlug() "call last
-  silent! colo base16-eighties
-  if has('gui_running')
-    let dark = 'base16-harmonic-dark'
-    let light = 'base16-one-light'
-    let day = strftime("%w")
-    let hour = strftime("%H")
-    if hour > 8 && hour < 18
-      silent! exec "colo ".light
-    else
-      silent! exec "colo ".dark
-    endif
-  else
-    if has('termguicolors')
-      se notermguicolors
-      silent! colo base16-eighties
-    endif
+  if has('termguicolors')
+    se notermguicolors
+    silent! colo base16-default
   endif
-
   if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
+    " also ~/.gvimrc
   endif
 endfunc
 
