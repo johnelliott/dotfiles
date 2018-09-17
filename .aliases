@@ -13,7 +13,6 @@ alias .....="cd ../../../.."
 # Shortcuts
 # Git shortcuts
 alias git="hub"
-alias prs='hub pr list -f "%sC%>(8)%i%Creset (%NC) %au • %t% l%n"'
 
 # Additional Shortcuts
 alias h="history"
