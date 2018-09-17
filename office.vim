@@ -1,9 +1,5 @@
-se ls=2
-se nu
-let g:gitgutter_enabled = 1
-
 " Linting
-let g:ale_linters_explicit = 1
+"let g:ale_linters_explicit = 1
 let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
 let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
 let local_semistandard = finddir('node_modules', '.;') . '/.bin/semistandard'

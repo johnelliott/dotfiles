@@ -17,8 +17,8 @@ nn <space>r :tabe $MYVIMRC<CR>
 nn <c-p> :FZF<CR>
 nn <space>s :up<CR>
 nn <space>v :Vex<CR>
+autocmd BufNewFile,BufRead .babelrc,.firebaserc set syntax=json
 let g:netrw_banner = 0
-autocmd BufNewFile,BufRead .babelrc,.nycrc,.firebaserc set syntax=json
 
 func! PostPlug() "call last
   if has('termguicolors')
