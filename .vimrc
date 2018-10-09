@@ -4,7 +4,7 @@ se ts=4 et sts=2 sw=2 bs=indent,eol,start
 se udir=~/.vim/undo cb=unnamed mouse=a
 sy on
 
-nn <space>[ :se co=106<CR><C-W>=
+nn <space>[ :se co=116<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
 nn <space>c :colo *
 nn <space>d o<esc>:r!date<CR><esc>o<esc>
@@ -66,21 +66,10 @@ silent! Plug 'lifepillar/pgsql.vim'
 "silent! Plug 'cespare/vim-toml'
 silent! Plug 'NLKNguyen/papercolor-theme'
 silent! Plug 'chriskempson/base16-vim'
-"silent! Plug 'cocopon/iceberg.vim'
 silent! Plug 'endel/vim-github-colorscheme'
-silent! Plug 'juanedi/predawn.vim'
-silent! Plug 'mhinz/vim-janah'
 silent! Plug 'morhetz/gruvbox'
-silent! Plug 'nanotech/jellybeans.vim'
-silent! Plug 'noahfrederick/vim-hemisu'
 silent! Plug 'plan9-for-vimspace/acme-colors'
 silent! Plug 'rakr/vim-one'
-silent! Plug 'reedes/vim-colors-pencil'
-let g:pencil_gutter_color = 1
-let g:pencil_higher_contrast_ui = 0
-let g:pencil_neutral_code_bg = 0
-let g:pencil_neutral_headings = 0
-let g:pencil_spell_undercurl = 0
 
 silent! call plug#end()
 let g:sql_type_default = 'pgsql'
