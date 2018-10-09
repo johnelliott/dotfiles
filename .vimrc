@@ -27,7 +27,6 @@ func! PostPlug() "call last
   endif
   if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
-    " also ~/.gvimrc
   endif
 endfunc
 
@@ -52,7 +51,6 @@ silent! Plug '/usr/local/opt/fzf'
 silent! Plug 'Glench/Vim-Jinja2-Syntax'
 silent! Plug 'airblade/vim-gitgutter'
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-silent! Plug 'chriskempson/base16-vim'
 silent! Plug 'digitaltoad/vim-pug',
 silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'jparise/vim-graphql'
@@ -65,6 +63,25 @@ silent! Plug 'stephenway/postcss.vim'
 silent! Plug 'ekalinin/Dockerfile.vim'
 silent! Plug 'prettier/vim-prettier'
 silent! Plug 'lifepillar/pgsql.vim'
+"silent! Plug 'cespare/vim-toml'
+silent! Plug 'NLKNguyen/papercolor-theme'
+silent! Plug 'chriskempson/base16-vim'
+"silent! Plug 'cocopon/iceberg.vim'
+silent! Plug 'endel/vim-github-colorscheme'
+silent! Plug 'juanedi/predawn.vim'
+silent! Plug 'mhinz/vim-janah'
+silent! Plug 'morhetz/gruvbox'
+silent! Plug 'nanotech/jellybeans.vim'
+silent! Plug 'noahfrederick/vim-hemisu'
+silent! Plug 'plan9-for-vimspace/acme-colors'
+silent! Plug 'rakr/vim-one'
+silent! Plug 'reedes/vim-colors-pencil'
+let g:pencil_gutter_color = 1
+let g:pencil_higher_contrast_ui = 0
+let g:pencil_neutral_code_bg = 0
+let g:pencil_neutral_headings = 0
+let g:pencil_spell_undercurl = 0
+
 silent! call plug#end()
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
