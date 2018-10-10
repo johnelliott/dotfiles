@@ -57,14 +57,14 @@ export NVM_DIR="$HOME/.nvm"
 
 # Highlight the hostname when connected via SSH.
 if [[ "${SSH_TTY}" ]]; then
-  sshWarning="\[\033[1;31m\]SSH \[\033[0;33m\]";
+  sshWarning="\[\033[00;33m\]\u@\h \[\033[1;31m\]SSH \[\033[0;33m\]";
 else
   sshWarning="";
 fi;
 # bold yellow \[\033[1;33m\]
 # reset \[\033[0m\]
 # https://en.wikipedia.org/wiki/ANSI_escape_code
-PS1="\[\033[00;33m\]\u@\h $sshWarning\[\033[01;36m\]\w \$\[\033[00m\] "
+PS1="$sshWarning\[\033[01;36m\]\w \$\[\033[00m\] "
 PS2="\[\033[1;32m\]→ \[\033[0m\]";
 export PS1;
 export PS2;

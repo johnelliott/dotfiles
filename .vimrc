@@ -1,8 +1,12 @@
-silent! source $VIMRUNTIME/defaults.vim
-se nocp noswapfile nobk nojs gd ic wmnu wic
-se ts=4 et sts=2 sw=2 bs=indent,eol,start
-se udir=~/.vim/undo cb=unnamed mouse=a
-sy on
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+se nocp noswapfile nobk nojs gd ic wic
+se ts=4 et sts=2 sw=2
+se udir=~/.vim/undo cb=unnamed
+
+" Stuff I don't need because defaults
+"sy on
+"se mouse=a bs=indent,eol,start wmnu
 
 nn <space>[ :se co=116<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
@@ -21,10 +25,6 @@ autocmd BufNewFile,BufRead .babelrc,.firebaserc set syntax=json
 let g:netrw_banner = 0
 
 func! PostPlug() "call last
-  if has('termguicolors')
-    se notermguicolors
-    silent! colo base16-default
-  endif
   if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
   endif
