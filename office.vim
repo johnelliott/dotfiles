@@ -1,3 +1,21 @@
+" Plugins via vim-plug: https://github.com/junegunn/vim-plug
+silent! call plug#begin()
+silent! Plug '/usr/local/opt/fzf'
+silent! Plug 'Glench/Vim-Jinja2-Syntax'
+silent! Plug 'NLKNguyen/papercolor-theme'
+silent! Plug 'airblade/vim-gitgutter'
+silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+silent! Plug 'editorconfig/editorconfig-vim'
+silent! Plug 'ekalinin/Dockerfile.vim'
+silent! Plug 'jparise/vim-graphql'
+silent! Plug 'junegunn/fzf.vim'
+silent! Plug 'lifepillar/pgsql.vim'
+silent! Plug 'moll/vim-node'
+silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+silent! Plug 'stephenway/postcss.vim'
+silent! Plug 'w0rp/ale'
+silent! call plug#end()
 " Linting
 "let g:ale_linters_explicit = 1
 let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
@@ -20,6 +38,16 @@ endif
 
 " Colors & GUI
 if has('gui_running')
+  if has('gui_macvim')
+    let macvim_skip_colorscheme = 1
+  endif
+  let g:pencil_terminal_italics = 1
+else
+  if has('termguicolors')
+    se notermguicolors
+  endif
+  nn <space>Q :!source dark<CR><CR>:se bg=dark<CR>
+  nn <space>W :!source light<CR><CR>:se bg=light<CR>
   if has('touchbar')
     "remove items
     silent! aun TouchBar
@@ -35,8 +63,8 @@ if has('gui_running')
     nme TouchBar.clist :clist<CR>
     nme icon=NSTouchBarFastForwardTemplate TouchBar.\> :cnext<CR>
     nme TouchBar.-smain- :
-    nme TouchBar.dark :silent! exec "colo ".dark<CR>
-    nme TouchBar.light :silent! exec "colo ".light<CR>
+    nme TouchBar.dark :se background=dark<CR>
+    nme TouchBar.light :se background=light<CR>
     "nme icon=NSTouchBarSkipAheadTemplate TouchBar.\>\> :cnf<CR>
     nme TouchBar.-s3- :
     for i in ['🧐', '🤖', '🤮', '🐠', '👻', '⚠️', '🔮', '🤡', '🚨', '🎾', '👿', ]
@@ -47,3 +75,30 @@ if has('gui_running')
     "an TouchBar.Escape\ Escape\ Escape\ Escape <Esc>
   endif
 endif
+nn <space>q :se bg=dark<CR>
+nn <space>w :se bg=light<CR>
+nn <space>d :r!date<CR><esc>I// <esc>
+nn <space>[ :se co=126<CR><C-W>=
+nn <space>] :se co=224<CR><C-W>=
+nn <space>r :tabe $MYVIMRC<CR>:vs ~/.vimrc.local<CR>
+
+let g:gitgutter_enabled = 1
+autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax = json
+
+"nn <space>h :h netrw-quickmap<CR>
+nn <space>h :se hls!<CR>
+
+if ($TERM_BG == 'dark')
+  se bg=dark
+elseif ($TERM_BG == 'light')
+  se bg=light
+endif
+
+colo PaperColor
+hi CursorLine gui=underline
+hi CursorLine term=underline
+hi CursorLine cterm=underline
+hi CursorLine guibg=background
+hi CursorLine ctermbg=255
+
+"se ls=2
