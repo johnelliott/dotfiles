@@ -38,10 +38,9 @@ endif
 
 " Colors & GUI
 if has('gui_running')
-  if has('gui_macvim')
-    let macvim_skip_colorscheme = 1
-  endif
-  let g:pencil_terminal_italics = 1
+  "if has('gui_macvim')
+  "  let macvim_skip_colorscheme = 1
+  "endif
 else
   if has('termguicolors')
     se notermguicolors
@@ -78,16 +77,18 @@ endif
 nn <space>q :se bg=dark<CR>
 nn <space>w :se bg=light<CR>
 nn <space>d :r!date<CR><esc>I// <esc>
-nn <space>[ :se co=126<CR><C-W>=
-nn <space>] :se co=224<CR><C-W>=
+nn <space>[ :se co=116<CR><C-W>=
+nn <space>] :se co=212<CR><C-W>=
 nn <space>r :tabe $MYVIMRC<CR>:vs ~/.vimrc.local<CR>
+nn <space>t :tabe %<CR>
 
 let g:gitgutter_enabled = 1
-autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax = json
+autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
 
 "nn <space>h :h netrw-quickmap<CR>
 nn <space>h :se hls!<CR>
 
+"se bg=dark
 if ($TERM_BG == 'dark')
   se bg=dark
 elseif ($TERM_BG == 'light')
@@ -95,10 +96,4 @@ elseif ($TERM_BG == 'light')
 endif
 
 colo PaperColor
-hi CursorLine gui=underline
-hi CursorLine term=underline
-hi CursorLine cterm=underline
-hi CursorLine guibg=background
-hi CursorLine ctermbg=255
-
-"se ls=2
+se ls=2
