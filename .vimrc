@@ -1,5 +1,9 @@
 unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+if (filereadable($VIMRUNTIME .'/defaults.vim'))
+  source $VIMRUNTIME/defaults.vim
+elseif (filereadable($VIMRUNTIME .'/vimrc_example.vim'))
+  source $VIMRUNTIME/vimrc_example.vim
+endif
 se nocp noswapfile nobk nojs gd ic wic
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
@@ -38,8 +42,9 @@ if filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
 else
   autocmd BufNewFile,BufRead .babelrc,.firebaserc set syntax=json
-  nn <space>[ :se co=116<CR><C-W>=
-  nn <space>] :se co=212<CR><C-W>=
+  autocmd BufNewFile,BufRead *.js.applescript set syntax=javascript
+  nn <space>[ :se co=112<CR><C-W>=
+  nn <space>] :se co=188<CR><C-W>=
   nn <space>d o<esc>:r!date<CR><esc>o<esc>
   nn <space>n :!node %<CR>
   nn <space>r :tabe $MYVIMRC<CR>
@@ -47,11 +52,13 @@ else
   nn <space>w :se bg=light<CR>
   nn <space>Q :se bg=dark<CR>:! dark<CR>
   nn <space>W :se bg=light<CR>:! light<CR>
+  nn <space>t :tabe  %<CR>
+  "se ls=2
 
-  if $TERM_BG =~? 'light'
-    set bg=light
-  else
+  if $TERM_BG =~? 'dark'
     set bg=dark
+  elseif $TERM_BG =~? 'light'
+    set bg=light
   endif
   if has('gui_macvim')
     let macvim_skip_colorscheme = 1
