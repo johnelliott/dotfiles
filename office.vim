@@ -16,6 +16,7 @@ silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'stephenway/postcss.vim'
 silent! Plug 'w0rp/ale'
 silent! call plug#end()
+nn <c-p> :FZF<CR>
 " Linting
 "let g:ale_linters_explicit = 1
 let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
