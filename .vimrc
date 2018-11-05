@@ -43,10 +43,11 @@ if filereadable(glob("~/.vimrc.local"))
 else
   autocmd BufNewFile,BufRead .babelrc,.firebaserc set syntax=json
   autocmd BufNewFile,BufRead *.js.applescript set syntax=javascript
+  autocmd FileType javascript,javascript.jsx set kp=mdn
   nn <space>[ :se co=112<CR><C-W>=
   nn <space>] :se co=188<CR><C-W>=
   nn <space>d o<esc>:r!date<CR><esc>o<esc>
-  nn <space>n :!node %<CR>
+  "nn <space>n :!node %<CR>
   nn <space>r :tabe $MYVIMRC<CR>
   nn <space>q :se bg=dark<CR>
   nn <space>w :se bg=light<CR>
