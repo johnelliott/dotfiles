@@ -85,6 +85,7 @@ nn <space>t :tabe %<CR>
 
 let g:gitgutter_enabled = 1
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
+autocmd FileType javascript,javascript.jsx set kp=mdn
 
 "nn <space>h :h netrw-quickmap<CR>
 nn <space>h :se hls!<CR>
