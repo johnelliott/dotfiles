@@ -47,6 +47,7 @@ brew install git
 brew install git-lfs
 brew install gnu-sed --with-default-names # Install GNU `sed`, overwriting the built-in `sed`.
 brew install goaccess
+brew install google-cloud-sdk
 brew install graphicsmagick
 brew install grep
 brew install htop

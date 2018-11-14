@@ -85,6 +85,7 @@ else
   silent! Plug 'prettier/vim-prettier'
   silent! Plug 'stephenway/postcss.vim'
   silent! Plug 'w0rp/ale'
+  silent! Plug 'chr4/nginx.vim'
   silent! call plug#end()
   nn <c-p> :FZF<CR>
   let g:ale_linters_explicit = 1
