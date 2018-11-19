@@ -38,50 +38,51 @@ if eslintrc != ''
 endif
 
 " Colors & GUI
+if ($TERM_BG == 'dark')
+  se bg=dark
+  colo PaperColor
+elseif ($TERM_BG == 'light')
+  se bg=light
+  if has('gui_running')
+    if has('gui_macvim')
+      colo macvim
+    endif
+  else
+    colo PaperColor
+  endif
+endif
+
 if has('gui_running')
-  "if has('gui_macvim')
-  "  let macvim_skip_colorscheme = 1
-  "endif
+  " if has('gui_macvim')
+  "   "let macvim_skip_colorscheme = 1
+  "   "colo macvim
+  " endif
 else
   if has('termguicolors')
     se notermguicolors
   endif
   nn <space>Q :!source dark<CR><CR>:se bg=dark<CR>
   nn <space>W :!source light<CR><CR>:se bg=light<CR>
-  if has('touchbar')
-    "remove items
-    silent! aun TouchBar
-    "add items
-    "nme TouchBar.buffers :buffers<CR>
-    nme TouchBar.marks :marks<CR>
-    nme TouchBar.registers :registers<CR>
-    "nme TouchBar.history :history<CR>
-    "nme TouchBar.node\ % :!node %<CR>
-    "nme icon=NSTouchBarSkipBackTemplate TouchBar.\<\< :cpf<CR>
-    nme TouchBar.-flexspacenode- :
-    nme icon=NSTouchBarRewindTemplate TouchBar.\< :cprevious<CR>
-    nme TouchBar.clist :clist<CR>
-    nme icon=NSTouchBarFastForwardTemplate TouchBar.\> :cnext<CR>
-    nme TouchBar.-smain- :
-    nme TouchBar.dark :se background=dark<CR>
-    nme TouchBar.light :se background=light<CR>
-    "nme icon=NSTouchBarSkipAheadTemplate TouchBar.\>\> :cnf<CR>
-    nme TouchBar.-s3- :
-    for i in ['🧐', '🤖', '🤮', '🐠', '👻', '⚠️', '🔮', '🤡', '🚨', '🎾', '👿', ]
-      exec "ime TouchBar.".i." ".i
-    endfor
-    "an TouchBar.\.vimrc :tabe $MYVIMRC<CR>
-    "an icon=NSTouchBarColorPickerStroke TouchBar.colo :colo *
-    "an TouchBar.Escape\ Escape\ Escape\ Escape <Esc>
-  endif
 endif
+
 nn <space>q :se bg=dark<CR>
 nn <space>w :se bg=light<CR>
 nn <space>d :r!date<CR><esc>I// <esc>
-nn <space>[ :se co=116<CR><C-W>=
+nn <space>[ :se co=123<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
 nn <space>r :tabe $MYVIMRC<CR>:vs ~/.vimrc.local<CR>
 nn <space>t :tabe %<CR>
+
+no <space>1 a🧐<esc>
+no <space>2 a🧠<esc>
+no <space>3 a🐠<esc>
+no <space>4 a🔮<esc>
+no <space>5 a🦁<esc>
+no <space>6 a🦖<esc>
+no <space>7 a🎾<esc>
+no <space>8 a🔰<esc>
+no <space>9 a🧐<esc>
+no <space>0 a🤡<esc>
 
 let g:gitgutter_enabled = 1
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
@@ -90,12 +91,5 @@ autocmd FileType javascript,javascript.jsx set kp=mdn
 "nn <space>h :h netrw-quickmap<CR>
 nn <space>h :se hls!<CR>
 
-"se bg=dark
-if ($TERM_BG == 'dark')
-  se bg=dark
-elseif ($TERM_BG == 'light')
-  se bg=light
-endif
 
-colo PaperColor
-se ls=2
+se ls=2 cul nu rnu sc
