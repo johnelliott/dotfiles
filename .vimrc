@@ -41,7 +41,7 @@ if filereadable(glob("~/.vimrc.local"))
   " if we have a local file, then just do that
   source ~/.vimrc.local
 else
-  autocmd BufNewFile,BufRead .babelrc,.firebaserc set syntax=json
+  autocmd BufNewFile,BufRead .stylelintrc,.babelrc,.firebaserc set syntax=json
   autocmd BufNewFile,BufRead *.js.applescript set syntax=javascript
   autocmd FileType javascript,javascript.jsx set kp=mdn
   nn <space>[ :se co=112<CR><C-W>=
@@ -53,6 +53,19 @@ else
   nn <space>Q :se bg=dark<CR>:! dark<CR>
   nn <space>W :se bg=light<CR>:! light<CR>
   nn <space>t :tabe  %<CR>
+
+  ino <C-e>1 🧐
+  ino <C-e>1 🧐
+  ino <C-e>2 🧠
+  ino <C-e>3 🐠
+  ino <C-e>4 🔮
+  ino <C-e>5 🦁
+  ino <C-e>6 🦖
+  ino <C-e>7 🎾
+  ino <C-e>8 🔰
+  ino <C-e>9 🧐
+  ino <C-e>0 🤡
+
   "se ls=2
 
 
@@ -78,9 +91,9 @@ else
   silent! Plug 'chr4/nginx.vim'
   silent! call plug#end()
   nn <c-p> :FZF<CR>
-  let g:ale_linters_explicit = 1
+  "let g:ale_linters_explicit = 0
   let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
   let g:sql_type_default = 'pgsql'
   let g:jsx_ext_required = 0 " Highlight .js as .jsx
   let g:gitgutter_enabled = 1

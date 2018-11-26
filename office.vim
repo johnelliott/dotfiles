@@ -73,16 +73,17 @@ nn <space>] :se co=212<CR><C-W>=
 nn <space>r :tabe $MYVIMRC<CR>:vs ~/.vimrc.local<CR>
 nn <space>t :tabe %<CR>
 
-no <space>1 a🧐<esc>
-no <space>2 a🧠<esc>
-no <space>3 a🐠<esc>
-no <space>4 a🔮<esc>
-no <space>5 a🦁<esc>
-no <space>6 a🦖<esc>
-no <space>7 a🎾<esc>
-no <space>8 a🔰<esc>
-no <space>9 a🧐<esc>
-no <space>0 a🤡<esc>
+ino <C-e>1 🧐
+ino <C-e>1 🧐
+ino <C-e>2 🧠
+ino <C-e>3 🐠
+ino <C-e>4 🔮
+ino <C-e>5 🦁
+ino <C-e>6 🦖
+ino <C-e>7 🎾
+ino <C-e>8 🔰
+ino <C-e>9 🧐
+ino <C-e>0 🤡
 
 let g:gitgutter_enabled = 1
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
