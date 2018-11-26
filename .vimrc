@@ -55,7 +55,6 @@ else
   nn <space>t :tabe  %<CR>
 
   ino <C-e>1 🧐
-  ino <C-e>1 🧐
   ino <C-e>2 🧠
   ino <C-e>3 🐠
   ino <C-e>4 🔮
@@ -63,11 +62,7 @@ else
   ino <C-e>6 🦖
   ino <C-e>7 🎾
   ino <C-e>8 🔰
-  ino <C-e>9 🧐
-  ino <C-e>0 🤡
-
-  "se ls=2
-
+  ino <C-e>9 🤡
 
   " Plugins https://github.com/junegunn/vim-plug
   silent! call plug#begin()
@@ -91,13 +86,13 @@ else
   silent! Plug 'chr4/nginx.vim'
   silent! call plug#end()
   nn <c-p> :FZF<CR>
-  "let g:ale_linters_explicit = 0
-  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
   let g:sql_type_default = 'pgsql'
   let g:jsx_ext_required = 0 " Highlight .js as .jsx
   let g:gitgutter_enabled = 1
   let g:ale_set_loclist = 0
+  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  "let g:ale_linters_explicit = 0
 
   "if $TERM_BG =~? 'dark'
   "  set bg=dark
@@ -110,5 +105,8 @@ else
   "  silent! colo PaperColor
   "endif
   "silent! se notgc
+
   nn <space>x :!scheme < %<CR>
+
+  "se ls=2
 endif
