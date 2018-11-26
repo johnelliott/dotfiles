@@ -47,7 +47,6 @@ else
   nn <space>[ :se co=112<CR><C-W>=
   nn <space>] :se co=188<CR><C-W>=
   nn <space>d o<esc>:r!date<CR><esc>o<esc>
-  "nn <space>n :!node %<CR>
   nn <space>r :tabe $MYVIMRC<CR>
   nn <space>q :se bg=dark<CR>
   nn <space>w :se bg=light<CR>
@@ -56,15 +55,6 @@ else
   nn <space>t :tabe  %<CR>
   "se ls=2
 
-  if $TERM_BG =~? 'dark'
-    set bg=dark
-  elseif $TERM_BG =~? 'light'
-    set bg=light
-  endif
-  if has('gui_macvim')
-    let macvim_skip_colorscheme = 1
-  endif
-  silent! se notgc
 
   " Plugins https://github.com/junegunn/vim-plug
   silent! call plug#begin()
@@ -93,7 +83,19 @@ else
   let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
   let g:sql_type_default = 'pgsql'
   let g:jsx_ext_required = 0 " Highlight .js as .jsx
-  let g:gitgutter_enabled = 0
+  let g:gitgutter_enabled = 1
   let g:ale_set_loclist = 0
-  silent! colo PaperColor
+
+  "if $TERM_BG =~? 'dark'
+  "  set bg=dark
+  "elseif $TERM_BG =~? 'light'
+  "  set bg=light
+  "endif
+  "if has('gui_macvim')
+  "  "let macvim_skip_colorscheme = 1
+  "else
+  "  silent! colo PaperColor
+  "endif
+  "silent! se notgc
+  nn <space>x :!scheme < %<CR>
 endif
