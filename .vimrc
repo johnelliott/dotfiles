@@ -71,9 +71,11 @@ else
   silent! Plug 'NLKNguyen/papercolor-theme'
   silent! Plug 'airblade/vim-gitgutter'
   silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+  silent! Plug 'chr4/nginx.vim'
   silent! Plug 'digitaltoad/vim-pug',
   silent! Plug 'editorconfig/editorconfig-vim'
   silent! Plug 'ekalinin/Dockerfile.vim'
+  silent! Plug 'jeffkreeftmeijer/vim-dim'
   silent! Plug 'jparise/vim-graphql'
   silent! Plug 'junegunn/fzf.vim'
   silent! Plug 'lifepillar/pgsql.vim'
@@ -83,7 +85,6 @@ else
   silent! Plug 'prettier/vim-prettier'
   silent! Plug 'stephenway/postcss.vim'
   silent! Plug 'w0rp/ale'
-  silent! Plug 'chr4/nginx.vim'
   silent! call plug#end()
   nn <c-p> :FZF<CR>
   let g:sql_type_default = 'pgsql'
@@ -94,19 +95,19 @@ else
   let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
   "let g:ale_linters_explicit = 0
 
-  "if $TERM_BG =~? 'dark'
-  "  set bg=dark
-  "elseif $TERM_BG =~? 'light'
-  "  set bg=light
-  "endif
-  "if has('gui_macvim')
-  "  "let macvim_skip_colorscheme = 1
-  "else
-  "  silent! colo PaperColor
-  "endif
-  "silent! se notgc
+  if $TERM_BG =~? 'dark'
+    set bg=dark
+  elseif $TERM_BG =~? 'light'
+    set bg=light
+  endif
+  if has('gui_macvim')
+    "let macvim_skip_colorscheme = 1
+    colo macvim
+  else
+    "silent! colo PaperColor
+    silent! colo dim
+  endif
+  silent! se notgc
 
   nn <space>x :!scheme < %<CR>
-
-  "se ls=2
 endif

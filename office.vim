@@ -7,6 +7,7 @@ silent! Plug 'airblade/vim-gitgutter'
 silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'ekalinin/Dockerfile.vim'
+silent! Plug 'jeffkreeftmeijer/vim-dim'
 silent! Plug 'jparise/vim-graphql'
 silent! Plug 'junegunn/fzf.vim'
 silent! Plug 'lifepillar/pgsql.vim'
@@ -38,32 +39,19 @@ if eslintrc != ''
 endif
 
 " Colors & GUI
-if ($TERM_BG == 'dark')
-  se bg=dark
-  colo PaperColor
-elseif ($TERM_BG == 'light')
-  se bg=light
-  if has('gui_running')
-    if has('gui_macvim')
-      colo macvim
-    endif
-  else
-    colo PaperColor
-  endif
+if $TERM_BG =~? 'dark'
+  set bg=dark
+elseif $TERM_BG =~? 'light'
+  set bg=light
 endif
-
-if has('gui_running')
-  " if has('gui_macvim')
-  "   "let macvim_skip_colorscheme = 1
-  "   "colo macvim
-  " endif
+if has('gui_macvim')
+  "let macvim_skip_colorscheme = 1
+  colo macvim
 else
-  if has('termguicolors')
-    se notermguicolors
-  endif
-  nn <space>Q :!source dark<CR><CR>:se bg=dark<CR>
-  nn <space>W :!source light<CR><CR>:se bg=light<CR>
+  "silent! colo PaperColor
+  silent! colo dim
 endif
+silent! se notgc
 
 nn <space>q :se bg=dark<CR>
 nn <space>w :se bg=light<CR>
@@ -74,7 +62,6 @@ nn <space>r :tabe $MYVIMRC<CR>:vs ~/.vimrc.local<CR>
 nn <space>t :tabe %<CR>
 
 ino <C-e>1 🧐
-ino <C-e>1 🧐
 ino <C-e>2 🧠
 ino <C-e>3 🐠
 ino <C-e>4 🔮
@@ -82,8 +69,7 @@ ino <C-e>5 🦁
 ino <C-e>6 🦖
 ino <C-e>7 🎾
 ino <C-e>8 🔰
-ino <C-e>9 🧐
-ino <C-e>0 🤡
+ino <C-e>9 🤡
 
 let g:gitgutter_enabled = 1
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
@@ -92,5 +78,4 @@ autocmd FileType javascript,javascript.jsx set kp=mdn
 "nn <space>h :h netrw-quickmap<CR>
 nn <space>h :se hls!<CR>
 
-
-se ls=2 cul nu rnu sc
+se ls=2 cul nu rnu sc hls
