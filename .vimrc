@@ -95,19 +95,19 @@ else
   let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
   "let g:ale_linters_explicit = 0
 
-  if $TERM_BG =~? 'dark'
+  let g:apple_interface_style=system("defaults read -g AppleInterfaceStyle")
+  if g:apple_interface_style ==? "dark\n"
     set bg=dark
-  elseif $TERM_BG =~? 'light'
+  elseif g:apple_interface_style ==? "light\n"
     set bg=light
   endif
+  silent! se notgc
   if has('gui_macvim')
     "let macvim_skip_colorscheme = 1
     colo macvim
   else
-    "silent! colo PaperColor
     silent! colo dim
   endif
-  silent! se notgc
 
   nn <space>x :!scheme < %<CR>
 endif

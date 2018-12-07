@@ -15,7 +15,7 @@ alias .....="cd ../../../.."
 alias git="hub"
 
 # Additional Shortcuts
-alias h="history"
+alias h="history | tail -n 150"
 alias j="jobs"
 alias du='du -ch --max-depth=1'
 alias ll="ls -alrtFG"

@@ -16,6 +16,7 @@ silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'stephenway/postcss.vim'
 silent! Plug 'w0rp/ale'
+silent! Plug 'jeffkreeftmeijer/vim-dim'
 silent! call plug#end()
 nn <c-p> :FZF<CR>
 " Linting
@@ -38,23 +39,10 @@ if eslintrc != ''
   let g:ale_linters = { 'javascript': ['eslint'] }
 endif
 
-" Colors & GUI
-if $TERM_BG =~? 'dark'
-  set bg=dark
-elseif $TERM_BG =~? 'light'
-  set bg=light
-endif
-if has('gui_macvim')
-  "let macvim_skip_colorscheme = 1
-  colo macvim
-else
-  "silent! colo PaperColor
-  silent! colo dim
-endif
-silent! se notgc
-
 nn <space>q :se bg=dark<CR>
 nn <space>w :se bg=light<CR>
+nn <space>Q :se bg=dark<CR>:! dark<CR>
+nn <space>W :se bg=light<CR>:! light<CR><CR>
 nn <space>d :r!date<CR><esc>I// <esc>
 nn <space>[ :se co=123<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
@@ -75,7 +63,21 @@ let g:gitgutter_enabled = 1
 autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
 autocmd FileType javascript,javascript.jsx set kp=mdn
 
-"nn <space>h :h netrw-quickmap<CR>
+let g:apple_interface_style=system("defaults read -g AppleInterfaceStyle")
+if g:apple_interface_style ==? "dark\n"
+  set bg=dark
+elseif g:apple_interface_style ==? "light\n"
+  set bg=light
+endif
+silent! se notgc
+if has('gui_macvim')
+  "let macvim_skip_colorscheme = 1
+  colo macvim
+else
+  silent! colo dim
+endif
+
 nn <space>h :se hls!<CR>
 
 se ls=2 cul nu rnu sc hls
+
