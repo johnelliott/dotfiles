@@ -19,6 +19,7 @@ silent! Plug 'w0rp/ale'
 silent! Plug 'jeffkreeftmeijer/vim-dim'
 silent! call plug#end()
 nn <c-p> :FZF<CR>
+nn <space>p :Tags<CR>
 " Linting
 "let g:ale_linters_explicit = 1
 let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }

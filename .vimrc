@@ -87,6 +87,7 @@ else
   silent! Plug 'w0rp/ale'
   silent! call plug#end()
   nn <c-p> :FZF<CR>
+  nn <space>p :Tags<CR>
   let g:sql_type_default = 'pgsql'
   let g:jsx_ext_required = 0 " Highlight .js as .jsx
   let g:gitgutter_enabled = 1
@@ -102,12 +103,14 @@ else
     set bg=light
   endif
   silent! se notgc
+
   if has('gui_macvim')
-    "let macvim_skip_colorscheme = 1
-    colo macvim
+    if &background == 'light'
+      colo macvim
+    else
+      colo papercolor
+    endif
   else
     silent! colo dim
   endif
-
-  nn <space>x :!scheme < %<CR>
 endif

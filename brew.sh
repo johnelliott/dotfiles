@@ -73,7 +73,7 @@ brew install tree
 brew install vim --with-override-system-vi
 brew install wget --with-iri
 brew install youtube-dl
-
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # Remove outdated versions from the cellar.
 brew cleanup
