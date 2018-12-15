@@ -83,6 +83,9 @@
 
 	# Detect copies as well as renames
 	renames = copies
+	# use vim for this
+	tool = vimdiff
+	guitool = gvimdiff
 
 [help]
 
