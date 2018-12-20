@@ -5,9 +5,6 @@
 	remotes = remote -v
 	recent = branch --sort=-committerdate
 
-	# Amend the currently staged files to the latest commit
-    # amend = commit --amend --reuse-message=HEAD
-
 	# Find branches containing commit
 	fb = "!f() { git branch -a --contains $1; }; f"
 
@@ -27,8 +24,8 @@
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
-    conflicts = "diff --name-only --diff-filter=U"
-    # Fix merge conflict files
+	conflicts = "diff --name-only --diff-filter=U"
+	# Fix merge conflict files
 	fix = "!f() { ${VISUAL} `git conflicts`; }; f"
 	atomfix = "!f() { atom `git conflicts`; }; f"
 
@@ -74,53 +71,42 @@
 	new = green # additions
 
 [color "status"]
-
 	added = yellow
 	changed = green
 	untracked = cyan
 
 [diff]
-
 	# Detect copies as well as renames
 	renames = copies
-	# use vim for this
 	tool = vimdiff
 	guitool = gvimdiff
 
 [help]
-
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
 
 [merge]
-
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	conflictstyle = diff3
+	tool = vimdiff
+	guitool = gvimdiff
 
 [push]
-
 	# Use the Git 2.?.x default
 	# `git config --global push.default simple`. See http://git.io/mMah-w.
 	default = simple
 
 # URL shorthands
-
 [url "git@github.com:"]
-
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
 	pushInsteadOf = "git://github.com/"
-
 [url "git://github.com/"]
-
 	insteadOf = "github:"
-
 [url "git@gist.github.com:"]
-
 	insteadOf = "gst:"
 	pushInsteadOf = "gist:"
 	pushInsteadOf = "git://gist.github.com/"
-
 [url "git://gist.github.com/"]
-
 	insteadOf = "gist:"
