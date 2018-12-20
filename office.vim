@@ -21,23 +21,40 @@ silent! call plug#end()
 nn <c-p> :FZF<CR>
 nn <space>p :Tags<CR>
 " Linting
-"let g:ale_linters_explicit = 1
-let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
+let g:ale_linters_explicit = 1
+let g:ale_linters = { 'javascript': ['semistandard'], 'css': ['stylelint'] }
+let g:ale_fixers = { 'javascript': ['semistandard'], 'css': ['stylelint'] }
+
 let local_semistandard = finddir('node_modules', '.;') . '/.bin/semistandard'
 if executable(local_semistandard)
   let g:ale_javascript_standard_executable = local_semistandard
 endif
-let local_prettier = finddir('node_modules', '.;') . '/.bin/prettier'
-if executable(local_prettier)
-  let g:ale_linters = {}
-  let g:ale_fixers = { '*': ['prettier'] }
-  let b:ale_fix_on_save = 1
-endif
+
+"let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
+"if executable(local_standard)
+"  let g:ale_javascript_standard_executable = local_standard
+"endif
+
+"let local_prettier = finddir('node_modules', '.;') . '/.bin/prettier'
+"if executable(local_prettier)
+"  let g:ale_linters = {}
+"  let g:ale_fixers = { '*': ['prettier'] }
+"  let b:ale_fix_on_save = 1
+"endif
+
 " http://stackoverflow.com/questions/28573553 Updated for w0rp/ale
-let eslintrc = findfile('.eslintrc', '.;')
+let eslintrc = findfile('.eslintrc.json', '.;')
 if eslintrc != ''
-  let g:ale_linters = { 'javascript': ['eslint'] }
+  let g:ale_linters = {
+  \   'javascript': ['eslint'],
+  \   'jsx': ['stylelint', 'eslint'],
+  \   'javascript.jsx': ['stylelint', 'eslint'],
+  \}
+  let g:ale_fixers = {
+  \   'javascript': ['eslint'],
+  \   'javascript.jsx': ['eslint'],
+  \   'jsx': ['eslint']
+  \}
 endif
 
 nn <space>q :se bg=dark<CR>
@@ -47,7 +64,7 @@ nn <space>W :se bg=light<CR>:! light<CR><CR>
 nn <space>d :r!date<CR><esc>I// <esc>
 nn <space>[ :se co=123<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
-nn <space>r :tabe $MYVIMRC<CR>:vs ~/.vimrc.local<CR>
+nn <space>r :tabe ~/.vimrc.local<CR>
 nn <space>t :tabe %<CR>
 
 ino <C-e>1 🧐
