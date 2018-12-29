@@ -7,21 +7,17 @@ endif
 se nocp noswapfile nobk nojs gd ic wic
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
-" Stuff I don't need because of defaults.vim
-"sy on
-"se mouse=a bs=indent,eol,start wmnu
-
-nn <space>c :colo *
-nn <space>e :Sex<CR>
-nn <space>f :ALEFix<CR>
-nn <space>n :bn<CR>
-nn <space>p :bp<CR>
-nn <space>r :tabe $MYVIMRC<CR>
-nn <space>s :up<CR>
-nn <space>v :Vex<CR>
 let g:netrw_banner = 0
 
-" Make grep faster on macOS using ag
+nn <space>s :up<CR>
+nn <space>t :tabe %<CR>
+nn <space>c :colo *
+nn <space>e :Sex<CR>
+nn <space>v :Vex<CR>
+nn <space>n :bn<CR>
+nn <space>p :bp<CR>
+
+" Use ag for grep program
 if executable('ag')
   set grepprg=ag\ --vimgrep\ $*
 endif
@@ -41,30 +37,27 @@ if filereadable(glob("~/.vimrc.local"))
   " if we have a local file, then just do that
   source ~/.vimrc.local
 else
-  autocmd BufNewFile,BufRead .stylelintrc,.babelrc,.firebaserc set syntax=json
-  autocmd BufNewFile,BufRead *.js.applescript set syntax=javascript
-  autocmd FileType javascript,javascript.jsx set kp=mdn
+  autocmd BufNewFile,BufRead .stylelintrc,.babelrc,.firebaserc,.eslintrc set filetype=json
+  if executable('mdn')
+    autocmd FileType javascript,javascript.jsx set kp=mdn
+  endif
+  nn <space>r :tabe $MYVIMRC<CR>
   nn <space>[ :se co=112<CR><C-W>=
   nn <space>] :se co=188<CR><C-W>=
   nn <space>d o<esc>:r!date<CR><esc>o<esc>
-  nn <space>r :tabe $MYVIMRC<CR>
   nn <space>q :se bg=dark<CR>
   nn <space>w :se bg=light<CR>
   nn <space>Q :se bg=dark<CR>:! dark<CR>
   nn <space>W :se bg=light<CR>:! light<CR>
-  nn <space>t :tabe  %<CR>
 
-  ino <C-e>1 🧐
-  ino <C-e>2 🧠
-  ino <C-e>3 🐠
-  ino <C-e>4 🔮
-  ino <C-e>5 🦁
-  ino <C-e>6 🦖
-  ino <C-e>7 🎾
-  ino <C-e>8 🔰
-  ino <C-e>9 🤡
+  iab :guy: 😎
+  iab :hmm: 🧐
+  iab :brain: 🧠
+  iab :fish: 🐠
+  iab :dino: 🦖
+  iab :clown: 🤡
 
-  " Plugins https://github.com/junegunn/vim-plug
+  " https://github.com/junegunn/vim-plug
   silent! call plug#begin()
   silent! Plug '/usr/local/opt/fzf'
   silent! Plug 'Glench/Vim-Jinja2-Syntax'
@@ -76,6 +69,7 @@ else
   silent! Plug 'editorconfig/editorconfig-vim'
   silent! Plug 'ekalinin/Dockerfile.vim'
   silent! Plug 'jeffkreeftmeijer/vim-dim'
+  silent! Plug 'johnelliott/auto-darkmode.vim'
   silent! Plug 'jparise/vim-graphql'
   silent! Plug 'junegunn/fzf.vim'
   silent! Plug 'lifepillar/pgsql.vim'
@@ -88,29 +82,16 @@ else
   silent! call plug#end()
   nn <c-p> :FZF<CR>
   nn <space>p :Tags<CR>
+  nn <space>f :ALEFix<CR>
   let g:sql_type_default = 'pgsql'
   let g:jsx_ext_required = 0 " Highlight .js as .jsx
   let g:gitgutter_enabled = 1
   let g:ale_set_loclist = 0
+  "let g:ale_linters_explicit = 0
   let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
   let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
-  "let g:ale_linters_explicit = 0
 
-  let g:apple_interface_style=system("defaults read -g AppleInterfaceStyle")
-  if g:apple_interface_style ==? "dark\n"
-    set bg=dark
-  elseif g:apple_interface_style ==? "light\n"
-    set bg=light
-  endif
-  silent! se notgc
-
-  if has('gui_macvim')
-    if &background == 'light'
-      colo macvim
-    else
-      colo papercolor
-    endif
-  else
+  if &term =~ "xterm"
     silent! colo dim
   endif
 endif
