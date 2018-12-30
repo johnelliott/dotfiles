@@ -12,7 +12,8 @@ let g:netrw_banner = 0
 nn <space>s :up<CR>
 nn <space>t :tabe %<CR>
 nn <space>c :colo *
-nn <space>e :Sex<CR>
+nn <space>e :Ex<CR>
+nn <space>E :Sex<CR>
 nn <space>v :Vex<CR>
 nn <space>n :bn<CR>
 nn <space>p :bp<CR>
@@ -91,7 +92,13 @@ else
   let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
   let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
 
-  if &term =~ "xterm"
+  if has('gui_running')
+    if (&background == 'light' && has('gui_macvim'))
+      colo macvim
+    else
+      colo vim-monokai-tasty
+    endif
+  else
     silent! colo dim
   endif
 endif
