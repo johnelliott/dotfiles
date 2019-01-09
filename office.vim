@@ -15,34 +15,40 @@ silent! Plug 'moll/vim-node'
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'stephenway/postcss.vim'
+silent! Plug 'johnelliott/auto-darkmode.vim'
 silent! Plug 'w0rp/ale'
 silent! Plug 'jeffkreeftmeijer/vim-dim'
 silent! call plug#end()
-nn <c-p> :FZF<CR>
-nn <space>p :Tags<CR>
-" Linting
-let g:ale_linters_explicit = 1
-let g:ale_linters = { 'javascript': ['semistandard'], 'css': ['stylelint'] }
-let g:ale_fixers = { 'javascript': ['semistandard'], 'css': ['stylelint'] }
+let g:gitgutter_enabled = 1
 
-let local_semistandard = finddir('node_modules', '.;') . '/.bin/semistandard'
-if executable(local_semistandard)
-  let g:ale_javascript_standard_executable = local_semistandard
+autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
+autocmd FileType javascript,javascript.jsx set kp=mdn cul nu ls=2
+se sc hls
+nn <space>h :noh<CR>
+nn <space>q :se bg=dark<CR>
+nn <space>w :se bg=light<CR>
+nn <space>Q :se bg=dark<CR>:! dark<CR>
+nn <space>W :se bg=light<CR>:! light<CR><CR>
+nn <space>p :Tags<CR>
+nn <space>d :r!date<CR><esc>
+nn <space>[ :se co=123<CR><C-W>=
+nn <space>] :se co=212<CR><C-W>=
+nn <space>r :tabe ~/.vimrc.local<CR>
+nn <space>t :tabe %<CR>
+nn <c-f> :ALEFix<CR>
+nn <c-F> :ALEInfo<CR>
+nn <c-p> :FZF<CR>
+
+silent! se notgc
+if has('gui_running')
+  colo papercolor
+else
+  silent! colo dim
 endif
 
-"let local_standard = finddir('node_modules', '.;') . '/.bin/standard'
-"if executable(local_standard)
-"  let g:ale_javascript_standard_executable = local_standard
-"endif
-
-"let local_prettier = finddir('node_modules', '.;') . '/.bin/prettier'
-"if executable(local_prettier)
-"  let g:ale_linters = {}
-"  let g:ale_fixers = { '*': ['prettier'] }
-"  let b:ale_fix_on_save = 1
-"endif
-
+" Linting
 " http://stackoverflow.com/questions/28573553 Updated for w0rp/ale
+"let eslintrc = findfile('.eslintrc', '.;')
 let eslintrc = findfile('.eslintrc.json', '.;')
 if eslintrc != ''
   let g:ale_linters = {
@@ -55,17 +61,23 @@ if eslintrc != ''
   \   'javascript.jsx': ['eslint'],
   \   'jsx': ['eslint']
   \}
+else
+  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
 endif
-
-nn <space>q :se bg=dark<CR>
-nn <space>w :se bg=light<CR>
-nn <space>Q :se bg=dark<CR>:! dark<CR>
-nn <space>W :se bg=light<CR>:! light<CR><CR>
-nn <space>d :r!date<CR><esc>I// <esc>
-nn <space>[ :se co=123<CR><C-W>=
-nn <space>] :se co=212<CR><C-W>=
-nn <space>r :tabe ~/.vimrc.local<CR>
-nn <space>t :tabe %<CR>
+"TODO learn vimscript 🙄
+let local_std = finddir('node_modules', '.;') . '/.bin/standard'
+if executable(local_std)
+  let g:ale_javascript_standard_executable = local_std
+endif
+let local_std = finddir('node_modules', '.;') . '/.bin/semistandard'
+if executable(local_std)
+  let g:ale_javascript_standard_executable = local_std
+endif
+let local_std = finddir('node_modules', '.;') . '/.bin/standardx'
+if executable(local_std)
+  let g:ale_javascript_standard_executable = local_std
+endif
 
 ino <C-e>1 🧐
 ino <C-e>2 🧠
@@ -76,26 +88,10 @@ ino <C-e>6 🦖
 ino <C-e>7 🎾
 ino <C-e>8 🔰
 ino <C-e>9 🤡
-
-let g:gitgutter_enabled = 1
-autocmd BufNewFile,BufRead .babelrc,.nycrc,.stylelintrc set syntax=json
-autocmd FileType javascript,javascript.jsx set kp=mdn
-
-let g:apple_interface_style=system("defaults read -g AppleInterfaceStyle")
-if g:apple_interface_style ==? "dark\n"
-  set bg=dark
-elseif g:apple_interface_style ==? "light\n"
-  set bg=light
-endif
-silent! se notgc
-if has('gui_macvim')
-  "let macvim_skip_colorscheme = 1
-  colo macvim
-else
-  silent! colo dim
-endif
-
-nn <space>h :se hls!<CR>
-
-se ls=2 cul nu rnu sc hls
-
+iab :hmm: 🧐
+iab :brain: 🧠
+iab :face: 🤪
+iab :guy: 😎
+iab :fish: 🐠
+iab :dino: 🦖
+iab :clown: 🤡
