@@ -35,9 +35,10 @@ nn <space>[ :se co=123<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
 nn <space>r :tabe ~/.vimrc.local<CR>
 nn <space>t :tabe %<CR>
+nn <c-p> :FZF<CR>
 nn <c-f> :ALEFix<CR>
 nn <c-F> :ALEInfo<CR>
-nn <c-p> :FZF<CR>
+nn <space>g :GitGutterToggle<CR>
 
 silent! se notgc
 if has('gui_running')
@@ -63,7 +64,7 @@ if eslintrc != ''
   \}
 else
   let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
   let node_modules = finddir('node_modules', '.;')
   if len(node_modules)
     let standard_exec_names = ['standard', 'semistandard', 'standardx']
