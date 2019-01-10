@@ -64,19 +64,16 @@ if eslintrc != ''
 else
   let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
   let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'] }
-endif
-"TODO learn vimscript 🙄
-let local_std = finddir('node_modules', '.;') . '/.bin/standard'
-if executable(local_std)
-  let g:ale_javascript_standard_executable = local_std
-endif
-let local_std = finddir('node_modules', '.;') . '/.bin/semistandard'
-if executable(local_std)
-  let g:ale_javascript_standard_executable = local_std
-endif
-let local_std = finddir('node_modules', '.;') . '/.bin/standardx'
-if executable(local_std)
-  let g:ale_javascript_standard_executable = local_std
+  let node_modules = finddir('node_modules', '.;')
+  if len(node_modules)
+    let standard_exec_names = ['standard', 'semistandard', 'standardx']
+    for e in standard_exec_names
+      let exec = node_modules . '/.bin/' . e
+      if executable(exec)
+        let g:ale_javascript_standard_executable = exec
+      endif
+    endfor
+  endif
 endif
 
 ino <C-e>1 🧐
