@@ -410,7 +410,7 @@
 	<key>columnCount</key>
 	<integer>100</integer>
 	<key>name</key>
-	<string>dark 8</string>
+	<string>dark-8</string>
 	<key>noWarnProcesses</key>
 	<array>
 		<dict>
