@@ -4,21 +4,104 @@ if (filereadable($VIMRUNTIME .'/defaults.vim'))
 elseif (filereadable($VIMRUNTIME .'/vimrc_example.vim'))
   source $VIMRUNTIME/vimrc_example.vim
 endif
+
 se nocp noswapfile nobk nojs gd ic wic
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
 let g:netrw_banner = 0
 
+func! PostPlug()
+  if has('gui_running') && (has('gui_macvim'))
+    se transparency=12
+    se blurradius=15
+    colo papercolor "deep-space jellybeans inkpot molokai smyck
+  else
+    silent! colo dim
+  endif
+endfunc
+
 nn <space>s :up<CR>
 nn <space>t :tabe %<CR>
-nn <space>c :colo *
-nn <space>e :Ex<CR>
-nn <space>E :Sex<CR>
+nn <space>e :Sex<CR>
+nn <space>E :Ex<CR>
 nn <space>v :Vex<CR>
 nn <space>n :bn<CR>
 nn <space>p :bp<CR>
+nn <space>[ :se co=122<CR><C-W>=
+nn <space>] :se co=212<CR><C-W>=
+nn <Down> :cn<CR>
+nn <Up> :cp<CR>
+nn <S-Down> :lne<CR>
+nn <S-Up> :lp<CR>
+nn <Left> :cpf<CR>
+nn <Right> :cnf<CR>
+nn <space>q :se bg=dark<CR>
+nn <space>w :se bg=light<CR>
+nn <space>Q :se bg=dark<CR>:! dark<CR>
+nn <space>W :se bg=light<CR>:! light<CR>
+nn <c-p> :FZF<CR>
+nn <space>g :GitGutterToggle<CR>
+nn <space>c :colo *
+nn <space>r :tabe $MYVIMRC<CR>
+nn <space>d o<esc>:r!date<CR><esc>o<esc>
+nn <space>p :Tags<CR>
+nn <space>f :ALEFix<CR>
+nn <space>F :ALEInfo<CR>
+nn <space>g :GitGutterToggle<CR>
 
-" Use ag for grep program
+autocmd BufNewFile,BufRead .stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc set filetype=json
+autocmd FileType javascript,javascript.jsx setl cul nu ls=2
+if executable('mdn')
+  autocmd FileType javascript,javascript.jsx setl kp=mdn
+endif
+
+silent! call plug#begin() " https://github.com/junegunn/vim-plug
+silent! Plug 'Glench/Vim-Jinja2-Syntax'
+silent! Plug 'NLKNguyen/papercolor-theme'
+silent! Plug 'airblade/vim-gitgutter'
+silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+silent! Plug 'cespare/vim-toml'
+silent! Plug 'chr4/nginx.vim'
+silent! Plug 'digitaltoad/vim-pug',
+silent! Plug 'editorconfig/editorconfig-vim'
+silent! Plug 'ekalinin/Dockerfile.vim'
+silent! Plug 'jeffkreeftmeijer/vim-dim'
+silent! Plug 'johnelliott/auto-darkmode.vim'
+silent! Plug 'jparise/vim-graphql'
+silent! Plug 'junegunn/fzf.vim'
+silent! Plug 'lifepillar/pgsql.vim'
+silent! Plug 'moll/vim-node'
+silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+silent! Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+silent! Plug 'ssh://github.com/johnelliott/tdb-ale-config'
+silent! Plug 'stephenway/postcss.vim'
+silent! Plug 'w0rp/ale'
+silent! Plug '/usr/local/opt/fzf'
+silent! Plug 'ssh://github.com/johnelliott/tdb-ale-config'
+silent! Plug 'prettier/vim-prettier'
+  \ 'for': ['javascript', 'typescript', 'css', 'less',
+    \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+"silent! Plug 'vim-scripts/xoria256.vim'
+"silent! Plug 'flazz/vim-colorschemes'
+silent! call plug#end()
+call PostPlug()
+
+let g:sql_type_default = 'pgsql'
+let g:jsx_ext_required = 0 " Highlight .js as .jsx
+"let g:gitgutter_enabled = 1
+"let g:ale_linters_explicit = 0
+"let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+"let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+
+let local_prettier = finddir('node_modules', '.;') . '/.bin/prettier-standard'
+if executable(local_prettier)
+  let g:ale_fixers = { 'javascript': ['prettier_standard'] }
+  " This is the suggested opton for not seeing warnings,
+  " but i would rather learn to not make mistakes in the first place
+  "let g:ale_linters = { 'javascript': [''] }
+endif
+
 if executable('ag')
   set grepprg=ag\ --vimgrep\ $*
 endif
@@ -34,71 +117,19 @@ else
   nn <space>m :! open -a macvim.app %<CR><CR>
 endif
 
-if filereadable(glob("~/.vimrc.local"))
-  " if we have a local file, then just do that
-  source ~/.vimrc.local
-else
-  autocmd BufNewFile,BufRead .stylelintrc,.babelrc,.firebaserc,.eslintrc set filetype=json
-  if executable('mdn')
-    autocmd FileType javascript,javascript.jsx set kp=mdn
-  endif
-  nn <space>r :tabe $MYVIMRC<CR>
-  nn <space>[ :se co=112<CR><C-W>=
-  nn <space>] :se co=188<CR><C-W>=
-  nn <space>d o<esc>:r!date<CR><esc>o<esc>
-  nn <space>q :se bg=dark<CR>
-  nn <space>w :se bg=light<CR>
-  nn <space>Q :se bg=dark<CR>:! dark<CR>
-  nn <space>W :se bg=light<CR>:! light<CR>
-
-  iab :guy: 😎
-  iab :hmm: 🧐
-  iab :brain: 🧠
-  iab :fish: 🐠
-  iab :dino: 🦖
-  iab :clown: 🤡
-
-  " https://github.com/junegunn/vim-plug
-  silent! call plug#begin()
-  silent! Plug '/usr/local/opt/fzf'
-  silent! Plug 'Glench/Vim-Jinja2-Syntax'
-  silent! Plug 'NLKNguyen/papercolor-theme'
-  silent! Plug 'airblade/vim-gitgutter'
-  silent! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-  silent! Plug 'chr4/nginx.vim'
-  silent! Plug 'digitaltoad/vim-pug',
-  silent! Plug 'editorconfig/editorconfig-vim'
-  silent! Plug 'ekalinin/Dockerfile.vim'
-  silent! Plug 'jeffkreeftmeijer/vim-dim'
-  silent! Plug 'johnelliott/auto-darkmode.vim'
-  silent! Plug 'jparise/vim-graphql'
-  silent! Plug 'junegunn/fzf.vim'
-  silent! Plug 'lifepillar/pgsql.vim'
-  silent! Plug 'moll/vim-node'
-  silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-  silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-  silent! Plug 'prettier/vim-prettier'
-  silent! Plug 'stephenway/postcss.vim'
-  silent! Plug 'w0rp/ale'
-  silent! call plug#end()
-  nn <c-p> :FZF<CR>
-  nn <space>p :Tags<CR>
-  nn <space>f :ALEFix<CR>
-  let g:sql_type_default = 'pgsql'
-  let g:jsx_ext_required = 0 " Highlight .js as .jsx
-  let g:gitgutter_enabled = 1
-  let g:ale_set_loclist = 0
-  "let g:ale_linters_explicit = 0
-  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
-
-  if has('gui_running')
-    if (&background == 'light' && has('gui_macvim'))
-      colo macvim
-    else
-      colo vim-monokai-tasty
-    endif
-  else
-    silent! colo dim
-  endif
-endif
+ia :brain: 🧠
+ia :clown: 🤡
+ia :dino: 🦖
+ia :face: 🤪
+ia :fish: 🐠
+ia :guy: 😎
+ia :hmm: 🧐
+ino <C-e>1 🧐
+ino <C-e>2 🧠
+ino <C-e>3 🐠
+ino <C-e>4 🔮
+ino <C-e>5 🦁
+ino <C-e>6 🦖
+ino <C-e>7 🎾
+ino <C-e>8 🔰
+ino <C-e>9 🤡
