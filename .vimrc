@@ -5,14 +5,14 @@ elseif (filereadable($VIMRUNTIME .'/vimrc_example.vim'))
   source $VIMRUNTIME/vimrc_example.vim
 endif
 
-se nocp noswapfile nobk nojs gd ic wic
+se nocp noswapfile nobk nojs gd ic wic hls
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
 let g:netrw_banner = 0
 
 func! PostPlug()
   if has('gui_running') && (has('gui_macvim'))
-    se transparency=12
+    se transparency=5
     se blurradius=15
     colo papercolor "deep-space jellybeans inkpot molokai smyck
   else
@@ -74,11 +74,9 @@ silent! Plug 'moll/vim-node'
 silent! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 silent! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 silent! Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-silent! Plug 'ssh://github.com/johnelliott/tdb-ale-config'
 silent! Plug 'stephenway/postcss.vim'
 silent! Plug 'w0rp/ale'
 silent! Plug '/usr/local/opt/fzf'
-silent! Plug 'ssh://github.com/johnelliott/tdb-ale-config'
 silent! Plug 'prettier/vim-prettier'
   \ 'for': ['javascript', 'typescript', 'css', 'less',
     \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
@@ -86,20 +84,37 @@ silent! Plug 'prettier/vim-prettier'
 "silent! Plug 'flazz/vim-colorschemes'
 silent! call plug#end()
 call PostPlug()
-
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
-"let g:gitgutter_enabled = 1
-"let g:ale_linters_explicit = 0
-"let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-"let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
-
-let local_prettier = finddir('node_modules', '.;') . '/.bin/prettier-standard'
-if executable(local_prettier)
-  let g:ale_fixers = { 'javascript': ['prettier_standard'] }
-  " This is the suggested opton for not seeing warnings,
-  " but i would rather learn to not make mistakes in the first place
-  "let g:ale_linters = { 'javascript': [''] }
+"linter setup
+let eslintrc = findfile('.eslintrc', '.;')
+if eslintrc != ''
+  let g:ale_linters = {
+  \   'javascript': ['eslint'],
+  \   'jsx': ['stylelint', 'eslint'],
+  \   'javascript.jsx': ['stylelint', 'eslint'],
+  \}
+  let g:ale_fixers = {
+  \   'javascript': ['eslint'],
+  \   'javascript.jsx': ['eslint'],
+  \   'jsx': ['eslint'],
+  \   '*': ['trim_whitespace'],
+  \}
+else
+  " otherwise check for standard variants in our projects
+  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  let node_modules = finddir('node_modules', '.;')
+  if len(node_modules)
+    " later elements will override, so standard versions are in reverse order
+    let standard_exec_names = ['standard', 'semistandard', 'standardx']
+    for e in standard_exec_names
+      let exec = node_modules . '/.bin/' . e
+      if executable(exec)
+        let g:ale_javascript_standard_executable = exec
+      endif
+    endfor
+  endif
 endif
 
 if executable('ag')
