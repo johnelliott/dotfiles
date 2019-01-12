@@ -5,10 +5,41 @@ elseif (filereadable($VIMRUNTIME .'/vimrc_example.vim'))
   source $VIMRUNTIME/vimrc_example.vim
 endif
 
-se nocp noswapfile nobk nojs gd ic wic hls
+se nocp noswapfile nobk nojs gd ic wic hls sc
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
+se bg=dark
 let g:netrw_banner = 0
+
+nn <space>s :up<CR>
+nn <space>r :tabe $MYVIMRC<CR>
+nn <space>c :colo *
+nn <space>q :se bg=dark<CR>
+nn <space>w :se bg=light<CR>
+nn <space>Q :se bg=dark<CR>:! dark<CR>
+nn <space>W :se bg=light<CR>:! light<CR>
+nn <space>[ :se co=122<CR><C-W>=
+nn <space>] :se co=212<CR><C-W>=
+
+nn <space>t :tabe %<CR>
+nn <space>E :Sex<CR>
+nn <space>e :Ex<CR>
+nn <space>v :Vex<CR>
+nn <c-p> :FZF<CR>
+nn <space>p :Tags<CR>
+
+nn <Up> :cp<CR>
+nn <Down> :cn<CR>
+nn <Left> :cpf<CR>
+nn <Right> :cnf<CR>
+nn ]l :ALENext<CR>
+nn [l :ALEPrevious<CR>
+
+nn <space>F :ALEInfo<CR>
+nn <space>f :ALEFix<CR>
+nn <space>g :GitGutterToggle<CR>
+
+nn <space>d o<esc>:r!date "+\%Y-\%m-\%d \%H:\%M:\%S"<CR>2E
 
 func! PostPlug()
   if has('gui_running') && (has('gui_macvim'))
@@ -19,35 +50,6 @@ func! PostPlug()
     silent! colo dim
   endif
 endfunc
-
-nn <space>s :up<CR>
-nn <space>t :tabe %<CR>
-nn <space>e :Sex<CR>
-nn <space>E :Ex<CR>
-nn <space>v :Vex<CR>
-nn <space>n :bn<CR>
-nn <space>p :bp<CR>
-nn <space>[ :se co=122<CR><C-W>=
-nn <space>] :se co=212<CR><C-W>=
-nn <Down> :cn<CR>
-nn <Up> :cp<CR>
-nn <S-Down> :lne<CR>
-nn <S-Up> :lp<CR>
-nn <Left> :cpf<CR>
-nn <Right> :cnf<CR>
-nn <space>q :se bg=dark<CR>
-nn <space>w :se bg=light<CR>
-nn <space>Q :se bg=dark<CR>:! dark<CR>
-nn <space>W :se bg=light<CR>:! light<CR>
-nn <c-p> :FZF<CR>
-nn <space>g :GitGutterToggle<CR>
-nn <space>c :colo *
-nn <space>r :tabe $MYVIMRC<CR>
-nn <space>d o<esc>:r!date<CR><esc>o<esc>
-nn <space>p :Tags<CR>
-nn <space>f :ALEFix<CR>
-nn <space>F :ALEInfo<CR>
-nn <space>g :GitGutterToggle<CR>
 
 autocmd BufNewFile,BufRead .stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc set filetype=json
 autocmd FileType javascript,javascript.jsx setl cul nu ls=2
@@ -66,7 +68,6 @@ silent! Plug 'digitaltoad/vim-pug',
 silent! Plug 'editorconfig/editorconfig-vim'
 silent! Plug 'ekalinin/Dockerfile.vim'
 silent! Plug 'jeffkreeftmeijer/vim-dim'
-silent! Plug 'johnelliott/auto-darkmode.vim'
 silent! Plug 'jparise/vim-graphql'
 silent! Plug 'junegunn/fzf.vim'
 silent! Plug 'lifepillar/pgsql.vim'
@@ -84,6 +85,7 @@ silent! Plug 'prettier/vim-prettier'
 "silent! Plug 'flazz/vim-colorschemes'
 silent! call plug#end()
 call PostPlug()
+
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
