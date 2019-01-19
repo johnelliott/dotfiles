@@ -8,8 +8,38 @@ endif
 se noswapfile nobk nojs gd ic wic hls sc
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
-se bg=light
 let g:netrw_banner = 0
+
+aug javascript
+  au!
+  au BufNewFile,BufRead .graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
+  au FileType javascript,javascript.jsx setl cul nu ls=2
+  au FileType javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
+  if executable('mdn')
+    au FileType javascript,javascript.jsx setl kp=mdn
+  endif
+aug END
+
+if executable('ag')
+  se gp=ag\ --vimgrep\ $*
+endif
+
+if has('gui_macvim')
+  " guioptions are changed individually
+  se go-=e "native tab pages
+  se go-=r "permenant right scrollbar
+  se go-=L "some other scrollbar
+  se go+=k "keep window size
+  se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
+  se blurradius=15
+
+  aug plaintext
+    au!
+    au FileType text se lbr wrap
+  aug END
+else
+  nn <space>m :! open -a macvim.app %<CR><CR>
+endif
 
 nn <space>s :up<CR>
 nn <space>h :noh<CR>
@@ -48,43 +78,6 @@ ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
 
-if executable('ag')
-  set grepprg=ag\ --vimgrep\ $*
-endif
-
-if has('gui_macvim')
-  "se transparency=3
-  "se blurradius=15
-  " guioptions are changed individually
-  se go-=e "native tab pages
-  se go-=r "permenant right scrollbar
-  se go-=L "some other scrollbar
-  se go+=k "keep window size
-  se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
-  aug plaintext
-    au!
-    au FileType text se lbr wrap
-  aug END
-else
-  nn <space>m :! open -a macvim.app %<CR><CR>
-endif
-
-func! SetDarkMode()
-  if has('osxdarwin')
-    if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
-      set background=dark
-    endif
-  endif
-endfunc
-if v:vim_did_enter
-  call SetDarkMode()
-else
-  aug darkmode
-    au!
-    au VimEnter * call SetDarkMode()
-  aug END
-endif
-
 sil! call plug#begin() " https://github.com/junegunn/vim-plug
 sil! Plug 'Glench/Vim-Jinja2-Syntax'
 sil! Plug 'NLKNguyen/papercolor-theme'
@@ -115,21 +108,27 @@ sil! Plug 'prettier/vim-prettier'
 "sil! Plug 'flazz/vim-colorschemes'
 sil! call plug#end()
 
+func! SetDarkMode()
+  if has('osxdarwin')
+    if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
+      set background=dark
+    endif
+  endif
+endfunc
+if v:vim_did_enter
+  call SetDarkMode()
+else
+  aug darkmode
+    au!
+    au ColorSchemePre * call SetDarkMode()
+  aug END
+endif
+
 if has('gui_running')
   colo papercolor "acme deep-space jellybeans inkpot molokai smyck
 else
   sil! colo dim
 endif
-
-aug javascript
-  au!
-  au BufNewFile,BufRead .graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc set filetype=json
-  au FileType javascript,javascript.jsx setl cul nu ls=2
-  au FileType javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
-  if executable('mdn')
-    au FileType javascript,javascript.jsx setl kp=mdn
-  endif
-aug END
 
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
