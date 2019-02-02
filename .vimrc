@@ -12,16 +12,13 @@ let g:netrw_banner = 0
 
 aug javascript
   au!
-  au BufNewFile,BufRead *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au FileType javascript,javascript.jsx setl nu ls=2
-  au FileType rust,javascript,javascript.jsx  nn <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-  au FileType rust  nn <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  au FileType rust,javascript,javascript.jsx  nn <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-  au FileType javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
+  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
+  au filetype javascript,javascript.jsx setl nu ls=2
+  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
   if executable('mdn')
-    au FileType javascript,javascript.jsx setl kp=mdn
+    au filetype javascript,javascript.jsx setl kp=mdn
   endif
-aug END
+aug end
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
@@ -157,6 +154,12 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ }
     "\ 'python': ['/usr/local/bin/pyls'],
+aug languageserver
+  au!
+  au filetype rust,javascript,javascript.jsx  nn <buffer> <silent> k :call languageclient#textdocument_hover()<cr>
+  au filetype rust  nn <buffer> <silent> gd :call languageclient#textdocument_definition()<cr>
+  au filetype rust,javascript,javascript.jsx  nn <buffer> <silent> <f2> :call languageclient#textdocument_rename()<cr>
+aug end
 
 "javascript
 let g:sql_type_default = 'pgsql'
