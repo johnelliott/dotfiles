@@ -12,8 +12,11 @@ let g:netrw_banner = 0
 
 aug javascript
   au!
-  au BufNewFile,BufRead .graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au FileType javascript,javascript.jsx setl cul nu ls=2
+  au BufNewFile,BufRead *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
+  au FileType javascript,javascript.jsx setl nu ls=2
+  au FileType rust,javascript,javascript.jsx  nn <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+  au FileType rust  nn <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  au FileType rust,javascript,javascript.jsx  nn <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
   au FileType javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
   if executable('mdn')
     au FileType javascript,javascript.jsx setl kp=mdn
@@ -81,6 +84,7 @@ ino <C-e>6 😎
 sil! call plug#begin() " https://github.com/junegunn/vim-plug
 sil! Plug 'Glench/Vim-Jinja2-Syntax'
 sil! Plug 'NLKNguyen/papercolor-theme'
+sil! Plug 'ap/vim-css-color'
 sil! Plug 'airblade/vim-gitgutter'
 sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 sil! Plug 'cespare/vim-toml'
@@ -91,6 +95,7 @@ sil! Plug 'ekalinin/Dockerfile.vim'
 sil! Plug 'jeffkreeftmeijer/vim-dim'
 sil! Plug 'jparise/vim-graphql'
 sil! Plug 'junegunn/fzf.vim'
+sil! Plug 'leafgarland/typescript-vim'
 sil! Plug 'lifepillar/pgsql.vim'
 sil! Plug 'moll/vim-node'
 sil! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
@@ -105,7 +110,12 @@ sil! Plug 'plan9-for-vimspace/acme-colors'
 sil! Plug 'prettier/vim-prettier'
       \ 'for': ['javascript', 'typescript', 'css', 'less',
       \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-"sil! Plug 'flazz/vim-colorschemes'
+sil! Plug 'flazz/vim-colorschemes'
+sil!  Plug 'itchyny/lightline.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 sil! call plug#end()
 
 func! SetDarkMode()
@@ -125,15 +135,36 @@ else
 endif
 
 if has('gui_running')
-  colo papercolor "acme deep-space jellybeans inkpot molokai smyck
+  if &bg == 'dark'
+    colo Atelier_DuneDark
+    "colo papercolor
+    "colo acme
+    "colo deep-space
+    "colo jellybeans
+    "colo inkpot
+    "colo molokai
+    "colo smyck
+  endif
 else
   sil! colo dim
 endif
 
+"rust
+"let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ }
+    "\ 'python': ['/usr/local/bin/pyls'],
+
+"javascript
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_fix_on_save = 1
+let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
 let eslintrc = findfile('.eslintrc', '.;')
 if eslintrc != ''
   let g:ale_linters = {
