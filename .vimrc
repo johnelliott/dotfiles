@@ -13,12 +13,18 @@ let g:netrw_banner = 0
 aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype javascript,javascript.jsx setl nu ls=2
+  au filetype rust,javascript,javascript.jsx setl nu ls=2
   au filetype javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
   endif
 aug end
+
+aug cpp
+  au!
+  au filetype cpp let b:ale_c_parse_makefile=1
+aug end
+let g:ale_c_parse_makefile=1
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
@@ -108,7 +114,7 @@ sil! Plug 'prettier/vim-prettier'
       \ 'for': ['javascript', 'typescript', 'css', 'less',
       \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 sil! Plug 'flazz/vim-colorschemes'
-sil!  Plug 'itchyny/lightline.vim'
+"sil!  Plug 'itchyny/lightline.vim'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -132,8 +138,10 @@ else
 endif
 
 if has('gui_running')
-  if &bg == 'dark'
-    colo Atelier_DuneDark
+  colo Tomorrow-Night-Eighties
+  if &bg == 'light'
+    colo Tomorrow
+    "colo Atelier_DuneDark
     "colo papercolor
     "colo acme
     "colo deep-space
@@ -147,18 +155,19 @@ else
 endif
 
 "rust
-"let g:LanguageClient_autoStart = 1
+let g:LanguageClient_autoStart = 0
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ }
+    "\ 'cpp': ['clangd'],
     "\ 'python': ['/usr/local/bin/pyls'],
 aug languageserver
   au!
-  au filetype rust,javascript,javascript.jsx  nn <buffer> <silent> k :call languageclient#textdocument_hover()<cr>
-  au filetype rust  nn <buffer> <silent> gd :call languageclient#textdocument_definition()<cr>
-  au filetype rust,javascript,javascript.jsx  nn <buffer> <silent> <f2> :call languageclient#textdocument_rename()<cr>
+  au filetype cpp,rust,javascript,javascript.jsx nn <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+  au filetype cpp,rust nn <buffer> <silent> gd :call LanguageClient#textDocument_definition()<cr>
+  au filetype cpp,rust,javascript,javascript.jsx nn <buffer> <silent> <f2> :call LanguageClient#textDocument_rename()<cr>
 aug end
 
 "javascript
