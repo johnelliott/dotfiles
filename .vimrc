@@ -13,8 +13,8 @@ let g:netrw_banner = 0
 aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype rust,javascript,javascript.jsx setl nu ls=2
-  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyawoconsole.log('😫 l', l)0
+  au filetype rust,javascript,javascript.jsx setl ls=2
+  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l)0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
   endif
@@ -24,7 +24,6 @@ aug cpp
   au!
   au filetype cpp let b:ale_c_parse_makefile=1
 aug end
-let g:ale_c_parse_makefile=1
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
@@ -105,16 +104,15 @@ sil! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 sil! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 sil! Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 sil! Plug 'stephenway/postcss.vim'
-sil! Plug 'w0rp/ale'
 sil! Plug 'pearofducks/ansible-vim'
 sil! Plug 'NLKNguyen/c-syntax.vim'
 sil! Plug '/usr/local/opt/fzf'
 sil! Plug 'plan9-for-vimspace/acme-colors'
+Plug 'w0rp/ale'
 sil! Plug 'prettier/vim-prettier'
       \ 'for': ['javascript', 'typescript', 'css', 'less',
       \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 sil! Plug 'flazz/vim-colorschemes'
-"sil!  Plug 'itchyny/lightline.vim'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -138,7 +136,6 @@ else
 endif
 
 if has('gui_running')
-  colo Tomorrow-Night-Eighties
   if &bg == 'light'
     colo Tomorrow
     "colo Atelier_DuneDark
@@ -149,26 +146,32 @@ if has('gui_running')
     "colo inkpot
     "colo molokai
     "colo smyck
+  else
+    colo Tomorrow-Night-Eighties
   endif
 else
   sil! colo dim
 endif
 
-"rust
-let g:LanguageClient_autoStart = 0
+"LSP
+"let g:LanguageClient_autoStart = 0
+autocmd FileType * call LanguageClientMaps()
+function! LanguageClientMaps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nn <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+    nn <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nn <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+    set completefunc=LanguageClient#complete
+  endif
+endfunction
+
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript': ['tcp://127.0.0.1:2089'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ }
+    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     "\ 'cpp': ['clangd'],
-    "\ 'python': ['/usr/local/bin/pyls'],
-aug languageserver
-  au!
-  au filetype cpp,rust,javascript,javascript.jsx nn <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-  au filetype cpp,rust nn <buffer> <silent> gd :call LanguageClient#textDocument_definition()<cr>
-  au filetype cpp,rust,javascript,javascript.jsx nn <buffer> <silent> <f2> :call LanguageClient#textDocument_rename()<cr>
-aug end
+    "\ 'python': ['tcp://127.0.0.1:2090']
 
 "javascript
 let g:sql_type_default = 'pgsql'
