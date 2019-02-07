@@ -83,6 +83,7 @@ ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
 
+let g:ale_completion_enabled=1
 sil! call plug#begin() " https://github.com/junegunn/vim-plug
 sil! Plug 'Glench/Vim-Jinja2-Syntax'
 sil! Plug 'NLKNguyen/papercolor-theme'
@@ -113,10 +114,7 @@ sil! Plug 'prettier/vim-prettier'
       \ 'for': ['javascript', 'typescript', 'css', 'less',
       \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 sil! Plug 'flazz/vim-colorschemes'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 sil! call plug#end()
 
 func! SetDarkMode()
@@ -154,32 +152,24 @@ else
 endif
 
 "LSP
-"let g:LanguageClient_autoStart = 0
-autocmd FileType * call LanguageClientMaps()
-function! LanguageClientMaps()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    nn <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-    nn <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nn <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-    set completefunc=LanguageClient#complete
-  endif
+"let g:CoC_autoStart = 0
+autocmd FileType * call CoCMaps()
+function! CoCMaps()
+  "CoC Remap keys for gotos
+  " g* are vim commands
+  nmap <silent> <space>gd <Plug>(coc-definition)
+  nmap <silent> <space>gy <Plug>(coc-type-definition)
+  nmap <silent> <space>gi <Plug>(coc-implementation)
+  nmap <silent> <space>gr <Plug>(coc-references)
 endfunction
-
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['tcp://127.0.0.1:2089'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ }
-    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    "\ 'cpp': ['clangd'],
-    "\ 'python': ['tcp://127.0.0.1:2090']
 
 "javascript
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_fix_on_save = 1
-let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+"let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+"let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
 let eslintrc = findfile('.eslintrc', '.;')
 if eslintrc != ''
   let g:ale_linters = {
