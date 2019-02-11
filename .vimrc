@@ -5,29 +5,36 @@ elseif (filereadable($VIMRUNTIME .'/vimrc_example.vim'))
   source $VIMRUNTIME/vimrc_example.vim
 endif
 
-se noswapfile nobk nojs gd ic wic hls sc
+se noswapfile nobk nojs gd ic wic sc
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
-let g:netrw_banner = 0
-
-aug javascript
-  au!
-  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype rust,javascript,javascript.jsx setl ls=2
-  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l)0
-  if executable('mdn')
-    au filetype javascript,javascript.jsx setl kp=mdn
-  endif
-aug end
-
-aug cpp
-  au!
-  au filetype cpp let b:ale_c_parse_makefile=1
-aug end
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
+
+func! Colors()
+  if has('osxdarwin')
+    if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
+      set background=dark
+    endif
+  endif
+
+  if has('gui_running')
+    "if &bg == 'light'
+    "  colo bclear
+    "elseif &bg == 'dark'
+    "  colo Tomorrow-Night
+    "else
+    "  if has('gui_macvim')
+    "    colo macvim
+    "  endif
+    "endif
+    sil! colo papercolor
+  else
+    sil! colo dim
+  endif
+endfunc
 
 if has('gui_macvim')
   " guioptions are changed individually
@@ -35,19 +42,16 @@ if has('gui_macvim')
   se go-=r "permenant right scrollbar
   se go-=L "some other scrollbar
   se go+=k "keep window size
-  se guifont=SF\ Mono:h13,Inconsolata:h15,Menlo:h13
-  se blurradius=15
+  se guifont=SF\ Mono:h12,Inconsolata:h15,Menlo:h13
+  "se blurradius=15
 
-  aug plaintext
-    au!
-    au FileType text se lbr wrap
-  aug END
 else
   nn <space>m :! open -a macvim.app %<CR><CR>
 endif
 
 nn <space>s :up<CR>
 nn <space>h :noh<CR>
+nn <space>H :se hls!<CR>
 nn <space>r :tabe $MYVIMRC<CR>
 nn <space>c :colo *
 nn <space>q :se bg=dark<CR>
@@ -56,7 +60,6 @@ nn <space>Q :se bg=dark<CR>:! dark<CR>
 nn <space>W :se bg=light<CR>:! light<CR>
 nn <space>[ :se co=112<CR><C-W>=
 nn <space>] :se co=212<CR><C-W>=
-nm <space>F <Plug>(ale_info)
 nm <space>f <Plug>(ale_fix)
 
 nn <space>t :tabe %<CR>
@@ -70,8 +73,6 @@ nn <Up> :cp<CR>
 nn <Down> :cn<CR>
 nn <Left> :cpf<CR>
 nn <Right> :cnf<CR>
-nn ]l <Plug>(ale_next_wrap)
-nn [l <Plug>(ale_previous_wrap)
 
 nn <space>g :GitGutterToggle<CR>
 nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>$
@@ -83,85 +84,32 @@ ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
 
-let g:ale_completion_enabled=1
-sil! call plug#begin() " https://github.com/junegunn/vim-plug
-sil! Plug 'Glench/Vim-Jinja2-Syntax'
-sil! Plug 'NLKNguyen/papercolor-theme'
-sil! Plug 'ap/vim-css-color'
-sil! Plug 'airblade/vim-gitgutter'
-sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-sil! Plug 'cespare/vim-toml'
-sil! Plug 'chr4/nginx.vim'
-sil! Plug 'digitaltoad/vim-pug',
-sil! Plug 'editorconfig/editorconfig-vim'
-sil! Plug 'ekalinin/Dockerfile.vim'
-sil! Plug 'jeffkreeftmeijer/vim-dim'
-sil! Plug 'jparise/vim-graphql'
-sil! Plug 'junegunn/fzf.vim'
-sil! Plug 'leafgarland/typescript-vim'
-sil! Plug 'lifepillar/pgsql.vim'
-sil! Plug 'moll/vim-node'
-sil! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-sil! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-sil! Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-sil! Plug 'stephenway/postcss.vim'
-sil! Plug 'pearofducks/ansible-vim'
-sil! Plug 'NLKNguyen/c-syntax.vim'
-sil! Plug '/usr/local/opt/fzf'
-sil! Plug 'plan9-for-vimspace/acme-colors'
-Plug 'w0rp/ale'
-sil! Plug 'prettier/vim-prettier'
-      \ 'for': ['javascript', 'typescript', 'css', 'less',
-      \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-sil! Plug 'flazz/vim-colorschemes'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-sil! call plug#end()
-
-func! SetDarkMode()
-  if has('osxdarwin')
-    if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
-      set background=dark
-    endif
+aug javascript
+  au!
+  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
+  au filetype rust,javascript,javascript.jsx setl ls=2
+  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l)0
+  if executable('mdn')
+    au filetype javascript,javascript.jsx setl kp=mdn
   endif
-endfunc
-if v:vim_did_enter
-  call SetDarkMode()
-else
-  aug darkmode
-    au!
-    au ColorSchemePre * call SetDarkMode()
-  aug END
-endif
+aug end
 
-if has('gui_running')
-  if &bg == 'light'
-    colo Tomorrow
-    "colo Atelier_DuneDark
-    "colo papercolor
-    "colo acme
-    "colo deep-space
-    "colo jellybeans
-    "colo inkpot
-    "colo molokai
-    "colo smyck
-  else
-    colo Tomorrow-Night-Eighties
-  endif
-else
-  sil! colo dim
-endif
-
+let g:netrw_banner=0
+let g:gitgutter_enabled=0
+let g:ale_c_parse_makefile=1
+"let g:ale_completion_enabled=1
+"
 "LSP
 "let g:CoC_autoStart = 0
-autocmd FileType * call CoCMaps()
-function! CoCMaps()
-  "CoC Remap keys for gotos
-  " g* are vim commands
-  nmap <silent> <space>gd <Plug>(coc-definition)
-  nmap <silent> <space>gy <Plug>(coc-type-definition)
-  nmap <silent> <space>gi <Plug>(coc-implementation)
-  nmap <silent> <space>gr <Plug>(coc-references)
-endfunction
+"aug languageserver
+"  au!
+"  "CoC Remap keys for gotos
+"  " g* are vim commands
+"  au filetype javascript,javascript.jsx nmap <silent> <space>gd <Plug>(coc-definition)
+"  au filetype javascript,javascript.jsx nmap <silent> <space>gy <Plug>(coc-type-definition)
+"  au filetype javascript,javascript.jsx nmap <silent> <space>gi <Plug>(coc-implementation)
+"  au filetype javascript,javascript.jsx nmap <silent> <space>gr <Plug>(coc-references)
+"aug end
 
 "javascript
 let g:sql_type_default = 'pgsql'
@@ -199,3 +147,51 @@ else
     endfor
   endif
 endif
+
+sil! call plug#begin() " https://github.com/junegunn/vim-plug
+sil! Plug 'Glench/Vim-Jinja2-Syntax'
+sil! Plug 'airblade/vim-gitgutter'
+sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+sil! Plug 'cespare/vim-toml'
+sil! Plug 'chr4/nginx.vim'
+sil! Plug 'digitaltoad/vim-pug',
+sil! Plug 'editorconfig/editorconfig-vim'
+sil! Plug 'ekalinin/Dockerfile.vim'
+sil! Plug 'jparise/vim-graphql'
+sil! Plug 'junegunn/fzf.vim'
+sil! Plug '/usr/local/opt/fzf'
+sil! Plug 'leafgarland/typescript-vim'
+sil! Plug 'lifepillar/pgsql.vim'
+sil! Plug 'moll/vim-node'
+sil! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+sil! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+sil! Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+sil! Plug 'stephenway/postcss.vim'
+sil! Plug 'pearofducks/ansible-vim'
+sil! Plug 'NLKNguyen/c-syntax.vim'
+sil! Plug 'w0rp/ale'
+"sil! Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'scss.css'] }
+"sil! Plug 'prettier/vim-prettier'
+"      \ 'for': ['javascript', 'typescript', 'css', 'less',
+"      \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+"Plug 'neoclide/coc.nvim', {'for': ['javascript', 'javascript.jsx'],'do': { -> coc#util#install()}}
+"Color schemes
+sil! Plug 'NLKNguyen/papercolor-theme'
+sil! Plug 'chriskempson/vim-tomorrow-theme'
+sil! Plug 'jeffkreeftmeijer/vim-dim'
+sil! Plug 'jnurmine/Zenburn'
+sil! Plug 'lsdr/monokai'
+sil! Plug 'morhetz/gruvbox'
+sil! Plug 'nanotech/jellybeans.vim'
+sil! Plug 'plan9-for-vimspace/acme-colors'
+sil! Plug 'rakr/vim-one'
+sil! Plug 'reedes/vim-colors-pencil'
+sil! Plug 'sickill/vim-monokai'
+sil! Plug 'sjl/badwolf'
+sil! Plug 'trusktr/seti.vim'
+sil! Plug 'vim-scripts/bclear'
+sil! Plug 'vim-scripts/summerfruit256.vim'
+sil! Plug 'w0ng/vim-hybrid'
+sil! call plug#end()
+
+call Colors()
