@@ -154,6 +154,7 @@ sil! Plug 'airblade/vim-gitgutter'
 sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 sil! Plug 'cespare/vim-toml'
 sil! Plug 'chr4/nginx.vim'
+sil! Plug 'johnelliott/vim-kinesis-kb900'
 sil! Plug 'digitaltoad/vim-pug',
 sil! Plug 'editorconfig/editorconfig-vim'
 sil! Plug 'ekalinin/Dockerfile.vim'
