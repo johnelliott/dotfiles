@@ -8,7 +8,7 @@ endif
 se noswapfile nobk nojs gd ic wic sc
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
-se pvh=24 " previewheight
+se pvh=29 " previewheight
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
@@ -17,7 +17,7 @@ endif
 func! SetScheme()
   if has('gui_running')
     if &bg == 'light'
-      colo bclear
+      colo macvim
     elseif &bg == 'dark'
       colo Tomorrow-Night
     else
@@ -26,9 +26,11 @@ func! SetScheme()
       endif
     endif
   else
-    if !&diff
-      sil! colo dim
-    endif
+    colo dim
+    highlight link GitGutterAdd          Type
+    highlight link GitGutterChange       Statement
+    highlight link GitGutterDelete       WarningMsg
+    highlight link GitGutterChangeDelete Statement
   endif
 endfunc
 
@@ -64,8 +66,8 @@ nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
 nn <space>Q :call BgDark()<CR>:! dark<CR>
 nn <space>W :call BgLight()<CR>:! light<CR>
-nn <space>[ :se co=112<CR><C-W>=
-nn <space>] :se co=212<CR><C-W>=
+nn <space>[ :se co=140<CR><C-W>=
+nn <space>] :se co=222<CR><C-W>=
 nm <space>f <Plug>(ale_fix)
 nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
@@ -93,6 +95,7 @@ aug javascript
   au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l)0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
+    "au filetype javascript,javascript.jsx setl nu ls=2
   endif
 aug end
 
@@ -104,8 +107,13 @@ aug cpp
   au filetype cpp let g:ale_fixers = { 'cpp': ['uncrustify'] }
 aug end
 
+aug go
+  au!
+  au filetype go nn <space>r :up\|GoRun<CR>
+aug end
+
 let g:netrw_banner=0
-let g:gitgutter_enabled=0
+"let g:gitgutter_enabled=0
 let g:ale_c_parse_makefile=1
 "let g:ale_completion_enabled=1
 "
@@ -126,8 +134,8 @@ let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_fix_on_save = 1
-let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['standard'], 'css': ['stylelint'] }
-let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['eslint'], 'css': ['stylelint'] }
+let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
 let eslintrc = findfile('.eslintrc', '.;')
 if eslintrc != ''
   let g:ale_linters = {
@@ -143,8 +151,8 @@ if eslintrc != ''
         \}
 else
   " otherwise check for standard variants in our projects
-  "let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  "let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
   let node_modules = finddir('node_modules', '.;')
   if len(node_modules)
     " later elements will override, so standard versions are in reverse order
