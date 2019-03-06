@@ -19,14 +19,14 @@ func! SetScheme()
     if &bg == 'light'
       colo macvim
     elseif &bg == 'dark'
-      colo Tomorrow-Night
+      colo jellybeans
     else
       if has('gui_macvim')
         colo macvim
       endif
     endif
   else
-    colo dim
+    sil! colo dim
     highlight link GitGutterAdd          Type
     highlight link GitGutterChange       Statement
     highlight link GitGutterDelete       WarningMsg
@@ -57,11 +57,16 @@ else
 endif
 
 nn <space>s :up<CR>
+nn <space>n :se nu!<CR>
+nn <space>N :se rnu!<CR>
+nn <space>8 :gr <cword><CR>
+nn <space>o :cope<CR>
+nn <space>g :GitGutterToggle<CR>
+nn <space>l :se wrap!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
 nn <space>r :tabe $MYVIMRC<CR>
 nn <space>c :colo *
-nn <space>k :gr <cword> %:h<CR>
 nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
 nn <space>Q :call BgDark()<CR>:! dark<CR>
@@ -79,7 +84,6 @@ nn <Up> :cp<CR>
 nn <Down> :cn<CR>
 nn <Left> :cpf<CR>
 nn <Right> :cnf<CR>
-nn <space>g :GitGutterToggle<CR>
 nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>o<esc>
 ino <C-e>1 🧐
 ino <C-e>2 🧠
@@ -92,10 +96,9 @@ aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
   au filetype rust,javascript,javascript.jsx setl ls=2
-  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l)0
+  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l);0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
-    "au filetype javascript,javascript.jsx setl nu ls=2
   endif
 aug end
 
@@ -167,18 +170,21 @@ else
 endif
 
 sil! call plug#begin() " https://github.com/junegunn/vim-plug
-sil! Plug 'Glench/Vim-Jinja2-Syntax'
+" Extensions
 sil! Plug 'airblade/vim-gitgutter'
+sil! Plug 'editorconfig/editorconfig-vim'
+sil! Plug 'junegunn/fzf.vim'
+sil! Plug '/usr/local/opt/fzf'
+sil! Plug 'w0rp/ale'
+" Languages
+sil! Plug 'Glench/Vim-Jinja2-Syntax'
 sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 sil! Plug 'cespare/vim-toml'
 sil! Plug 'chr4/nginx.vim'
 sil! Plug 'johnelliott/vim-kinesis-kb900'
 sil! Plug 'digitaltoad/vim-pug',
-sil! Plug 'editorconfig/editorconfig-vim'
 sil! Plug 'ekalinin/Dockerfile.vim'
 sil! Plug 'jparise/vim-graphql'
-sil! Plug 'junegunn/fzf.vim'
-sil! Plug '/usr/local/opt/fzf'
 sil! Plug 'leafgarland/typescript-vim'
 sil! Plug 'lifepillar/pgsql.vim'
 sil! Plug 'moll/vim-node'
@@ -189,31 +195,15 @@ sil! Plug 'fatih/vim-go'
 sil! Plug 'stephenway/postcss.vim'
 sil! Plug 'pearofducks/ansible-vim'
 sil! Plug 'NLKNguyen/c-syntax.vim'
-sil! Plug 'w0rp/ale'
-"sil! Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'scss.css'] }
-"sil! Plug 'prettier/vim-prettier'
-"      \ 'for': ['javascript', 'typescript', 'css', 'less',
-"      \ 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-"Plug 'neoclide/coc.nvim', {'for': ['javascript', 'javascript.jsx'],'do': { -> coc#util#install()}}
-"Color schemes
-"sil! Plug 'qualiabyte/vim-colorstepper'
-sil! Plug 'NLKNguyen/papercolor-theme'
-sil! Plug 'chriskempson/vim-tomorrow-theme'
-sil! Plug 'cormacrelf/vim-colors-github'
+" Colorschemes
 sil! Plug 'jeffkreeftmeijer/vim-dim'
-sil! Plug 'jnurmine/Zenburn'
-sil! Plug 'lsdr/monokai'
+sil! Plug 'chriskempson/vim-tomorrow-theme'
+sil! Plug 'vim-scripts/bclear'
+sil! Plug 'NLKNguyen/papercolor-theme'
+sil! Plug 'rakr/vim-one'
+sil! Plug 'plan9-for-vimspace/acme-colors'
 sil! Plug 'morhetz/gruvbox'
 sil! Plug 'nanotech/jellybeans.vim'
-sil! Plug 'plan9-for-vimspace/acme-colors'
-sil! Plug 'rakr/vim-one'
-sil! Plug 'reedes/vim-colors-pencil'
-sil! Plug 'sickill/vim-monokai'
-sil! Plug 'sjl/badwolf'
-sil! Plug 'trusktr/seti.vim'
-sil! Plug 'vim-scripts/bclear'
-sil! Plug 'vim-scripts/summerfruit256.vim'
-sil! Plug 'w0ng/vim-hybrid'
 sil! call plug#end()
 
 if has('osxdarwin')
