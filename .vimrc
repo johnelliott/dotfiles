@@ -26,7 +26,7 @@ func! SetScheme()
       endif
     endif
   else
-    sil! colo dim
+    colo dim
     highlight link GitGutterAdd          Type
     highlight link GitGutterChange       Statement
     highlight link GitGutterDelete       WarningMsg
@@ -154,8 +154,11 @@ if eslintrc != ''
         \}
 else
   " otherwise check for standard variants in our projects
-  let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  "let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
+  "let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  "let g:ale_linters = { 'javascript': ['eslint'], 'css': ['stylelint'] }
+  "let g:ale_fixers = { 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
+
   let node_modules = finddir('node_modules', '.;')
   if len(node_modules)
     " later elements will override, so standard versions are in reverse order
