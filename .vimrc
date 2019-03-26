@@ -5,10 +5,11 @@ elseif (filereadable($VIMRUNTIME .'/vimrc_example.vim'))
   source $VIMRUNTIME/vimrc_example.vim
 endif
 
-se noswapfile nobk nojs gd ic wic sc
+se noswapfile nobk nojs fo+=j gd ic wic sc
 se ts=4 et sts=2 sw=2
 se udir=~/.vim/undo cb=unnamed
-se pvh=29 " previewheight
+se pvh=24
+let g:netrw_liststyle= 3
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
@@ -16,15 +17,7 @@ endif
 
 func! SetScheme()
   if has('gui_running')
-    if &bg == 'light'
-      colo macvim
-    elseif &bg == 'dark'
-      colo jellybeans
-    else
-      if has('gui_macvim')
-        colo macvim
-      endif
-    endif
+    colo papercolor
   else
     colo dim
     highlight link GitGutterAdd          Type
@@ -71,8 +64,8 @@ nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
 nn <space>Q :call BgDark()<CR>:! dark<CR>
 nn <space>W :call BgLight()<CR>:! light<CR>
-nn <space>[ :se co=140<CR><C-W>=
-nn <space>] :se co=222<CR><C-W>=
+nn <space>[ :se co=140<CR><c-W>=<c-l>
+nn <space>] :se co=242<CR><c-W>=<c-l>
 nm <space>f <Plug>(ale_fix)
 nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
@@ -96,7 +89,7 @@ aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
   au filetype rust,javascript,javascript.jsx setl ls=2
-  au filetype javascript,javascript.jsx nn <buffer> <space>l "lyiwoconsole.log('😫 l', l);0
+  au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('😫 l', l);0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
   endif
@@ -119,45 +112,37 @@ let g:netrw_banner=0
 "let g:gitgutter_enabled=0
 let g:ale_c_parse_makefile=1
 "let g:ale_completion_enabled=1
-"
-"LSP
-"let g:CoC_autoStart = 0
-"aug languageserver
-"  au!
-"  "CoC Remap keys for gotos
-"  " g* are vim commands
-"  au filetype javascript,javascript.jsx nmap <silent> <space>gd <Plug>(coc-definition)
-"  au filetype javascript,javascript.jsx nmap <silent> <space>gy <Plug>(coc-type-definition)
-"  au filetype javascript,javascript.jsx nmap <silent> <space>gi <Plug>(coc-implementation)
-"  au filetype javascript,javascript.jsx nmap <silent> <space>gr <Plug>(coc-references)
-"aug end
 
 "javascript
 let g:sql_type_default = 'pgsql'
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_fix_on_save = 1
-let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['eslint'], 'css': ['stylelint'] }
-let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
 let eslintrc = findfile('.eslintrc', '.;')
 if eslintrc != ''
   let g:ale_linters = {
+        \   'scss': ['stylelint'],
+        \   'css': ['stylelint'],
         \   'javascript': ['eslint'],
         \   'jsx': ['stylelint', 'eslint'],
         \   'javascript.jsx': ['stylelint', 'eslint'],
         \}
   let g:ale_fixers = {
-        \   'javascript': ['eslint'],
-        \   'javascript.jsx': ['eslint'],
-        \   'jsx': ['eslint'],
+        \   'scss': ['stylelint'],
+        \   'css': ['stylelint'],
+        \   'javascript': ['eslint', 'prettier'],
+        \   'javascript.jsx': ['eslint', 'prettier'],
+        \   'jsx': ['eslint', 'prettier'],
         \   '*': ['trim_whitespace'],
         \}
 else
   " otherwise check for standard variants in our projects
-  "let g:ale_linters = { 'javascript': ['standard'], 'css': ['stylelint'] }
-  "let g:ale_fixers = { 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
-  "let g:ale_linters = { 'javascript': ['eslint'], 'css': ['stylelint'] }
-  "let g:ale_fixers = { 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+
+  " eslint
+  "let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
+  "let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
 
   let node_modules = finddir('node_modules', '.;')
   if len(node_modules)
@@ -200,13 +185,9 @@ sil! Plug 'pearofducks/ansible-vim'
 sil! Plug 'NLKNguyen/c-syntax.vim'
 " Colorschemes
 sil! Plug 'jeffkreeftmeijer/vim-dim'
-sil! Plug 'chriskempson/vim-tomorrow-theme'
-sil! Plug 'vim-scripts/bclear'
 sil! Plug 'NLKNguyen/papercolor-theme'
 sil! Plug 'rakr/vim-one'
 sil! Plug 'plan9-for-vimspace/acme-colors'
-sil! Plug 'morhetz/gruvbox'
-sil! Plug 'nanotech/jellybeans.vim'
 sil! call plug#end()
 
 if has('osxdarwin')
