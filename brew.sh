@@ -62,6 +62,7 @@ brew install openssh
 brew install openssl
 brew install postgresql
 brew install pup
+brew install reattach-to-user-namespace
 brew install rsync
 brew install speedtest-cli
 brew install sqlite
