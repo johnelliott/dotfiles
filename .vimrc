@@ -71,6 +71,9 @@ nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
 nn <space>E :Sex<CR>
 nn <space>v :Vex<CR>
+nn <space>1 :call UseEslint()<CR>:ALELint<CR>
+nn <space>2 :call UseStandard()<CR>:ALELint<CR>
+nn <space>3 :call UseSemiStandard()<CR>:ALELint<CR>
 nn <c-p> :FZF<CR>
 nn <space>p :Tags<CR>
 nn <Up> :cp<CR>
@@ -88,7 +91,7 @@ ino <C-e>6 😎
 aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype rust,javascript,javascript.jsx setl ls=2
+  au filetype json,rust,javascript,javascript.jsx setl ls=2
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('😫 l', l);0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
@@ -112,50 +115,66 @@ let g:netrw_banner=0
 "let g:gitgutter_enabled=0
 let g:ale_c_parse_makefile=1
 "let g:ale_completion_enabled=1
-
-"javascript
 let g:sql_type_default = 'pgsql'
+"javascript
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_fix_on_save = 1
-let eslintrc = findfile('.eslintrc', '.;')
-if eslintrc != ''
-  let g:ale_linters = {
-        \   'scss': ['stylelint'],
-        \   'css': ['stylelint'],
-        \   'javascript': ['eslint'],
-        \   'jsx': ['stylelint', 'eslint'],
-        \   'javascript.jsx': ['stylelint', 'eslint'],
-        \}
-  let g:ale_fixers = {
-        \   'scss': ['stylelint'],
-        \   'css': ['stylelint'],
-        \   'javascript': ['eslint', 'prettier'],
-        \   'javascript.jsx': ['eslint', 'prettier'],
-        \   'jsx': ['eslint', 'prettier'],
-        \   '*': ['trim_whitespace'],
-        \}
-else
-  " otherwise check for standard variants in our projects
-  let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
-  let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
 
-  " eslint
-  "let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
-  "let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
+func! UseEslint()
+  let eslintrc = findfile('.eslintrc', '.;')
+  if eslintrc != ''
+    let g:ale_linters.scss = ['stylelint']
+    let g:ale_linters.css = ['stylelint']
+    let g:ale_linters.javascript = ['eslint']
+    let g:ale_linters.jsx = ['stylelint', 'eslint']
+    let g:ale_linters['javascript.jsx'] = ['stylelint', 'eslint']
+    let g:ale_fixers.scss = ['stylelint']
+    let g:ale_fixers.css = ['stylelint']
+    let g:ale_fixers.javascript = ['eslint', 'prettier']
+    let g:ale_fixers['javascript.jsx'] = ['eslint', 'prettier']
+    let g:ale_fixers.jsx = ['eslint', 'prettier']
+  endif
+endfunc
 
+func! StandardLinters()
+  let g:ale_linters.scss = ['stylelint']
+  let g:ale_linters.css = ['stylelint']
+  let g:ale_linters.javascript = ['standard']
+  let g:ale_linters.jsx = ['stylelint', 'standard']
+  let g:ale_linters['javascript.jsx'] = ['stylelint', 'standard']
+  let g:ale_fixers.scss = ['stylelint']
+  let g:ale_fixers.css = ['stylelint']
+  let g:ale_fixers.javascript = ['standard']
+  let g:ale_fixers['javascript.jsx'] = ['standard']
+  let g:ale_fixers.jsx = ['standard']
+endfunc
+
+func! UseSemiStandard()
   let node_modules = finddir('node_modules', '.;')
   if len(node_modules)
-    " later elements will override, so standard versions are in reverse order
-    let standard_exec_names = ['standard', 'semistandard', 'standardx']
-    for e in standard_exec_names
-      let exec = node_modules . '/.bin/' . e
-      if executable(exec)
-        let g:ale_javascript_standard_executable = exec
-      endif
-    endfor
+    let exec = node_modules . '/.bin/semistandard'
+    if executable(exec)
+      let g:ale_javascript_standard_executable = exec
+      let g:ale_javascript_eslint_use_global = 1
+      call StandardLinters()
+    endif
   endif
-endif
+endfunc
+
+func! UseStandard()
+  let node_modules = finddir('node_modules', '.;')
+  if len(node_modules)
+    let exec = node_modules . '/.bin/standard'
+    if executable(exec)
+      let g:ale_javascript_standard_executable = exec
+      let g:ale_javascript_eslint_use_global = 1
+      call StandardLinters()
+    endif
+  endif
+endfunc
 
 sil! call plug#begin() " https://github.com/junegunn/vim-plug
 " Extensions
@@ -166,6 +185,8 @@ sil! Plug '/usr/local/opt/fzf'
 sil! Plug 'w0rp/ale'
 " Languages
 sil! Plug 'Glench/Vim-Jinja2-Syntax'
+sil! Plug 'vim-scripts/irssilog.vim'
+sil! Plug 'isundil/vim-irssi-syntax'
 sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 sil! Plug 'cespare/vim-toml'
 sil! Plug 'chr4/nginx.vim'
