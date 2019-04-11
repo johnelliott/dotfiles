@@ -11,38 +11,68 @@ se udir=~/.vim/undo cb=unnamed
 se pvh=24
 let g:netrw_liststyle= 3
 
-"se mouse+=a
 if &term =~ '^screen'
   " tmux knows the extended mouse mode
-  set ttymouse=xterm2
+  se ttym=xterm2
+  se mouse-=v
 elseif has("mouse_sgr")
   " tmux knows the extended mouse mode
-  set ttymouse=sgr
-end
+  se ttym=sgr
+endif
 
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
 
+""" let g:monotone_color = [53, 8, 60]
+""" let g:monotone_secondary_hue_offset = 17
+""" "let g:monotone_emphasize_comments = 0
+""" "let g:monotone_emphasize_whitespace = 0
+""" let g:monotone_contrast_factor = 0.67
+
+let s:monotone_current_hour = 0
+let s:monotone_flux_time_offset = 13
+let s:monotone_flux_range = [0, 5]
+
+function! s:MonotoneFlux()
+  if g:colors_name != 'monotone'
+    return
+  endif
+  let l:current_hour = str2nr(strftime("%H"), 10)
+  if l:current_hour == s:monotone_current_hour
+    return
+  endif
+  let s:monotone_current_hour = l:current_hour
+  let l:flux_factor = abs(s:monotone_flux_time_offset - s:monotone_current_hour)
+  let l:flux_factor_clamped = max([s:monotone_flux_range[0], min([l:flux_factor, s:monotone_flux_range[1]])])
+
+  call g:Monotone(54, l:flux_factor_clamped * 10, 90 - l:flux_factor_clamped * 3)
+endfunction
+aug monotone
+  autocmd WinEnter,FocusLost,FocusGained * nested call s:MonotoneFlux()
+aug end
 
 func! SetScheme()
   if has('gui_running')
-    if &bg == 'light'
-      if has('gui_macvim')
-        colo macvim
-      else
-        colo papercolor
-      endif
-    elseif &bg == 'dark'
-      colo papercolor
+    if &bg == 'light' && has('gui_macvim')
+      colo macvim
     else
+      try
+        colo papercolor
+      catch /^Vim\%((\a\+)\)\=:E185/
+        colo desert
+      endtry
     endif
   else
-    colo dim
-    highlight link GitGutterAdd          Type
-    highlight link GitGutterChange       Statement
-    highlight link GitGutterDelete       WarningMsg
-    highlight link GitGutterChangeDelete Statement
+    try
+      colo dim
+      highlight link GitGutterAdd          Type
+      highlight link GitGutterChange       Statement
+      highlight link GitGutterDelete       WarningMsg
+      highlight link GitGutterChangeDelete Statement
+    catch /^Vim\%((\a\+)\)\=:E185/
+      colo default
+    endtry
   endif
 endfunc
 
@@ -196,75 +226,52 @@ func! UseStandard()
   endif
 endfunc
 
-sil! call plug#begin() " https://github.com/junegunn/vim-plug
-" Extensions
-sil! Plug 'airblade/vim-gitgutter'
-sil! Plug 'editorconfig/editorconfig-vim'
-sil! Plug 'junegunn/fzf.vim'
-sil! Plug '/usr/local/opt/fzf'
-sil! Plug 'w0rp/ale'
-" Languages
-sil! Plug 'Glench/Vim-Jinja2-Syntax'
-sil! Plug 'vim-scripts/irssilog.vim'
-sil! Plug 'isundil/vim-irssi-syntax'
-sil! Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-sil! Plug 'cespare/vim-toml'
-sil! Plug 'chr4/nginx.vim'
-sil! Plug 'johnelliott/vim-kinesis-kb900'
-sil! Plug 'digitaltoad/vim-pug',
-sil! Plug 'ekalinin/Dockerfile.vim'
-sil! Plug 'jparise/vim-graphql'
-sil! Plug 'leafgarland/typescript-vim'
-sil! Plug 'lifepillar/pgsql.vim'
-sil! Plug 'moll/vim-node'
-sil! Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-sil! Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-sil! Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-sil! Plug 'fatih/vim-go'
-sil! Plug 'stephenway/postcss.vim'
-sil! Plug 'pearofducks/ansible-vim'
-sil! Plug 'NLKNguyen/c-syntax.vim'
-sil! Plug 'andrewstuart/vim-kubernetes'
-" sil! Plug 'RRethy/vim-hexokinase' " css colorizer
-" Colorschemes
-sil! Plug 'jeffkreeftmeijer/vim-dim'
-sil! Plug 'NLKNguyen/papercolor-theme'
-sil! Plug 'rakr/vim-one'
-sil! Plug 'plan9-for-vimspace/acme-colors'
-sil! Plug 'Lokaltog/vim-monotone'
-sil! call plug#end()
+if !empty(glob('~/.vim/autoload/plug.vim'))
+  call plug#begin() " https://github.com/junegunn/vim-plug
+  " Extensions
+  Plug 'airblade/vim-gitgutter'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'junegunn/fzf.vim'
+  Plug '/usr/local/opt/fzf'
+  Plug 'w0rp/ale'
+  " Languages
+  Plug 'Glench/Vim-Jinja2-Syntax'
+  Plug 'vim-scripts/irssilog.vim'
+  Plug 'isundil/vim-irssi-syntax'
+  Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+  Plug 'cespare/vim-toml'
+  Plug 'chr4/nginx.vim'
+  Plug 'johnelliott/vim-kinesis-kb900'
+  Plug 'digitaltoad/vim-pug',
+  Plug 'ekalinin/Dockerfile.vim'
+  Plug 'jparise/vim-graphql'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'lifepillar/pgsql.vim'
+  Plug 'moll/vim-node'
+  Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'fatih/vim-go'
+  Plug 'stephenway/postcss.vim'
+  Plug 'pearofducks/ansible-vim'
+  Plug 'NLKNguyen/c-syntax.vim'
+  Plug 'andrewstuart/vim-kubernetes'
+  "  Plug 'RRethy/vim-hexokinase' " css colorizer
+  " Colorschemes
+  Plug 'jeffkreeftmeijer/vim-dim'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'rakr/vim-one'
+  Plug 'plan9-for-vimspace/acme-colors'
+  Plug 'Lokaltog/vim-monotone'
+  call plug#end()
+endif
 
 if has('osxdarwin')
   if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
     set background=dark
   endif
 endif
-call SetScheme()
 
-""" let g:monotone_color = [53, 8, 60]
-""" let g:monotone_secondary_hue_offset = 17
-""" "let g:monotone_emphasize_comments = 0
-""" "let g:monotone_emphasize_whitespace = 0
-""" let g:monotone_contrast_factor = 0.67
-
-let s:monotone_current_hour = 0
-let s:monotone_flux_time_offset = 13
-let s:monotone_flux_range = [0, 5]
-
-function! s:MonotoneFlux()
-  if g:colors_name != 'monotone'
-    return
-  endif
-  let l:current_hour = str2nr(strftime("%H"), 10)
-  if l:current_hour == s:monotone_current_hour
-    return
-  endif
-  let s:monotone_current_hour = l:current_hour
-  let l:flux_factor = abs(s:monotone_flux_time_offset - s:monotone_current_hour)
-  let l:flux_factor_clamped = max([s:monotone_flux_range[0], min([l:flux_factor, s:monotone_flux_range[1]])])
-
-  call g:Monotone(54, l:flux_factor_clamped * 10, 90 - l:flux_factor_clamped * 3)
-endfunction
-aug monotone
-  autocmd WinEnter,FocusLost,FocusGained * nested call s:MonotoneFlux()
-aug end
+if !exists('g:colors_name')
+  call SetScheme()
+endif
