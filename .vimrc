@@ -11,6 +11,15 @@ se udir=~/.vim/undo cb=unnamed
 se pvh=24
 let g:netrw_liststyle= 3
 
+"se mouse+=a
+if &term =~ '^screen'
+  " tmux knows the extended mouse mode
+  set ttymouse=xterm2
+elseif has("mouse_sgr")
+  " tmux knows the extended mouse mode
+  set ttymouse=sgr
+end
+
 if executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
