@@ -30,50 +30,52 @@ brew tap homebrew/versions
 brew install coreutils
 sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
-brew install ack
-brew install ansible
-brew install awscli
-brew install bash
-brew install bash-completion@2
-brew install certbot
-brew install couchdb
-brew install exiftool
-brew install ext2fuse
-brew install ext4fuse
-brew install ffmpeg
+brew install ack \
+  ansible \
+  awscli \
+  bash \
+  bash-completion@2 \
+  certbot \
+  couchdb \
+  exiftool \
+  ext2fuse \
+  ext4fuse \
+  ffmpeg \
+  fzf \
+  git \
+  git-lfs \
+  goaccess \
+  google-cloud-sdk \
+  graphicsmagick \
+  grep \
+  htop \
+  hub \
+  jq \
+  kubernetes-cli \
+  moreutils \
+  netcat \
+  nginx \
+  nmap \
+  openssh \
+  openssl \
+  postgresql \
+  pup \
+  reattach-to-user-namespace \
+  rsync \
+  speedtest-cli \
+  sqlite \
+  ssh-copy-id \
+  the_silver_searcher \
+  tmux \
+  transmission \
+  tree \
+  youtube-dl
+
 brew install findutils # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-brew install fzf
-brew install git
-brew install git-lfs
 brew install gnu-sed --with-default-names # Install GNU `sed`, overwriting the built-in `sed`.
-brew install goaccess
-brew install google-cloud-sdk
-brew install graphicsmagick
-brew install grep
-brew install htop
-brew install hub # https://github.com/github/hub
 brew install imagemagick --with-webp
-brew install jq
-brew install moreutils
-brew install netcat
-brew install nginx
-brew install nmap
-brew install openssh
-brew install openssl
-brew install postgresql
-brew install pup
-brew install reattach-to-user-namespace
-brew install rsync
-brew install speedtest-cli
-brew install sqlite
-brew install ssh-copy-id
-brew install the_silver_searcher
-brew install tmux
-brew install transmission
-brew install tree
 brew install vim --with-override-system-vi
 brew install wget --with-iri
-brew install youtube-dl
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # Remove outdated versions from the cellar.
