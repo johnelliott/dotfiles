@@ -24,33 +24,6 @@ if executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
 
-""" let g:monotone_color = [53, 8, 60]
-""" let g:monotone_secondary_hue_offset = 17
-""" "let g:monotone_emphasize_comments = 0
-""" "let g:monotone_emphasize_whitespace = 0
-""" let g:monotone_contrast_factor = 0.67
-
-let s:monotone_current_hour = 0
-let s:monotone_flux_time_offset = 13
-let s:monotone_flux_range = [0, 5]
-
-function! s:MonotoneFlux()
-  if g:colors_name != 'monotone'
-    return
-  endif
-  let l:current_hour = str2nr(strftime("%H"), 10)
-  if l:current_hour == s:monotone_current_hour
-    return
-  endif
-  let s:monotone_current_hour = l:current_hour
-  let l:flux_factor = abs(s:monotone_flux_time_offset - s:monotone_current_hour)
-  let l:flux_factor_clamped = max([s:monotone_flux_range[0], min([l:flux_factor, s:monotone_flux_range[1]])])
-
-  call g:Monotone(54, l:flux_factor_clamped * 10, 90 - l:flux_factor_clamped * 3)
-endfunction
-aug monotone
-  autocmd WinEnter,FocusLost,FocusGained * nested call s:MonotoneFlux()
-aug end
 
 func! SetScheme()
   if has('gui_running')
@@ -58,7 +31,11 @@ func! SetScheme()
       colo macvim
     else
       try
-        colo papercolor
+        if strftime("%H") > 20
+          color monotone
+        else
+          colo papercolor
+        endif
       catch /^Vim\%((\a\+)\)\=:E185/
         colo desert
       endtry
@@ -225,6 +202,9 @@ func! UseStandard()
     endif
   endif
 endfunc
+
+let g:monotone_color = [53, 4, 57]
+let g:monotone_secondary_hue_offset = 17
 
 if !empty(glob('~/.vim/autoload/plug.vim'))
   call plug#begin() " https://github.com/junegunn/vim-plug
