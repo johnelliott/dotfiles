@@ -24,9 +24,19 @@ if executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
 
+
 func! SetScheme()
   if has('gui_running')
-    colo papercolor
+    if &bg == 'light'
+      if has('gui_macvim')
+        colo macvim
+      else
+        colo papercolor
+      endif
+    elseif &bg == 'dark'
+      colo papercolor
+    else
+    endif
   else
     colo dim
     highlight link GitGutterAdd          Type
@@ -73,9 +83,9 @@ nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
 nn <space>Q :call BgDark()<CR>:! dark<CR>
 nn <space>W :call BgLight()<CR>:! light<CR>
-nn <space>[ :se co=140<CR><c-W>=<c-l>
+nn <space>[ :se co=120<CR><c-W>=<c-l>
 nn <space>] :se co=242<CR><c-W>=<c-l>
-nm <space>f <Plug>(ale_fix)
+nn <space>f <Plug>(ale_fix)
 nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
 nn <space>E :Sex<CR>
@@ -100,7 +110,7 @@ ino <C-e>6 😎
 aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype json,rust,javascript,javascript.jsx setl ls=2
+  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('😫 l', l);0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
@@ -121,16 +131,17 @@ aug go
 aug end
 
 let g:netrw_banner=0
-"let g:gitgutter_enabled=0
 let g:ale_c_parse_makefile=1
-"let g:ale_completion_enabled=1
+let g:ale_set_balloons=1
 let g:sql_type_default = 'pgsql'
+"let g:ale_completion_enabled=1
 "javascript
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_fix_on_save = 1
 let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
 let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
+
 
 func! UseEslint()
   let eslintrc = findfile('.eslintrc', '.;')
@@ -213,11 +224,14 @@ sil! Plug 'fatih/vim-go'
 sil! Plug 'stephenway/postcss.vim'
 sil! Plug 'pearofducks/ansible-vim'
 sil! Plug 'NLKNguyen/c-syntax.vim'
+sil! Plug 'andrewstuart/vim-kubernetes'
+" sil! Plug 'RRethy/vim-hexokinase' " css colorizer
 " Colorschemes
 sil! Plug 'jeffkreeftmeijer/vim-dim'
 sil! Plug 'NLKNguyen/papercolor-theme'
 sil! Plug 'rakr/vim-one'
 sil! Plug 'plan9-for-vimspace/acme-colors'
+sil! Plug 'Lokaltog/vim-monotone'
 sil! call plug#end()
 
 if has('osxdarwin')
@@ -226,3 +240,31 @@ if has('osxdarwin')
   endif
 endif
 call SetScheme()
+
+""" let g:monotone_color = [53, 8, 60]
+""" let g:monotone_secondary_hue_offset = 17
+""" "let g:monotone_emphasize_comments = 0
+""" "let g:monotone_emphasize_whitespace = 0
+""" let g:monotone_contrast_factor = 0.67
+
+let s:monotone_current_hour = 0
+let s:monotone_flux_time_offset = 13
+let s:monotone_flux_range = [0, 5]
+
+function! s:MonotoneFlux()
+  if g:colors_name != 'monotone'
+    return
+  endif
+  let l:current_hour = str2nr(strftime("%H"), 10)
+  if l:current_hour == s:monotone_current_hour
+    return
+  endif
+  let s:monotone_current_hour = l:current_hour
+  let l:flux_factor = abs(s:monotone_flux_time_offset - s:monotone_current_hour)
+  let l:flux_factor_clamped = max([s:monotone_flux_range[0], min([l:flux_factor, s:monotone_flux_range[1]])])
+
+  call g:Monotone(54, l:flux_factor_clamped * 10, 90 - l:flux_factor_clamped * 3)
+endfunction
+aug monotone
+  autocmd WinEnter,FocusLost,FocusGained * nested call s:MonotoneFlux()
+aug end
