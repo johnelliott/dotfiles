@@ -2,6 +2,10 @@
 
 #### [.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
 `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc >|~/.vimrc 2>&1`
+
+`curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+    
 #### [.tmux.conf](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.tmux.conf)
 `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/master/.tmux.conf >|~/.tmux.conf 2>&1`
 
