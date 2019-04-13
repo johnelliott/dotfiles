@@ -5,11 +5,12 @@
 
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
-    
+
 #### [.tmux.conf](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.tmux.conf)
 `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/master/.tmux.conf >|~/.tmux.conf 2>&1`
 
 #### [applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/applestore.sh)
+#### [instance.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/instance.sh)
 
 ## missing steps
 - no automatic `chsh` and `/etc/shells` addition
