@@ -31,7 +31,7 @@ func! SetScheme()
       colo macvim
     else
       try
-        if strftime("%H") > 20
+        if strftime("%H") > 20 && strftime("%w") < 5
           color monotone
         else
           colo papercolor
@@ -80,7 +80,6 @@ nn <space>n :se nu!<CR>
 nn <space>N :se rnu!<CR>
 nn <space>8 :gr <cword><CR>
 nn <space>o :cope<CR>
-nn <space>g :GitGutterToggle<CR>
 nn <space>l :se wrap!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
@@ -92,7 +91,6 @@ nn <space>Q :call BgDark()<CR>:! dark<CR>
 nn <space>W :call BgLight()<CR>:! light<CR>
 nn <space>[ :se co=120<CR><c-W>=<c-l>
 nn <space>] :se co=242<CR><c-W>=<c-l>
-nn <space>f <Plug>(ale_fix)
 nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
 nn <space>E :Sex<CR>
@@ -113,6 +111,8 @@ ino <C-e>3 🐠
 ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
+nm <space>g <Plug>GitGutterToggle
+nm <space>f <Plug>(ale_fix)
 
 aug javascript
   au!
@@ -138,6 +138,8 @@ aug go
 aug end
 
 let g:netrw_banner=0
+let g:monotone_color = [53, 4, 57]
+let g:monotone_secondary_hue_offset = 17
 let g:ale_c_parse_makefile=1
 let g:ale_set_balloons=1
 let g:sql_type_default = 'pgsql'
@@ -148,7 +150,6 @@ let g:jsx_ext_required = 0 " Highlight .js as .jsx
 let g:ale_fix_on_save = 1
 let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
 let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['standard'], 'css': ['stylelint'], 'html': ['stylelint'] }
-
 
 func! UseEslint()
   let eslintrc = findfile('.eslintrc', '.;')
@@ -203,17 +204,16 @@ func! UseStandard()
   endif
 endfunc
 
-let g:monotone_color = [53, 4, 57]
-let g:monotone_secondary_hue_offset = 17
-
 if !empty(glob('~/.vim/autoload/plug.vim'))
   call plug#begin() " https://github.com/junegunn/vim-plug
   " Extensions
   Plug 'airblade/vim-gitgutter'
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'junegunn/fzf.vim'
-  Plug '/usr/local/opt/fzf'
-  Plug 'w0rp/ale'
+  if executable('fzf')
+    Plug 'junegunn/fzf.vim'
+    Plug '/usr/local/opt/fzf'
+  endif
+  sil! Plug 'w0rp/ale'
   " Languages
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'vim-scripts/irssilog.vim'
