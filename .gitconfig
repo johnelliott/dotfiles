@@ -1,14 +1,19 @@
 [alias]
+  s = status -uno
+  ss = status -suno
+  sa = status
+  l = log
+  lo = log --oneline
   b = branch -vv
   branches = branch -a -vv
+  d = diff
   dc = diff --cached
-  pu = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
-  r = remote -v
+  re = remote -v
   recent = branch --sort=-committerdate
   remotes = remote -v
-  repo = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset' --since='2 days ago'"
   tags = tag -l
   tree = "log --graph --decorate --pretty=oneline --abbrev-commit"
+  repo = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset' --since='2 days ago'"
   conflicts = "diff --name-only --diff-filter=U"
 
   f = fetch
@@ -18,12 +23,15 @@
   co = checkout
   r = rebase
   ri = rebase -i
-  fix = "!f() { ${VISUAL} `git conflicts`; }; f"
-  a = add -u -p
+  a = add
+  au = add -u -p
+  c = commit
   cv = commit -v
   fixup = commit --amend --no-edit
   p = push
+  pu = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 
+  fix = "!f() { ${VISUAL} `git conflicts`; }; f"
 
   # Find branches containing commit
   fb = "!f() { git branch -a --contains $1; }; f"
@@ -138,5 +146,5 @@
   process = git-lfs filter-process
   required = true
 [user]
-  name = John Elliott
-  email = johnelliott703@gmail.com
+	name = John Elliott
+	email = johnelliott703@gmail.com
