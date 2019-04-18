@@ -13,17 +13,18 @@ let g:netrw_liststyle= 3
 
 if &term =~ '^screen'
   " tmux knows the extended mouse mode
-  se ttym=xterm2
-  se mouse-=v
+  "se ttym=xterm2
+  "se mouse-=v
 elseif has("mouse_sgr")
   " tmux knows the extended mouse mode
   se ttym=sgr
 endif
 
-if executable('ag')
+if executable('rg')
+  se gp=rg\ --vimgrep\ $*
+elseif executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
-
 
 func! SetScheme()
   if has('gui_running')
