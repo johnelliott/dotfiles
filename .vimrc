@@ -20,10 +20,11 @@ elseif has("mouse_sgr")
   se ttym=sgr
 endif
 
-if executable('ag')
+if executable('rg')
+  se gp=rg\ --vimgrep\ $*
+elseif executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
-
 
 func! SetScheme()
   if has('gui_running')
@@ -95,9 +96,11 @@ nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
 nn <space>E :Sex<CR>
 nn <space>v :Vex<CR>
-nn <space>1 :call UseEslint()<CR>:ALELint<CR>
-nn <space>2 :call UseStandard()<CR>:ALELint<CR>
-nn <space>3 :call UseSemiStandard()<CR>:ALELint<CR>
+nn <space>1 :call UseEslint()<CR>:ALELint<CR>:echom 'eslint'<CR>
+nn <space>2 :call UseStandard()<CR>:ALELint<CR>:echom 'standard'<CR>
+nn <space>3 :call UseSemiStandard()<CR>:ALELint<CR>:echom 'semistandard'<CR>
+nn <space>g :GitGutterToggle<CR>
+nn <space>f :ALEFix<CR>
 nn <c-p> :FZF<CR>
 nn <space>p :Tags<CR>
 nn <Up> :cp<CR>
@@ -111,14 +114,13 @@ ino <C-e>3 🐠
 ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
-nm <space>g <Plug>GitGutterToggle
-nm <space>f <Plug>(ale_fix)
 
 aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
   au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('😫 l', l);0
+  au bufnewfile,bufread *.test.js let b:ale_fix_on_save=0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
   endif
