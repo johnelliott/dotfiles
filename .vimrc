@@ -11,8 +11,6 @@ se udir=~/.vim/undo cb=unnamed
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 
-se nu cul
-
 if &term =~ '^screen'
   " tmux knows the extended mouse mode
   "se ttym=xterm2
@@ -28,35 +26,24 @@ elseif executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
 
-func! SetScheme()
-  if has('gui_running')
-    try
-      if &bg == 'light'
-        colo bclear
-      elseif &bg == 'dark'
-        colo jellybeans
-      else
-        colo one
-      endif
-    catch /^Vim\%((\a\+)\)\=:E185/
-      colo desert
-    endtry
-  else
-    try
-      "colo papercolor
-      if &diff
-        colo pablo
-      else
-        colo dim
-        highlight link GitGutterAdd          Type
-        highlight link GitGutterChange       Statement
-        highlight link GitGutterDelete       WarningMsg
-        highlight link GitGutterChangeDelete Statement
-      endif
-    catch /^Vim\%((\a\+)\)\=:E185/
-      colo default
-    endtry
+func! SetBgFromAppearance()
+  if has("gui_running")
+    echom v:os_appearance
+    if v:os_appearance == 1 | v:os_appearance == 3
+      se bg=dark
+    else
+      se bg=light
+    endif
   endif
+  call SetScheme()
+endfunc
+
+func! SetScheme()
+  try
+    colo papercolor
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colo default
+  endtry
 endfunc
 
 func! BgDark()
@@ -87,9 +74,12 @@ nn <space>N :se rnu!<CR>
 nn <space>8 :gr <cword><CR>
 nn <space>o :cope<CR>
 nn <space>l :se wrap!<CR>
+nn <space>L :se lbr!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
 nn <space>r :tabe $MYVIMRC<CR>
+nn <space>r :tabe $MYVIMRC<CR>
+nn <space>R :tabe $MYVIMRC<CR>
 nn <space>c :colo *
 nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
@@ -117,16 +107,24 @@ nn <Right> :cnf<CR>
 nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>o<esc>
 ino jj <esc>
 ino <C-e>1 🧐
-ino <C-e>2 🧠
+ino <C-e>2 🔶
 ino <C-e>3 🐠
 ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
 
+"if has('gui_macvim')
+"  aug ui
+"    au!
+"    "au OSAppearanceChanged * call SetScheme()
+"    au OSAppearanceChanged * call SetBgFromAppearance()
+"  aug end
+"endif
+
 aug javascript
   au!
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2
+  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2 nu
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('l', l);0
   au bufnewfile,bufread *.test.js let b:ale_fix_on_save=0
   if executable('mdn')
@@ -269,7 +267,7 @@ endif
 
 if has('osxdarwin')
   if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
-    set background=dark
+    set bg=dark
   endif
 endif
 
@@ -284,7 +282,7 @@ endif
 
 "call UseStandard()
 "call UseSemiStandard()
-"call UseEslint()
+call UseEslint()
 
 "let g:ycm_key_list_select_completion = []
 "let g:ycm_key_list_previous_completion = []
