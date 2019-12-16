@@ -3,6 +3,7 @@
   ss = status -suno
   sa = status
   l = log
+  lp = log -p
   lo = log --oneline
   b = branch -vv
   branches = branch -a -vv
@@ -12,8 +13,10 @@
   recent = branch --sort=-committerdate
   remotes = remote -v
   tags = tag -l
+  tagr = "tag --sort version:refname"
   tree = "log --graph --decorate --pretty=oneline --abbrev-commit"
-  repo = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset' --since='2 days ago'"
+  repo2d = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset' --since='2 days ago'"
+  repo = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset'"
   conflicts = "diff --name-only --diff-filter=U"
 
   f = fetch
@@ -21,15 +24,16 @@
 
   rsoft = reset --soft HEAD^
   co = checkout
-  r = rebase
+  reb = rebase
   ri = rebase -i
   a = add
   au = add -u -p
-  c = commit
+  aup = add -u -p
+  cm = commit
   cv = commit -v
   fixup = commit --amend --no-edit
-  p = push
-  pu = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+  pu = push
+  pushup = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 
   fix = "!f() { ${VISUAL} `git conflicts`; }; f"
 
