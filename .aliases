@@ -13,6 +13,7 @@ alias .....="cd ../../../.."
 # Shortcuts
 # Git shortcuts
 alias git="hub"
+alias gg="git grep"
 
 # Additional Shortcuts
 alias h="history | tail -n 150"
