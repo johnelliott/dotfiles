@@ -28,7 +28,7 @@ endif
 
 func! SetBgFromAppearance()
   if has("gui_running")
-    echom v:os_appearance
+    "echom v:os_appearance
     if v:os_appearance == 1 | v:os_appearance == 3
       se bg=dark
     else
@@ -78,7 +78,6 @@ nn <space>L :se lbr!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
 nn <space>r :tabe $MYVIMRC<CR>
-nn <space>r :tabe $MYVIMRC<CR>
 nn <space>R :tabe $MYVIMRC<CR>
 nn <space>c :colo *
 nn <space>q :call BgDark()<CR>
@@ -88,8 +87,7 @@ nn <space>W :call BgLight()<CR>:! light<CR>
 nn <space>[ :se co=132<CR><c-W>=<c-l>
 nn <space>] :se co=230<CR><c-W>=<c-l>
 nn <space>t :tabe %<CR>
-nn <space>e :Ex<CR>
-nn <space>E :Sex<CR>
+nn <space>e :Sex<CR>
 nn <space>v :Vex<CR>
 nn <space>1 :call UseEslint()<CR>:ALELint<CR>:echom 'eslint'<CR>
 nn <space>2 :call UseStandard()<CR>:ALELint<CR>:echom 'standard'<CR>
@@ -100,10 +98,23 @@ nn <space>g :GitGutterToggle<CR>
 nn <space>f :ALEFix<CR>
 nn <c-p> :FZF<CR>
 nn <space>p :Tags<CR>
+
 nn <Up> :cp<CR>
 nn <Down> :cn<CR>
 nn <Left> :cpf<CR>
 nn <Right> :cnf<CR>
+nn g<Left> :colder<CR>
+nn g<Right> :cnewer<CR>
+nn g<Up> :cope<CR>
+nn g<Down> :ccl<CR>
+nn <PageUp> :lp<CR>
+nn <PageDown> :lne<CR>
+nn g<PageUp> :lop<CR>
+nn g<PageDown> :lcl<CR>
+
+let g:ale_set_loclist=1
+let g:ale_set_quickfix=-1
+
 nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>o<esc>
 ino jj <esc>
 ino <C-e>1 🧐

@@ -67,4 +67,4 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
-alias prs='hub pr list -f "%sC%>(8)%i (%NC)%Creset @%B - %au - %t% l%n"'
+#alias prs='hub pr list -f "%sC%>(8)%i (%NC)%Creset @%B - %au - %t% l%n"'
