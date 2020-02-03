@@ -26,35 +26,48 @@ elseif executable('ag')
   se gp=ag\ --vimgrep\ $*
 endif
 
-func! SetBgFromAppearance()
-  if has("gui_running")
-    "echom v:os_appearance
-    if v:os_appearance == 1 | v:os_appearance == 3
-      se bg=dark
-    else
-      se bg=light
-    endif
-  endif
-  call SetScheme()
-endfunc
-
-func! SetScheme()
+func! BgDark()
+  se bg=dark
   try
-    colo papercolor
+    colo Tomorrow-Night
   catch /^Vim\%((\a\+)\)\=:E185/
     colo default
   endtry
 endfunc
 
-func! BgDark()
-  se bg=dark
-  call SetScheme()
-endfunc
-
 func! BgLight()
   se bg=light
-  call SetScheme()
+  try
+    colo Tomorrow
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colo default
+  endtry
 endfunc
+
+func! SetColor()
+  try
+    " macvim
+    if has("gui_macvim")
+      if v:os_appearance == 1 | v:os_appearance == 3
+        call BgDark()
+      else
+        call BgLight()
+      endif
+    else
+      " Use defaults when v:os_appearance isn't available
+      if has('osxdarwin')
+        if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
+          call BgDark()
+        else
+          call BgLight()
+        endif
+      endif
+    endif
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colo default
+  endtry
+endfunc
+
 
 if has('gui_macvim')
   " guioptions are changed individually
@@ -124,13 +137,12 @@ ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
 
-"if has('gui_macvim')
-"  aug ui
-"    au!
-"    "au OSAppearanceChanged * call SetScheme()
-"    au OSAppearanceChanged * call SetBgFromAppearance()
-"  aug end
-"endif
+if has('gui_macvim')
+  aug ui
+    au!
+    au OSAppearanceChanged * call SetColor()
+  aug end
+endif
 
 aug javascript
   au!
@@ -276,15 +288,7 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   call plug#end()
 endif
 
-if has('osxdarwin')
-  if (system("defaults read NSGlobalDomain AppleInterfaceStyle") ==? "Dark\n")
-    set bg=dark
-  endif
-endif
-
-if !exists('g:colors_name')
-  call SetScheme()
-endif
+call SetColor()
 
 " TODO command! PackUpdate call pack#update()
 " minpac
