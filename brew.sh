@@ -36,7 +36,7 @@ brew install ack \
   bash \
   bash-completion@2 \
   certbot \
-  couchdb \
+  csvkit \
   exiftool \
   ext2fuse \
   ext4fuse \
@@ -64,8 +64,9 @@ brew install ack \
   rsync \
   speedtest-cli \
   sqlite \
+  stern \
   ssh-copy-id \
-  the_silver_searcher \
+  ripgrep \
   tmux \
   transmission \
   tree \
