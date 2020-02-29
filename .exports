@@ -27,5 +27,7 @@ export MANPAGER='less -X';
 export GREP_OPTIONS='--color=auto';
 # export GREP_COLOR="1;31" # green for matches, this may break?!
 
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
+
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 # export HOMEBREW_CASK_OPTS="--appdir=/Applications";

@@ -8,8 +8,7 @@ endif
 se noswapfile nobk nojs fo+=j gd ic wic sc
 se ts=4 et sts=2 sw=2 pvh=18
 se udir=~/.vim/undo cb=unnamed
-let g:netrw_banner=0
-let g:netrw_liststyle=3
+"let g:netrw_liststyle=3
 
 if &term =~ '^screen'
   " tmux knows the extended mouse mode
@@ -29,7 +28,7 @@ endif
 func! BgDark()
   se bg=dark
   try
-    colo Tomorrow-Night
+    colo jellybeans
   catch /^Vim\%((\a\+)\)\=:E185/
     colo default
   endtry
@@ -68,6 +67,7 @@ func! SetColor()
   endtry
 endfunc
 
+let g:ale_fix_on_save=0
 
 if has('gui_macvim')
   " guioptions are changed individually
@@ -90,7 +90,6 @@ nn <space>l :se wrap!<CR>
 nn <space>L :se lbr!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
-nn <space>r :tabe $MYVIMRC<CR>
 nn <space>R :tabe $MYVIMRC<CR>
 nn <space>c :colo *
 nn <space>q :call BgDark()<CR>
@@ -100,7 +99,8 @@ nn <space>W :call BgLight()<CR>:! light<CR>
 nn <space>[ :se co=132<CR><c-W>=<c-l>
 nn <space>] :se co=230<CR><c-W>=<c-l>
 nn <space>t :tabe %<CR>
-nn <space>e :Sex<CR>
+nn <space>e :Ex<CR>
+nn <space>E :Sex<CR>
 nn <space>v :Vex<CR>
 nn <space>1 :call UseEslint()<CR>:ALELint<CR>:echom 'eslint'<CR>
 nn <space>2 :call UseStandard()<CR>:ALELint<CR>:echom 'standard'<CR>
