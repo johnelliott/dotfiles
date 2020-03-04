@@ -8,14 +8,12 @@ endif
 se noswapfile nobk nojs fo+=j gd ic wic sc
 se ts=4 et sts=2 sw=2 pvh=18
 se udir=~/.vim/undo cb=unnamed
-"let g:netrw_liststyle=3
 
+" tmux knows the extended mouse mode
 if &term =~ '^screen'
-  " tmux knows the extended mouse mode
   "se ttym=xterm2
   "se mouse-=v
 elseif has("mouse_sgr")
-  " tmux knows the extended mouse mode
   se ttym=sgr
 endif
 
@@ -28,7 +26,13 @@ endif
 func! BgDark()
   se bg=dark
   try
-    colo jellybeans
+    if has('gui_macvim')
+      colo jellybeans
+    else
+      call Dim()
+      "colo Tomorrow-Night
+    endif
+    "colo jellybeans
   catch /^Vim\%((\a\+)\)\=:E185/
     colo default
   endtry
@@ -37,7 +41,11 @@ endfunc
 func! BgLight()
   se bg=light
   try
-    colo Tomorrow
+    if has('gui_macvim')
+      colo Tomorrow
+    else
+      call Dim()
+    endif
   catch /^Vim\%((\a\+)\)\=:E185/
     colo default
   endtry
@@ -76,8 +84,8 @@ if has('gui_macvim')
   se go-=L "some other scrollbar
   se go+=k "keep window size
   se guifont=SF\ Mono:h12,Inconsolata:h15,Menlo:h13
-  "se blurradius=15
-else
+  se blurradius=2
+  se transparency=2
   nn <space>m :! open -a macvim.app %<CR><CR>
 endif
 
@@ -126,7 +134,10 @@ nn g<PageUp> :lop<CR>
 nn g<PageDown> :lcl<CR>
 
 let g:ale_set_loclist=1
-let g:ale_set_quickfix=-1
+let g:ale_set_quickfix=0
+let g:gruvbox_italic=0
+let g:gruvbox_contrast_light='medium'
+let g:gruvbox_contrast_dark='soft'
 
 nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>o<esc>
 ino jj <esc>
@@ -146,8 +157,9 @@ endif
 
 aug javascript
   au!
+  let b:ale_fix_on_save=0
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2 nu
+  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('l', l);0
   au bufnewfile,bufread *.test.js let b:ale_fix_on_save=0
   if executable('mdn')
@@ -239,6 +251,14 @@ func! UseStandard()
       call StandardLinters()
     endif
   endif
+endfunc
+
+func! Dim()
+  colo dim
+  highlight link GitGutterAdd          Type
+  highlight link GitGutterChange       Statement
+  highlight link GitGutterDelete       WarningMsg
+  highlight link GitGutterChangeDelete Statement
 endfunc
 
 if !empty(glob('~/.vim/autoload/plug.vim'))
