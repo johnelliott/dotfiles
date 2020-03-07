@@ -175,6 +175,16 @@ aug cpp
   au filetype cpp let g:ale_fixers = { 'cpp': ['uncrustify'] }
 aug end
 
+aug webloc
+  au!
+  " Output operations
+  autocmd BufWriteCmd,FileWriteCmd *.webloc call plist#Write()
+
+  " Input operations
+  autocmd BufReadCmd *.webloc call plist#Read(1) | call plist#ReadPost()
+  autocmd FileReadCmd *.webloc call plist#Read(0) | call plist#SetFiletype()
+aug end
+
 aug go
   au!
   let g:go_doc_keywordprg_enabled = 1
