@@ -86,6 +86,7 @@ if has('gui_macvim')
   se guifont=SF\ Mono:h12,Inconsolata:h15,Menlo:h13
   se blurradius=2
   se transparency=2
+else
   nn <space>m :! open -a macvim.app %<CR><CR>
 endif
 
@@ -110,9 +111,10 @@ nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
 nn <space>E :Sex<CR>
 nn <space>v :Vex<CR>
-nn <space>1 :call UseEslint()<CR>:ALELint<CR>:echom 'eslint'<CR>
+nn <space>1 :call UsePrettier()<CR>:ALELint<CR>:echom 'prettier'<CR>
 nn <space>2 :call UseStandard()<CR>:ALELint<CR>:echom 'standard'<CR>
 nn <space>3 :call UseSemiStandard()<CR>:ALELint<CR>:echom 'semistandard'<CR>
+nn <space>3 :call UseEslint()<CR>:ALELint<CR>:echom 'eslint'<CR>
 nn ]e <Plug>(ale_next)
 nn [e <Plug>(ale_previous)
 nn <space>g :GitGutterToggle<CR>
@@ -196,6 +198,11 @@ aug go
   au filetype go nn <space>l yiwofmt.Println("<c-r>"", <c-r>")<CR>
 aug end
 
+aug markdown
+  au!
+  au filetype markdown setl lbr wrap
+aug end
+
 let g:monotone_color = [53, 4, 57]
 let g:monotone_secondary_hue_offset = 17
 let g:ale_c_parse_makefile=1
@@ -211,6 +218,22 @@ let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['eslint'], 'css': ['styleli
 let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
 
 func! UseEslint()
+  let eslintrc = findfile('.eslintrc', '.;')
+  if eslintrc != ''
+    let g:ale_linters.scss = ['stylelint']
+    let g:ale_linters.css = ['stylelint']
+    let g:ale_linters.javascript = ['eslint']
+    let g:ale_linters.jsx = ['stylelint', 'eslint']
+    let g:ale_linters['javascript.jsx'] = ['stylelint', 'eslint']
+    let g:ale_fixers.scss = ['stylelint']
+    let g:ale_fixers.css = ['stylelint']
+    let g:ale_fixers.javascript = ['eslint']
+    let g:ale_fixers['javascript.jsx'] = ['eslint']
+    let g:ale_fixers.jsx = ['eslint']
+  endif
+endfunc
+
+func! UsePrettier()
   let eslintrc = findfile('.eslintrc', '.;')
   if eslintrc != ''
     let g:ale_linters.scss = ['stylelint']
@@ -304,6 +327,7 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   Plug 'NLKNguyen/c-syntax.vim'
   Plug 'andrewstuart/vim-kubernetes'
   Plug 'darfink/vim-plist'
+  Plug 'mustache/vim-mustache-handlebars'
   "  Plug 'RRethy/vim-hexokinase' " css colorizer
   " Colorschemes
   Plug 'Lokaltog/vim-monotone'
@@ -327,7 +351,7 @@ call SetColor()
 
 "call UseStandard()
 "call UseSemiStandard()
-call UseEslint()
+"call UseEslint()
 
 "let g:ycm_key_list_select_completion = []
 "let g:ycm_key_list_previous_completion = []
