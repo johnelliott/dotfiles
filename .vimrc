@@ -10,10 +10,7 @@ se ts=4 et sts=2 sw=2 pvh=18
 se udir=~/.vim/undo cb=unnamed
 
 " tmux knows the extended mouse mode
-if &term =~ '^screen'
-  "se ttym=xterm2
-  "se mouse-=v
-elseif has("mouse_sgr")
+if has("mouse_sgr")
   se ttym=sgr
 endif
 
@@ -161,7 +158,7 @@ aug javascript
   au!
   let b:ale_fix_on_save=0
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
-  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2
+  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2 nu
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('l', l);0
   au bufnewfile,bufread *.test.js let b:ale_fix_on_save=0
   if executable('mdn')
@@ -171,7 +168,7 @@ aug end
 
 aug cpp
   au!
-  au filetype cpp setl ls=2 sw=4 sts=4 ts=4 et
+  au filetype cpp setl ls=2 sw=4 sts=4 ts=4 et nu
   au filetype cpp se cmdheight=2
   au filetype cpp let g:ale_linters = { 'cpp': ['gcc'] }
   au filetype cpp let g:ale_fixers = { 'cpp': ['uncrustify'] }
@@ -191,7 +188,7 @@ aug go
   au!
   let g:go_doc_keywordprg_enabled = 1
   au filetype cpp setl ls=2 sw=4 sts=4 ts=4 et
-  au filetype go setl ls=2 sw=4 sts=4 ts=4 noet
+  au filetype go setl ls=2 sw=4 sts=4 ts=4 noet nu
   au filetype go nn <space>r :up\|GoRun<CR>
   au filetype go nn <space>b :GoBuild<CR>
   au filetype go nn <space>k :GoDocBrowser <cword><CR>
