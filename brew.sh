@@ -51,6 +51,7 @@ brew install ack \
   htop \
   hub \
   jq \
+  kubectx \
   kubernetes-cli \
   moreutils \
   netcat \
