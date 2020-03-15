@@ -80,7 +80,7 @@ if has('gui_macvim')
   se go-=r "permenant right scrollbar
   se go-=L "some other scrollbar
   se go+=k "keep window size
-  se guifont=SF\ Mono:h12,Inconsolata:h15,Menlo:h13
+  se guifont=SF\ Mono:h12,Monaco:h12,Menlo:h13
   se blurradius=2
   se transparency=2
 else
@@ -325,6 +325,7 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   Plug 'andrewstuart/vim-kubernetes'
   Plug 'darfink/vim-plist'
   Plug 'mustache/vim-mustache-handlebars'
+  Plug 'hashivim/vim-terraform'
   "  Plug 'RRethy/vim-hexokinase' " css colorizer
   " Colorschemes
   Plug 'Lokaltog/vim-monotone'
