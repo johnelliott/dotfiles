@@ -24,7 +24,7 @@ func! BgDark()
   se bg=dark
   try
     if has('gui_macvim')
-      colo jellybeans
+      colo hybrid
     else
       call Dim()
       "colo Tomorrow-Night
@@ -98,7 +98,7 @@ nn <space>L :se lbr!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
 nn <space>R :tabe $MYVIMRC<CR>
-nn <space>c :colo *
+nn <space>c :Colors<CR>
 nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
 nn <space>Q :call BgDark()<CR>:! dark<CR>
@@ -339,6 +339,7 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   Plug 'plan9-for-vimspace/acme-colors'
   Plug 'rakr/vim-one'
   Plug 'vim-scripts/bclear'
+  Plug 'w0ng/vim-hybrid'
   call plug#end()
 endif
 

@@ -29,5 +29,7 @@ export GREP_OPTIONS='--color=auto';
 
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
+export FZF_DEFAULT_OPTS="--height=50% --preview 'bat --style=numbers --color=always {} | head -500' --color=16"
+
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 # export HOMEBREW_CASK_OPTS="--appdir=/Applications";

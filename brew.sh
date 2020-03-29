@@ -35,6 +35,7 @@ brew install ack \
   awscli \
   bash \
   bash-completion@2 \
+  bat \
   certbot \
   csvkit \
   exiftool \
