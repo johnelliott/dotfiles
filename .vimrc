@@ -82,8 +82,8 @@ if has('gui_macvim')
   se go+=k "keep window size
   "se guifont=SF\ Mono:h12,Monaco:h12,Menlo:h13
   se guifont=Monaco:h12,Menlo:h13,SF\ Mono:h12
-  se blurradius=2
-  se transparency=2
+  "se blurradius=2
+  "se transparency=2
 else
   nn <space>m :! open -a macvim.app %<CR><CR>
 endif
@@ -158,7 +158,7 @@ endif
 aug javascript
   au!
   let b:ale_fix_on_save=0
-  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
+  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,*.eslintrc,.nycrc se ft=json
   au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2 nu
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('l', l);0
   au bufnewfile,bufread *.test.js let b:ale_fix_on_save=0
@@ -189,7 +189,7 @@ aug go
   au!
   let g:go_doc_keywordprg_enabled = 1
   au filetype cpp setl ls=2 sw=4 sts=4 ts=4 et
-  au filetype go setl ls=2 sw=4 sts=4 ts=4 noet nu
+  au filetype go setl ls=2 sw=4 sts=4 ts=4 noet nu nowrap
   au filetype go nn <space>r :up\|GoRun<CR>
   au filetype go nn <space>b :GoBuild<CR>
   au filetype go nn <space>k :GoDocBrowser <cword><CR>
@@ -304,6 +304,7 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   sil! Plug 'w0rp/ale'
   " Languages
   Plug 'Glench/Vim-Jinja2-Syntax'
+  Plug 'vim-scripts/applescript.vim'
   Plug 'vim-scripts/irssilog.vim'
   Plug 'isundil/vim-irssi-syntax'
   Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
