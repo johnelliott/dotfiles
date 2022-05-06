@@ -17,6 +17,7 @@
 - no `man` pages and GNU utils?
 - no bash completion for npm, see https://docs.npmjs.com/cli/completion or just do `$ npm completion > /usr/local/etc/bash_completion.d/npm`
 - no fzf install, run `/usr/local/opt/fzf/install` in shell for that or see `brew info fzf`
+- new mac `/opt/homebrew/opt/fzf/install`
 
 1. if brew fails, hub alias screws up subsequent things
 2. # Make NVM available
@@ -26,3 +27,22 @@ add brew link pkg-config
 
 add iterm config
 general settings for scroll bar behavior
+
+## TODO
+install brew multiple runs
+fzf install the control-t in bash thing
+git install bootstrapping
+vim macvim was a pain
+ripgreprc
+vim plug install
+:GoInstallBinaries for vim
+get musl runing on new mac laptops
+
+### system prefs, lots of them
+show sound in menu bar
+zoom prefs
+fix zshell nagware
+
+### security
+osascript needs to run manually first
+enable remote login
