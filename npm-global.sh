@@ -2,7 +2,7 @@
 	read -p "Would you like to install NVM? (y/n) " -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-      curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+	  wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 	fi
 
 # Install npm modules
