@@ -18,6 +18,7 @@
   repo2d = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset' --since='2 days ago'"
   repo = "log --graph --oneline --all --color=always --date=relative --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s %Cgreen[%cn]%Cred%d%Creset'"
   conflicts = "diff --name-only --diff-filter=U"
+  lg = "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
   f = fetch
   fp = fetch -p
@@ -35,7 +36,7 @@
   pu = push
   pushup = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 
-  fix = "!f() { ${VISUAL} `git conflicts`; }; f"
+  fix = "!f() { vim `git conflicts`; }; f"
 
   # Find branches containing commit
   fb = "!f() { git branch -a --contains $1; }; f"
@@ -44,7 +45,7 @@
   ft = "!f() { git describe --always --contains $1; }; f"
 
   # Find commits by source code
-  fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+  fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -G$1; }; f"
 
   # Find commits by commit message
   fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
@@ -149,6 +150,8 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+[init]
+  defaultbranch = "main"
 [user]
-	name = John Elliott
-	email = johnelliott703@gmail.com
+  name = John Elliott
+  email = johnelliott703@gmail.com
