@@ -2,7 +2,7 @@
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{path,exports,aliases,functions,extra}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+  [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
 
@@ -68,23 +68,23 @@ export NVM_DIR="$HOME/.nvm"
 export GOPATH="$HOME/go"
 
 ## Highlight the hostname when connected via SSH.
-#if [[ "${SSH_TTY}" ]]; then
-#  sshWarning="\[\033[00;33m\]\u@\h \[\033[1;31m\]SSH \[\033[0;33m\]";
-#else
-#  sshWarning="";
-#fi;
+if [[ "${SSH_TTY}" ]]; then
+  sshWarning="\[\033[00;33m\]\u@\h \[\033[1;31m\]SSH \[\033[0;33m\]";
+else
+  sshWarning="";
+fi;
 # bold yellow \[\033[1;33m\]
 # reset \[\033[0m\]
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 # 36 is cyan, 33 is yellow
-#PS1="$sshWarning\[\033[01;36m\]\w \$\[\033[00m\] "
+PS1="$sshWarning\[\033[01;36m\]\w \$\[\033[00m\] "
 #PS1="\[\033[01;33m\]\h \[\033[01;36m\]\w \$\[\033[00m\] "
-PS1="\[\033[01;36m\]\w \$\[\033[00m\] "
+#PS1="\[\033[01;36m\]\w \$\[\033[00m\] "
 PS2="\[\033[1;32m\]→ \[\033[0m\]";
 export PS1;
 export PS2;
 
-if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
-    #tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
-    tmux new-session -A -s ssh_tmux
-fi
+#if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+#    #tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
+#    tmux new-session -A -s ssh_tmux
+#fi
