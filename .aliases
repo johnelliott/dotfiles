@@ -10,15 +10,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# Shortcuts
-# Git shortcuts
-alias git="hub"
-alias gg="git grep"
-
 # Additional Shortcuts
 alias h="history | tail -n 150"
 alias j="jobs"
-alias du='du -ch --max-depth=1'
+alias du='du -ch'
 alias ll="ls -alrtFG"
 alias p='cat package.json |jq'
 
@@ -46,9 +41,10 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
-# IP addresses
+# Net
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+alias routes="netstat -nr -t"
 
 # OS X has no `md5sum`, so use `md5` as a fallback
 command -v md5sum > /dev/null || alias md5sum="md5"
@@ -56,7 +52,7 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 # OS X has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
-# Show/hide hidden files in Finder
+## Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
@@ -68,3 +64,5 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias reload="exec $SHELL -l"
 
 #alias prs='hub pr list -f "%sC%>(8)%i (%NC)%Creset @%B - %au - %t% l%n"'
+
+alias tma="tmux attach -t"
