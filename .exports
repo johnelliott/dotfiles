@@ -33,3 +33,4 @@ export FZF_DEFAULT_OPTS="--height=50% --preview 'bat --style=numbers --color=alw
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 # export HOMEBREW_CASK_OPTS="--appdir=/Applications";
+export HOMEBREW_NO_AUTO_UPDATE=1
