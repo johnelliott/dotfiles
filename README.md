@@ -1,28 +1,26 @@
 # dotfiles
 
-#### [.vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc)
-`curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/master/.vimrc >|~/.vimrc 2>&1`
+The files and scripts in this repository strike a balance between time-saving automation and accepting the natural churn of hardware, OS, and dev tools. I've found maintaining a fully-automated setup is rarely worth it and I use getting a new machine as an occasion to try new things anyway.
 
-`curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+| Quick Link | Quick Commandline |
+| --- | --- |
+| [get .vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/main/.vimrc) | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/.vimrc > ~/.vimrc 2>&1` |
+| [get vim-plug](https://github.com/junegunn/vim-plug) | `curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/main/plug.vim` |
+| [get .tmux.conf](https://raw.githubusercontent.com/johnelliott/dotfiles/main/.tmux.conf) | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/.tmux.conf > ~/.tmux.conf 2>&1` |
+| [run applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/main/applestore.sh) | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/applestore.sh \| sh ` |
+| [run instance.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/main/instance.sh) | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/instance.sh \| sh `  |
 
-#### [.tmux.conf](https://raw.githubusercontent.com/johnelliott/dotfiles/master/.tmux.conf)
-`curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/master/.tmux.conf >|~/.tmux.conf 2>&1`
 
-#### [applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/applestore.sh)
-#### [instance.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/master/instance.sh)
+## Missing
+- my nvim config
+- my iterm2 config
 
-## missing steps
-- no automatic `chsh` and `/etc/shells` addition
-- no `man` pages and GNU utils?
-- no bash completion for npm, see https://docs.npmjs.com/cli/completion or just do `$ npm completion > /usr/local/etc/bash_completion.d/npm`
-- no fzf install, run `/usr/local/opt/fzf/install` in shell for that or see `brew info fzf`
+## Manual steps
+- (security) osascript needs to run manually first
+- (security) don't forget to enable remote login
+- developer env version menagers, e.g. NVM, mise
+- `chsh` and `/etc/shells`
+- `man` pages and GNU utils?
+- bash completion for npm, see https://docs.npmjs.com/cli/completion or just do `$ npm completion > /usr/local/etc/bash_completion.d/npm`
+- fzf install, e.g. `/usr/local/opt/fzf/install` in shell or see `brew info fzf`, `/opt/homebrew/opt/fzf/install`
 
-1. if brew fails, hub alias screws up subsequent things
-2. # Make NVM available
-export NVM_DIR="/Users/$user/.nvm"
-
-add brew link pkg-config
-
-add iterm config
-general settings for scroll bar behavior
