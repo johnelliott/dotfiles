@@ -9,6 +9,8 @@ se noswapfile nobk nojs fo+=j gd ic wic sc
 se ts=4 et sts=2 sw=2 pvh=18
 se udir=~/.vim/undo cb=unnamed
 
+se nocul
+
 " tmux knows the extended mouse mode
 if has("mouse_sgr")
   se ttym=sgr
@@ -22,33 +24,37 @@ endif
 
 func! BgDark()
   se bg=dark
-  try
-    if has('gui_macvim')
-      colo hybrid
-    else
-      call Dim()
-      "colo Tomorrow-Night
-    endif
-    "colo jellybeans
-  catch /^Vim\%((\a\+)\)\=:E185/
-    colo default
-  endtry
+  "try
+  "  if has('gui_macvim')
+  "    "colo monokai
+  "    colo lunaperche
+  "  else
+  "    "call Dim()
+  "    colo lunaperche
+  "  endif
+  "  "colo jellybeans
+  "catch /^Vim\%((\a\+)\)\=:E185/
+  "  colo default
+  "endtry
 endfunc
 
 func! BgLight()
   se bg=light
-  try
-    if has('gui_macvim')
-      colo Tomorrow
-    else
-      call Dim()
-    endif
-  catch /^Vim\%((\a\+)\)\=:E185/
-    colo default
-  endtry
+  "try
+  "  if has('gui_macvim')
+  "    colo lunaperche
+  "    "colo monokai
+  "  else
+  "    colo lunaperche
+  "    "colo github
+  "  endif
+  "catch /^Vim\%((\a\+)\)\=:E185/
+  "  colo default
+  "endtry
 endfunc
 
 func! SetColor()
+  colo lunaperche
   try
     " macvim
     if has("gui_macvim")
@@ -82,8 +88,8 @@ if has('gui_macvim')
   se go+=k "keep window size
   "se guifont=SF\ Mono:h12,Monaco:h12,Menlo:h13
   se guifont=Monaco:h12,Menlo:h13,SF\ Mono:h12
-  "se blurradius=2
-  "se transparency=2
+  se blurradius=2
+  se transparency=2
 else
   nn <space>m :! open -a macvim.app %<CR><CR>
 endif
@@ -91,14 +97,14 @@ endif
 nn <space>s :up<CR>
 nn <space>n :se nu!<CR>
 nn <space>N :se rnu!<CR>
-nn <space>8 :gr <cword><CR>
 nn <space>o :cope<CR>
 nn <space>l :se wrap!<CR>
 nn <space>L :se lbr!<CR>
 nn <space>h :noh<CR>
 nn <space>H :se hls!<CR>
 nn <space>R :tabe $MYVIMRC<CR>
-nn <space>c :Colors<CR>
+"nn <space>c :Colors<CR>
+nn <space>c :colo<space>
 nn <space>q :call BgDark()<CR>
 nn <space>w :call BgLight()<CR>
 nn <space>Q :call BgDark()<CR>:! dark<CR>
@@ -109,10 +115,6 @@ nn <space>t :tabe %<CR>
 nn <space>e :Ex<CR>
 nn <space>E :Sex<CR>
 nn <space>v :Vex<CR>
-nn <space>1 :call UsePrettier()<CR>:ALELint<CR>:echom 'prettier'<CR>
-nn <space>2 :call UseStandard()<CR>:ALELint<CR>:echom 'standard'<CR>
-nn <space>3 :call UseSemiStandard()<CR>:ALELint<CR>:echom 'semistandard'<CR>
-nn <space>3 :call UseEslint()<CR>:ALELint<CR>:echom 'eslint'<CR>
 nn ]e <Plug>(ale_next)
 nn [e <Plug>(ale_previous)
 nn <space>g :GitGutterToggle<CR>
@@ -133,14 +135,15 @@ nn <PageDown> :lne<CR>
 nn g<PageUp> :lop<CR>
 nn g<PageDown> :lcl<CR>
 
+let g:gitgutter_enabled=0 " Don't start gg at startup
 let g:ale_set_loclist=1
 let g:ale_set_quickfix=0
 let g:gruvbox_italic=0
-let g:gruvbox_contrast_light='medium'
+let g:gruvbox_contrast_light='hard'
 let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_sign_column='bg0'
 
-nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>o<esc>
-ino jj <esc>
+nn <space>d o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>I# <esc>o<esc>0
 ino <C-e>1 🧐
 ino <C-e>2 🔶
 ino <C-e>3 🐠
@@ -148,19 +151,39 @@ ino <C-e>4 🦁
 ino <C-e>5 🦖
 ino <C-e>6 😎
 
-if has('gui_macvim')
-  aug ui
-    au!
-    au OSAppearanceChanged * call SetColor()
-  aug end
-endif
+" names
+iab miccah Miccah
+iab greg Greg
+iab hameto Hameto
+iab aaron Aaron
+iab dilian Dilian
+iab tripp Tripp
+
+""" if has('gui_macvim')
+"""   aug ui
+"""     au!
+"""     au OSAppearanceChanged * call SetColor()
+"""   aug end
+""" endif
 
 aug javascript
   au!
   let b:ale_fix_on_save=0
+<<<<<<< Updated upstream
+  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,.eslintrc,.nycrc se ft=json
+  au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2 nu
+  au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('l', l);0
+||||||| Stash base
   au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,*.eslintrc,.nycrc se ft=json
   au filetype json,rust,javascript,javascript.jsx,typescript setl ls=2 nu
   au filetype javascript,javascript.jsx,typescript nn <buffer> <space>l "lyiwoconsole.log('l', l);0
+=======
+  au bufnewfile,bufread *.gltf,.graphqlrc,.stylelintrc,.babelrc,.firebaserc,*.eslintrc,.nycrc se ft=json
+  au filetype json,rust,javascript,javascript.jsx,typescript,typescriptreact setl ls=2 nu
+  au filetype javascript,javascript.jsx,typescript,typescriptreact nn <buffer> <space>l "lyiwoconsole.log(`💬 l`, l);0
+  au filetype javascript,javascript.jsx,typescript,typescriptreact nn <buffer> <space>L "lyiwolog('l ' + l);0
+  "au filetype javascript,javascript.jsx,typescript nn <buffer> <space>L "lyiwolog('^R" ' + ^R");^[<80><fd>a0
+>>>>>>> Stashed changes
   au bufnewfile,bufread *.test.js let b:ale_fix_on_save=0
   if executable('mdn')
     au filetype javascript,javascript.jsx setl kp=mdn
@@ -175,6 +198,11 @@ aug cpp
   au filetype cpp let g:ale_fixers = { 'cpp': ['uncrustify'] }
 aug end
 
+aug scheme
+  au!
+  au filetype scheme nn <space>r :up\|!cat %\|scheme<CR>
+aug end
+
 aug webloc
   au!
   " Output operations
@@ -187,13 +215,33 @@ aug end
 
 aug go
   au!
+  au BufRead,BufNewFile *.tmpl setfiletype gohtmltmpl
   let g:go_doc_keywordprg_enabled = 1
   au filetype cpp setl ls=2 sw=4 sts=4 ts=4 et
+<<<<<<< Updated upstream
+  au filetype go setl ls=2 sw=4 sts=4 ts=4 noet nu
+||||||| Stash base
   au filetype go setl ls=2 sw=4 sts=4 ts=4 noet nu nowrap
+=======
+  au filetype go setl ls=2 sw=4 sts=4 ts=4 noet cmdheight=2
+  "au filetype go setl nu nowrap
+>>>>>>> Stashed changes
   au filetype go nn <space>r :up\|GoRun<CR>
   au filetype go nn <space>b :GoBuild<CR>
   au filetype go nn <space>k :GoDocBrowser <cword><CR>
   au filetype go nn <space>l yiwofmt.Println("<c-r>"", <c-r>")<CR>
+
+  " hugo projects, until https://github.com/gohugoio/hugo/issues/3230 is
+  " implemented
+  au BufRead,BufNewFile ~/code/johnelliott.org/layouts/*.html setfiletype gohtmltmpl
+  au BufRead,BufNewFile ~/code/johnelliott.org/layouts/*.xml setfiletype gotexttmpl
+  au BufRead,BufNewFile ~/code/randophelliott/layouts/*.html setfiletype gohtmltmpl
+aug end
+
+" Learning python
+aug python
+  au!
+  au filetype python nn <space>r :up\|!python %<CR>
 aug end
 
 aug markdown
@@ -201,95 +249,43 @@ aug markdown
   au filetype markdown setl lbr wrap
 aug end
 
+aug hdl
+  au!
+  " for Nand2Tetris
+  au filetype hdl se sts=4 sw=4
+aug end
+
+" https://github.com/pearofducks/ansible-vim
+aug ansible
+  au!
+  au BufRead,BufNewFile ~/code/ansible/**/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile ~/code/scn/ansible/**/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile ~/code/scn/ansible/*.yml set filetype=yaml.ansible
+aug end
+
+
 let g:monotone_color = [53, 4, 57]
 let g:monotone_secondary_hue_offset = 17
 let g:ale_c_parse_makefile=1
 let g:ale_set_balloons=1
 let g:sql_type_default = 'pgsql'
-"let g:ale_completion_enabled=1
+let g:ale_completion_enabled=1
 "javascript
 let g:jsx_ext_required = 0 " Highlight .js as .jsx
 "linter setup
 let g:ale_set_balloons=1
 let g:ale_fix_on_save = 1
 let g:ale_linters = { 'cpp': ['g++'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
-let g:ale_fixers = { 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
-
-func! UseEslint()
-  let eslintrc = findfile('.eslintrc', '.;')
-  if eslintrc != ''
-    let g:ale_linters.scss = ['stylelint']
-    let g:ale_linters.css = ['stylelint']
-    let g:ale_linters.javascript = ['eslint']
-    let g:ale_linters.jsx = ['stylelint', 'eslint']
-    let g:ale_linters['javascript.jsx'] = ['stylelint', 'eslint']
-    let g:ale_fixers.scss = ['stylelint']
-    let g:ale_fixers.css = ['stylelint']
-    let g:ale_fixers.javascript = ['eslint']
-    let g:ale_fixers['javascript.jsx'] = ['eslint']
-    let g:ale_fixers.jsx = ['eslint']
-  endif
-endfunc
-
-func! UsePrettier()
-  let eslintrc = findfile('.eslintrc', '.;')
-  if eslintrc != ''
-    let g:ale_linters.scss = ['stylelint']
-    let g:ale_linters.css = ['stylelint']
-    let g:ale_linters.javascript = ['eslint']
-    let g:ale_linters.jsx = ['stylelint', 'eslint']
-    let g:ale_linters['javascript.jsx'] = ['stylelint', 'eslint']
-    let g:ale_fixers.scss = ['stylelint']
-    let g:ale_fixers.css = ['stylelint']
-    let g:ale_fixers.javascript = ['eslint', 'prettier']
-    let g:ale_fixers['javascript.jsx'] = ['eslint', 'prettier']
-    let g:ale_fixers.jsx = ['eslint', 'prettier']
-  endif
-endfunc
-
-func! StandardLinters()
-  let g:ale_linters.scss = ['stylelint']
-  let g:ale_linters.css = ['stylelint']
-  let g:ale_linters.javascript = ['standard']
-  let g:ale_linters.jsx = ['stylelint', 'standard']
-  let g:ale_linters['javascript.jsx'] = ['stylelint', 'standard']
-  let g:ale_fixers.scss = ['stylelint']
-  let g:ale_fixers.css = ['stylelint']
-  let g:ale_fixers.javascript = ['standard']
-  let g:ale_fixers['javascript.jsx'] = ['standard']
-  let g:ale_fixers.jsx = ['standard']
-endfunc
-
-func! UseSemiStandard()
-  let node_modules = finddir('node_modules', '.;')
-  if len(node_modules)
-    let exec = node_modules . '/.bin/semistandard'
-    if executable(exec)
-      let g:ale_javascript_standard_executable = exec
-      let g:ale_javascript_eslint_use_global = 1
-      call StandardLinters()
-    endif
-  endif
-endfunc
-
-func! UseStandard()
-  let node_modules = finddir('node_modules', '.;')
-  if len(node_modules)
-    let exec = node_modules . '/.bin/standard'
-    if executable(exec)
-      let g:ale_javascript_standard_executable = exec
-      let g:ale_javascript_eslint_use_global = 1
-      call StandardLinters()
-    endif
-  endif
-endfunc
+let g:ale_fixers = { 'yaml': 'yamlfix', 'go': ['gofmt', 'goimports'], 'cpp': ['uncrustify'], 'javascript': ['eslint'], 'css': ['stylelint'], 'html': ['stylelint'] }
 
 func! Dim()
+  "colo github
   colo dim
-  highlight link GitGutterAdd          Type
-  highlight link GitGutterChange       Statement
-  highlight link GitGutterDelete       WarningMsg
-  highlight link GitGutterChangeDelete Statement
+  hi link GitGutterAdd          Type
+  hi link GitGutterChange       Statement
+  hi link GitGutterDelete       WarningMsg
+  hi link GitGutterChangeDelete Statement
+  hi SignColumn ctermbg=NONE
 endfunc
 
 if !empty(glob('~/.vim/autoload/plug.vim'))
@@ -299,12 +295,16 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   Plug 'editorconfig/editorconfig-vim'
   if executable('fzf')
     Plug 'junegunn/fzf.vim'
-    Plug '/usr/local/opt/fzf'
+    Plug '/opt/homebrew/opt/fzf'
   endif
   sil! Plug 'w0rp/ale'
+" post install (yarn install | npm install) then load plugin only for editing supported files
+"  Plug 'prettier/vim-prettier', {
+"    \ 'do': 'yarn install',
+"    \ 'for': ['javascript', 'typescriptreact', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
   " Languages
+  Plug 'nfnty/vim-nftables'
   Plug 'Glench/Vim-Jinja2-Syntax'
-  Plug 'vim-scripts/applescript.vim'
   Plug 'vim-scripts/irssilog.vim'
   Plug 'isundil/vim-irssi-syntax'
   Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
@@ -325,57 +325,50 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   Plug 'pearofducks/ansible-vim'
   Plug 'NLKNguyen/c-syntax.vim'
   Plug 'andrewstuart/vim-kubernetes'
-  Plug 'darfink/vim-plist'
+  Plug 'cmcaine/vim-uci'
+  "Plug 'darfink/vim-plist'
   Plug 'mustache/vim-mustache-handlebars'
   Plug 'hashivim/vim-terraform'
   Plug 'fatih/vim-hclfmt'
+  Plug 'vito-c/jq.vim'
+  "Plug 'davidbeckingsale/writegood.vim'
   "  Plug 'RRethy/vim-hexokinase' " css colorizer
+  "Plug 'pantharshit00/vim-prisma'
+  Plug 'sevko/vim-nand2tetris-syntax'
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'ClockworkNet/vim-junos-syntax'
+
   " Colorschemes
-  Plug 'Lokaltog/vim-monotone'
-  Plug 'NLKNguyen/papercolor-theme'
-  Plug 'chriskempson/vim-tomorrow-theme'
   Plug 'jeffkreeftmeijer/vim-dim'
-  Plug 'morhetz/gruvbox'
-  Plug 'nanotech/jellybeans.vim'
+  Plug 'cormacrelf/vim-colors-github'
+  Plug 'lifepillar/vim-gruvbox8'
   Plug 'plan9-for-vimspace/acme-colors'
-  Plug 'rakr/vim-one'
-  Plug 'vim-scripts/bclear'
-  Plug 'w0ng/vim-hybrid'
+  Plug 'crusoexia/vim-monokai'
+  "Plug 'sjl/badwolf'
+
+  " Disabled colors
+  "Plug 'NLKNguyen/papercolor-theme'
+  "Plug 'chriskempson/vim-tomorrow-theme'
+  "Plug 'dracula/vim'
+  "Plug 'reedes/vim-colors-pencil'
+  Plug 'lifepillar/vim-solarized8'
+  "Plug 'morhetz/gruvbox'
+  "Plug 'rakr/vim-one'
+  "Plug 'w0ng/vim-hybrid'
+  "Plug 'Lokaltog/vim-monotone'
+  "Plug 'qualiabyte/vim-colorstepper'
+  "Plug 'ajh17/spacegray.vim'
+  "Plug 'nanotech/jellybeans.vim'
+  "Plug 'trusktr/seti.vim'
+  "Plug 'vim-scripts/summerfruit256.vim'
+  "Plug 'jnurmine/Zenburn'
+  "Plug 'vim-scripts/bclear'
+  " Monokais
+  "Plug 'lsdr/monokai'
+  "Plug 'sickill/vim-monokai'
+  "Plug 'tomasr/molokai'
+  "let g:molokai_original = 1
   call plug#end()
 endif
 
 call SetColor()
-
-" TODO command! PackUpdate call pack#update()
-" minpac
-" volt
-" dein.vim similar to plugupdate, deoplete
-
-"call UseStandard()
-"call UseSemiStandard()
-"call UseEslint()
-
-"let g:ycm_key_list_select_completion = []
-"let g:ycm_key_list_previous_completion = []
-"let g:ycm_show_diagnostics_ui = 0
-"let g:ycm_key_detailed_diagnostics = ''
-".....
-"let g:ale_fixers = {
-"            \ 'typescript': ['prettier'],
-"            \ 'javascript': ['prettier'],
-"            \ 'jsx': ['prettier'],
-"            \ 'json': ['prettier'],
-"            \ 'css': ['prettier'],
-"            \ 'scss': ['prettier']
-"            }
-".....
-"nnoremap <Leader>rr :YcmCompleter RefactorRename<Space>
-"nnoremap <leader>jd :YcmCompleter GoTo<CR>
-"nnoremap <leader>gt :YcmCompleter GetType<CR>
-"nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-"nnoremap <Leader>b :YcmCompleter Format<CR>
-"nnoremap <Leader>oi :YcmCompleter OrganizeImports<CR>
-".....
-"nnoremap <F5> :ALELint<CR>
-"nnoremap <Leader>f :ALEFix<CR>
-"nnoremap <Leader>d :ALEDetail<CR>
