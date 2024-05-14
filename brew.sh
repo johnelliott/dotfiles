@@ -32,51 +32,53 @@ sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
 brew install ack \
   ansible \
-  awscli \
   bash \
   bash-completion@2 \
   bat \
-  certbot \
   csvkit \
   exiftool \
   ext2fuse \
   ext4fuse \
-  ffmpeg \
   fzf \
   git \
   git-lfs \
-  goaccess \
-  google-cloud-sdk \
-  graphicsmagick \
-  grep \
   htop \
-  hub \
+  btop \
   jq \
-  kubectx \
-  kubernetes-cli \
+  fd \
   moreutils \
   netcat \
-  nginx \
   nmap \
   openssh \
   openssl \
-  postgresql \
   pup \
   reattach-to-user-namespace \
   rsync \
-  speedtest-cli \
   sqlite \
-  stern \
   ssh-copy-id \
   ripgrep \
   tmux \
-  transmission \
   tree \
-  youtube-dl
+  #google-cloud-sdk \
+  #transmission \
+  #stern \
+  #speedtest-cli \
+  #postgresql \
+  #nginx \
+  #kubernetes-cli \
+  #kubectx \
+  #hub \
+  #grep \
+  #graphicsmagick \
+  #goaccess \
+  #ffmpeg \
+  #certbot \
+  #awscli \
+  yt-dlp
 
+brew tap filosottile/musl-cross
 brew install findutils # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install gnu-sed --with-default-names # Install GNU `sed`, overwriting the built-in `sed`.
-brew install imagemagick --with-webp
 brew install vim --with-override-system-vi
 brew install wget --with-iri
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
