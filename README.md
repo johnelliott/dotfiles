@@ -12,7 +12,6 @@ The files and scripts in this repository strike a balance between time-saving au
 
 
 ## Missing
-- my nvim config
 - my iterm2 config
 
 ## Manual steps
