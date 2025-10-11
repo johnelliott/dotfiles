@@ -15,10 +15,10 @@ vim.keymap.set("n", "<leader>E", ":Ex<CR>")
 vim.keymap.set("n", "<leader>v", ":Vex<CR>")
 vim.keymap.set("n", "<leader>1", ":colo wildcharm<CR>")
 vim.keymap.set("n", "<leader>2", ":colo gruvbox<CR>")
-vim.keymap.set("n", "<leader>3", ":colo habamax<CR>")
+vim.keymap.set("n", "<leader>3", ":colo onedark<CR>")
 vim.keymap.set("n", "<leader>4", ":colo lunaperche<CR>")
 vim.keymap.set("n", "<leader>5", ":colo tokyonight<CR>")
-vim.keymap.set("n", "<leader>6", ":colo zaibatsu<CR>")
+vim.keymap.set("n", "<leader>6", ":colo dracula<CR>")
 vim.keymap.set("n", "<leader>7", ":colo delek<CR>")
 
 -- TODO: keymap for linter next

@@ -9,6 +9,25 @@ return {
 	{ "folke/noice.nvim", enabled = false },
 	{ "fatih/vim-go" },
 	{ "folke/flash.nvim", enabled = false },
+	{
+		"f-person/auto-dark-mode.nvim",
+		opts = {
+			priority = 1000,
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			set_dark_mode = function()
+				vim.api.nvim_set_option_value("background", "dark", {})
+				vim.cmd("colorscheme tokyonight-moon")
+			end,
+			set_light_mode = function()
+				vim.api.nvim_set_option_value("background", "light", {})
+				vim.cmd("colorscheme onedark")
+			end,
+			update_interval = 3000,
+			fallback = "dark",
+		},
+	},
 
 	-- I thought I was going to need to disable this for hidden text, but learned that conceallevle is a thing now
 	-- { "iamcco/markdown-preview.nvim", enabled = false },
