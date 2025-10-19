@@ -140,6 +140,12 @@ return {
 		priority = 1000,
 		opts = {
 			variant = "auto",
+			-- Enable transparent background
+			transparent = true,
+			-- Enable italics comments
+			italic_comments = false,
+			-- Apply a modern borderless look to pickers like Telescope, Snacks Picker & Fzf-Lua
+			borderless_pickers = false,
 		},
 	},
 	{
