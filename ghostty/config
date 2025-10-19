@@ -42,7 +42,6 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-#theme = "dark:Apple System Colors, light:Apple #System Colors Light"
 theme = "dark:cyberdream, light:cyberdream-light"
 font-family = "MesloLGSDZ Nerd Font Mono"
 font-size = 13
@@ -56,5 +55,6 @@ background-blur = 30
 
 window-width = 128
 window-height = 42
+
 # ghostty +list-themes
 
