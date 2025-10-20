@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# .extra - Machine-specific configuration (not committed to git)
+# Copy this to ~/.extra and customize for your local machine
+
+# Example: Machine-specific environment variables
+# export PGUSER=postgres
+# export PGPASSWORD=postgres
+# export PGDATABASE=postgres
+# export PGHOST=localhost
+# export PGPORT=5432
+
+# Example: Machine-specific PATH additions
+# export PATH="/opt/custom/bin:$PATH"
+
+# Example: Machine-specific aliases
+# alias work="cd ~/work-projects"
+
+# Example: API keys and secrets
+# export OPENAI_API_KEY="your-key-here"

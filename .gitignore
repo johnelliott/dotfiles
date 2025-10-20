@@ -15,3 +15,6 @@ Thumbs.db
 
 # nvim spelling
 nvim/spell
+
+# Machine-specific shell config
+.extra
