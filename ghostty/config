@@ -57,6 +57,7 @@ window-padding-x = 8
 
 background-opacity = 0.97
 background-blur = 30
+unfocused-split-opacity = 0.97
 
 window-width = 128
 window-height = 42
