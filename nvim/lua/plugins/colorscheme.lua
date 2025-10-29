@@ -149,8 +149,10 @@ return {
 			-- Customize highlight groups
 			overrides = function(colors)
 				return {
-					StatusLine = { bg = "#acacac" },
-					StatusLineNC = { bg = "#eeeeee" },
+					-- StatusLine = { bg = "#acacac" },
+					-- StatusLineNC = { bg = "#eeeeee" },
+					StatusLine = { link = "Visual" },
+					StatusLineNC = { link = "VisualNC" },
 				}
 			end,
 		},
