@@ -146,6 +146,13 @@ return {
 			italic_comments = false,
 			-- Apply a modern borderless look to pickers like Telescope, Snacks Picker & Fzf-Lua
 			borderless_pickers = false,
+			-- Customize highlight groups
+			overrides = function(colors)
+				return {
+					StatusLine = { bg = "#acacac" },
+					StatusLineNC = { bg = "#eeeeee" },
+				}
+			end,
 		},
 	},
 	{

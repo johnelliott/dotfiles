@@ -21,3 +21,5 @@ foreground = #16181a
 cursor-color = #16181a
 selection-background = #acacac
 selection-foreground = #16181a
+
+split-divider-color = #16181a
