@@ -47,7 +47,7 @@
 config-file = ?local-config
 
 theme = "dark:cyberdream, light:cyberdream-light"
-font-family = "MesloLGSDZ Nerd Font Mono"
+font-family = "MesloLGSDZ Nerd Font"
 font-size = 13
 cursor-style = block
 shell-integration-features = no-cursor
