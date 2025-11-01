@@ -5,8 +5,12 @@ return {
 		priority = 1000,
 		config = function(_, opts)
 			require("cyberdream").setup(opts)
+			-- fix fillchars
 			vim.opt.fillchars:append({ eob = "~" })
 		end,
+		extensions = {
+			lualine = false,
+		},
 		opts = {
 			variant = "auto",
 			-- Enable transparent background
@@ -15,6 +19,9 @@ return {
 			italic_comments = false,
 			-- Apply a modern borderless look to pickers like Telescope, Snacks Picker & Fzf-Lua
 			borderless_pickers = false,
+			extensions = {
+				lualine = false,
+			},
 		},
 	},
 	{
