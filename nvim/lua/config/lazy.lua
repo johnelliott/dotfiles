@@ -26,6 +26,11 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+	change_detection = {
+		-- automatically check for config file changes and reload the ui
+		enabled = false,
+		notify = true, -- get a notification when changes are found
+	},
 	spec = {
 		-- add LazyVim and import its plugins
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -45,7 +50,7 @@ require("lazy").setup({
 		version = false, -- always use the latest git commit
 		-- version = "*", -- try installing the latest stable version for plugins that support semver
 	},
-	install = { colorscheme = { "tokyonight", "habamax", "gruvbox", "dracula", "onedark" } },
+	install = { colorscheme = { "cyberdream", "tokyonight" } },
 	checker = {
 		enabled = true, -- check for plugin updates periodically
 		notify = false, -- notify on update
