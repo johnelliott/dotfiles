@@ -111,6 +111,30 @@ end
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- JE: trying my own config
+vim.opt.swapfile = false
+vim.opt.bk = false
+vim.opt.hls = false
+vim.opt.joinspaces = false
+vim.opt.formatoptions:append("j")
+vim.opt.gdefault = true
+vim.opt.wildignorecase = true
+-- some of these are set below
+-- vim.opt.smartcase = true
+-- vim.opt.number = true
+-- vim.opt.ignorecase = true
+-- vim.opt.pvh = 14
+-- vim.opt.cul = false
+-- vim.opt.laststatus = 2
+-- vim.opt.breakindent = true
+
+-- my tab prefs
+vim.opt.ts = 4
+vim.opt.sts = 2
+vim.opt.sw = 2
+
+-- Disable annoying nvim replace preview when i'm trying to read my code
+-- vim.opt.inccommand = ""
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
