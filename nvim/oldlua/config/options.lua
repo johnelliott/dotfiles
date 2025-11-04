@@ -62,11 +62,10 @@ opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-opt.completeopt = "menu,menuone,noselect"
+-- opt.completeopt = "menu,menuone,noselect"
 -- opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 opt.conceallevel = 0 -- Don't hide my text
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
-opt.cursorline = true -- Enable highlighting of the current line
 opt.cursorline = false
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
@@ -116,7 +115,7 @@ opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200 -- Save swap file and trigger CursorHold
 --opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
-opt.wildmode = "longest:full,list,full" -- Command-line completion mode
+-- opt.wildmode = "longest:full,list,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 --opt.wrap = false -- Disable line wrap
 
