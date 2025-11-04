@@ -189,7 +189,7 @@ vim.keymap.set("n", "<leader>n", ":se nu!<CR>")
 vim.keymap.set("n", "<leader>N", ":se rnu!<CR>")
 vim.keymap.set("n", "<leader>l", ":se wrap!<CR>")
 vim.keymap.set("n", "<leader>L", ":se lbr!<CR>")
-vim.keymap.set("n", "<leader>h", ":noh<CR>")
+-- vim.keymap.set("n", "<leader>h", ":noh<CR>")
 vim.keymap.set("n", "<leader>H", ":se hls!<CR>")
 vim.keymap.set("n", "<leader>R", ":tabe $MYVIMRC<CR>:norm `.<CR>:norm zz<CR>")
 vim.keymap.set("n", "<leader>c", ":colo<space>")
@@ -633,42 +633,42 @@ require("lazy").setup({
 						end
 					end
 
-					-- The following two autocommands are used to highlight references of the
-					-- word under your cursor when your cursor rests there for a little while.
-					--    See `:help CursorHold` for information about when this is executed
-					--
-					-- When you move your cursor, the highlights will be cleared (the second autocommand).
-					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					if
-						client
-						and client_supports_method(
-							client,
-							vim.lsp.protocol.Methods.textDocument_documentHighlight,
-							event.buf
-						)
-					then
-						local highlight_augroup =
-							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-							buffer = event.buf,
-							group = highlight_augroup,
-							callback = vim.lsp.buf.document_highlight,
-						})
+					-- JE -- -- The following two autocommands are used to highlight references of the
+					-- JE -- -- word under your cursor when your cursor rests there for a little while.
+					-- JE -- --    See `:help CursorHold` for information about when this is executed
+					-- JE -- --
+					-- JE -- -- When you move your cursor, the highlights will be cleared (the second autocommand).
+					-- JE -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+					-- JE -- if
+					-- JE -- 	client
+					-- JE -- 	and client_supports_method(
+					-- JE -- 		client,
+					-- JE -- 		vim.lsp.protocol.Methods.textDocument_documentHighlight,
+					-- JE -- 		event.buf
+					-- JE -- 	)
+					-- JE -- then
+					-- JE -- 	local highlight_augroup =
+					-- JE -- 		vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+					-- JE -- 	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+					-- JE -- 		buffer = event.buf,
+					-- JE -- 		group = highlight_augroup,
+					-- JE -- 		callback = vim.lsp.buf.document_highlight,
+					-- JE -- 	})
 
-						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-							buffer = event.buf,
-							group = highlight_augroup,
-							callback = vim.lsp.buf.clear_references,
-						})
+					-- JE -- 	vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+					-- JE -- 		buffer = event.buf,
+					-- JE -- 		group = highlight_augroup,
+					-- JE -- 		callback = vim.lsp.buf.clear_references,
+					-- JE -- 	})
 
-						vim.api.nvim_create_autocmd("LspDetach", {
-							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-							callback = function(event2)
-								vim.lsp.buf.clear_references()
-								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
-							end,
-						})
-					end
+					-- JE -- 	vim.api.nvim_create_autocmd("LspDetach", {
+					-- JE -- 		group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+					-- JE -- 		callback = function(event2)
+					-- JE -- 			vim.lsp.buf.clear_references()
+					-- JE -- 			vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+					-- JE -- 		end,
+					-- JE -- 	})
+					-- JE -- end
 
 					-- The following code creates a keymap to toggle inlay hints in your
 					-- code, if the language server you are using supports them
@@ -963,7 +963,29 @@ require("lazy").setup({
 			extensions = { lualine = false },
 		},
 	},
-
+	{
+		"f-person/auto-dark-mode.nvim",
+		opts = {
+			priority = 1000,
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			set_dark_mode = function()
+				-- vim.api.nvim_set_option_value("background", "dark", {})
+				vim.o.background = "dark"
+				vim.opt.fillchars = {}
+				-- vim.cmd("colorscheme dracula")
+			end,
+			set_light_mode = function()
+				-- vim.api.nvim_set_option_value("background", "light", {})
+				vim.o.background = "light"
+				-- vim.cmd("colorscheme lunaperche")
+				vim.opt.fillchars = {}
+			end,
+			update_interval = 3000,
+			fallback = "light",
+		},
+	},
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
@@ -1062,19 +1084,22 @@ require("lazy").setup({
 	-- require 'kickstart.plugins.lint',
 	-- require 'kickstart.plugins.autopairs',
 	-- require 'kickstart.plugins.neo-tree',
-	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps (ADDED JE)
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
 	--
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-	-- { import = 'custom.plugins' },
+	{ import = "plugins" },
 	--
 	-- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
 	-- Or use telescope!
 	-- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
 	-- you can continue same window with `<space>sr` which resumes last telescope search
+	--
+	-- JE: this is the end of lazy setup
 }, {
+
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
