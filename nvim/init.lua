@@ -93,6 +93,19 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- sync font with ghostty
+vim.o.guifont = "MesloLGSDZ Nerd Font:h16"
+-- Neovide animations
+-- Disable all Neovide animations
+if vim.g.neovide then
+	vim.g.neovide_cursor_animation_length = 0
+	vim.g.neovide_cursor_trail_size = 0
+	vim.g.neovide_scroll_animation_length = 0
+	vim.g.neovide_position_animation_length = 0
+	vim.g.neovide_cursor_animate_in_insert_mode = false
+	vim.g.neovide_cursor_animate_command_line = false
+end
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -170,7 +183,38 @@ vim.o.confirm = true
 --  See `:help vim.keymap.set()`
 
 -- JE: I think this is my save command
+-- My keybinds
 vim.keymap.set("n", "<leader>s", vim.cmd.update)
+vim.keymap.set("n", "<leader>n", ":se nu!<CR>")
+vim.keymap.set("n", "<leader>N", ":se rnu!<CR>")
+vim.keymap.set("n", "<leader>l", ":se wrap!<CR>")
+vim.keymap.set("n", "<leader>L", ":se lbr!<CR>")
+vim.keymap.set("n", "<leader>h", ":noh<CR>")
+vim.keymap.set("n", "<leader>H", ":se hls!<CR>")
+vim.keymap.set("n", "<leader>R", ":tabe $MYVIMRC<CR>:norm `.<CR>:norm zz<CR>")
+vim.keymap.set("n", "<leader>c", ":colo<space>")
+vim.keymap.set("n", "<leader>t", ":tabe %<CR>")
+-- vim.keymap.set("n", "<leader>e", ":Ex<CR>")
+-- vim.keymap.set("n", "<leader>E", ":Sex<CR>")
+vim.keymap.set("n", "<leader>E", ":Ex<CR>")
+vim.keymap.set("n", "<leader>v", ":Vex<CR>")
+
+-- quickfix with arrow keys
+vim.keymap.set("n", "<Up>", ":cp<CR>")
+vim.keymap.set("n", "<Down>", ":cn<CR>")
+vim.keymap.set("n", "<Left>", ":cpf<CR>")
+vim.keymap.set("n", "<Right>", ":cnf<CR>")
+vim.keymap.set("n", "g<Left>", ":colder<CR>")
+vim.keymap.set("n", "g<Right>", ":cnewer<CR>")
+vim.keymap.set("n", "g<Up>", ":cope<CR>")
+vim.keymap.set("n", "g<Down>", ":ccl<CR>")
+vim.keymap.set("n", "<PageUp>", ":lp<CR>")
+vim.keymap.set("n", "<PageDown>", ":lne<CR>")
+vim.keymap.set("n", "g<PageUp>", ":lop<CR>")
+vim.keymap.set("n", "g<PageDown>", ":lcl<CR>")
+
+-- My date command
+vim.keymap.set("n", "<leader>d", [[o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>I# <esc>o<esc>0]])
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
