@@ -217,10 +217,9 @@ vim.keymap.set("n", "<leader>L", ":se lbr!<CR>")
 vim.keymap.set("n", "<leader>H", ":se hls!<CR>")
 vim.keymap.set("n", "<leader>R", ":tabe $MYVIMRC<CR>:norm `.<CR>:norm zz<CR>")
 vim.keymap.set("n", "<leader>c", ":colo<space>")
-vim.keymap.set("n", "<leader>t", ":tabe %<CR>")
--- vim.keymap.set("n", "<leader>e", ":Ex<CR>")
--- vim.keymap.set("n", "<leader>E", ":Sex<CR>")
-vim.keymap.set("n", "<leader>E", ":Ex<CR>")
+--vim.keymap.set("n", "<leader>t", ":tabe %<CR>")
+vim.keymap.set("n", "<leader>e", ":Ex<CR>")
+vim.keymap.set("n", "<leader>E", ":Sex<CR>")
 vim.keymap.set("n", "<leader>v", ":Vex<CR>")
 
 -- quickfix with arrow keys
