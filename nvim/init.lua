@@ -375,7 +375,7 @@ require("lazy").setup({
 		opts = {
 			-- delay between pressing a key and opening which-key (milliseconds)
 			-- this setting is independent of vim.o.timeoutlen
-			delay = 0,
+			delay = 300,
 			icons = {
 				-- set icon mappings to true if you have a Nerd Font
 				mappings = vim.g.have_nerd_font,
@@ -507,6 +507,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume" })
 			vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>p", builtin.find_files, { desc = "Find files" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
@@ -656,12 +657,12 @@ require("lazy").setup({
 						end
 					end
 
-					-- JE -- -- The following two autocommands are used to highlight references of the
-					-- JE -- -- word under your cursor when your cursor rests there for a little while.
-					-- JE -- --    See `:help CursorHold` for information about when this is executed
-					-- JE -- --
-					-- JE -- -- When you move your cursor, the highlights will be cleared (the second autocommand).
-					-- JE -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+					-- The following two autocommands are used to highlight references of the
+					-- word under your cursor when your cursor rests there for a little while.
+					--    See `:help CursorHold` for information about when this is executed
+					--
+					-- When you move your cursor, the highlights will be cleared (the second autocommand).
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					-- JE -- if
 					-- JE -- 	client
 					-- JE -- 	and client_supports_method(
@@ -1033,7 +1034,7 @@ require("lazy").setup({
 			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
 			-- - sd'   - [S]urround [D]elete [']quotes
 			-- - sr)'  - [S]urround [R]eplace [)] [']
-			require("mini.surround").setup()
+			-- require("mini.surround").setup()
 
 			-- Simple and easy statusline.
 			--  You could remove this setup call if you don't like it,
