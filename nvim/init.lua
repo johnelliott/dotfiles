@@ -913,6 +913,8 @@ require("lazy").setup({
 				opts = {},
 			},
 			"folke/lazydev.nvim",
+			-- AI autocomplete from ramalama, if it's there
+			require("plugins.minuet-ai"),
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
@@ -941,6 +943,9 @@ require("lazy").setup({
 				-- See :h blink-cmp-config-keymap for defining your own keymap
 				preset = "default",
 
+				-- Manually invoke minuet completion.
+				-- TODO: ["<A-y>"] = require("minuet").make_blink_map(),
+
 				-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
 				--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 			},
@@ -958,9 +963,18 @@ require("lazy").setup({
 			},
 
 			sources = {
-				default = { "lsp", "path", "buffer", "snippets", "lazydev" },
+				default = { "lsp", "path", "buffer", "minuet", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+					minuet = {
+						name = "minuet",
+						module = "minuet.blink",
+						async = true,
+						-- Should match minuet.config.request_timeout * 1000,
+						-- since minuet.config.request_timeout is in seconds
+						timeout_ms = 3000,
+						score_offset = 50, -- Gives minuet higher priority among suggestions
+					},
 				},
 			},
 
@@ -1134,8 +1148,8 @@ require("lazy").setup({
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
 	--
-	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-	{ import = "plugins" },
+	--  Uncomment the following line and add your plugins to `lua//plugins/*.lua` to get going.
+	-- { import = "plugins" },
 	--
 	-- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
 	-- Or use telescope!
