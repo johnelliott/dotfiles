@@ -47,45 +47,31 @@
 config-file = ?local-config
 
 theme = "dark:cyberdream, light:cyberdream-light"
-font-family = "MesloLGSDZ Nerd Font"
+font-family = "MesloLGMDZ Nerd Font"
 font-size = 13
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
 
-# Stupid BenQ display coating
-window-padding-x = 8
-
-background-opacity = 0.98
-background-blur = 30
-unfocused-split-opacity = 1
-
 window-width = 128
 window-height = 42
+# Avoid display edges with window-padding-x
+window-padding-x = 8
+
+unfocused-split-opacity = 1
+background-opacity = 1
+#background-blur = 30
+
+# e.g. keybind = ctrl+ö=action
+keybind=shift+ctrl+1=goto_tab:1
+keybind=shift+ctrl+2=goto_tab:2
+keybind=shift+ctrl+3=goto_tab:3
+keybind=shift+ctrl+4=goto_tab:4
+keybind=shift+ctrl+5=goto_tab:5
+keybind=shift+ctrl+6=goto_tab:6
+keybind=shift+ctrl+7=goto_tab:7
+keybind=shift+ctrl+8=goto_tab:8
+keybind=shift+ctrl+9=last_tab
 
 # ghostty +list-themes
 
-# don't maximize weird on macos
-keybind = super+enter=toggle_maximize
-
-# e.g. keybind = ctrl+ö=action
-keybind=super+ctrl+1=goto_tab:1
-keybind=super+ctrl+2=goto_tab:2
-keybind=super+ctrl+3=goto_tab:3
-keybind=super+ctrl+4=goto_tab:4
-keybind=super+ctrl+5=goto_tab:5
-keybind=super+ctrl+6=goto_tab:6
-keybind=super+ctrl+7=goto_tab:7
-keybind=super+ctrl+8=goto_tab:8
-keybind=super+ctrl+9=last_tab
-
-keybind = super+g>t=new_tab
-keybind = super+g>1=goto_tab:1
-keybind = super+g>2=goto_tab:2
-keybind = super+g>3=goto_tab:3
-keybind = super+g>4=goto_tab:4
-keybind = super+g>5=goto_tab:5
-keybind = super+g>6=goto_tab:6
-keybind = super+g>7=goto_tab:7
-keybind = super+g>8=goto_tab:8
-keybind = super+g>9=last_tab
