@@ -1,35 +1,38 @@
+---@type LazySpec
 return {
 	{
 		"milanglacier/minuet-ai.nvim",
 		config = function()
 			require("minuet").setup({
-				provider = "openai_fim_compatible",
-				n_completions = 1, -- recommend for local model for resource saving
-				-- I recommend beginning with a small context window size and incrementally
-				-- expanding it, depending on your local computing power. A context window
-				-- of 512, serves as an good starting point to estimate your computing
-				-- power. Once you have a reliable estimate of your local computing power,
-				-- you should adjust the context window to a larger value.
-				context_window = 512,
+				-- Enable or disable auto-completion. Note that you still need to add
+				-- Minuet to your cmp/blink sources. This option controls whether cmp/blink
+				-- will attempt to invoke minuet when minuet is included in cmp/blink
+				-- sources. This setting has no effect on manual completion; Minuet will
+				-- always be enabled when invoked manually. You can use the command
+				-- `Minuet cmp/blink toggle` to toggle this option.
 
+				-- "Orginal" preset is configured here, if you're using presets
+				provider = "claude",
 				provider_options = {
-					-- openai_compatible = {
-					-- 	model = "qwen2.5-coder:7b",
-					-- 	system = "see [Prompt] section for the default value",
-					-- 	few_shots = "see [Prompt] section for the default value",
-					-- 	chat_input = "See [Prompt Section for default value]",
-					-- 	stream = false,
-					-- 	end_point = "https://0.0.0.0:8080/v1/chat/completions",
-					-- 	api_key = "TERM",
-					-- 	name = "Ramalama",
-					-- 	optional = {
-					-- 		stop = nil,
-					-- 		max_tokens = 512,
-					-- 	},
-					-- },
-					openai_fim_compatible = {
-						-- For Windows users, TERM may not be present in environment variables.
-						-- Consider using APPDATA instead.
+					claude = {
+						max_tokens = 256,
+						-- To get the exact model, do:
+						-- curl https://api.anthropic.com/v1/models \
+						--	  header "x-api-key: $ANTHROPIC_API_KEY" \
+						--	  header "anthropic-version: 2023-06-01"|jq
+						-- so you know the exact string or you'll get a 404
+						model = "claude-haiku-4-5-20251001",
+						stream = true,
+						api_key = "ANTHROPIC_API_KEY",
+						end_point = "https://api.anthropic.com/v1/messages",
+						optional = {},
+					},
+				},
+				-- Additional configs go here in presets
+				presets = {
+					-- https://github.com/milanglacier/minuet-ai.nvim#minuet-change_preset
+					ramalama = {
+						-- ramalama AKA openai_fim_compatible
 						api_key = "TERM",
 						name = "Ramalama-llama.cpp",
 						-- stream = false,
@@ -39,7 +42,7 @@ return {
 							max_tokens = 56,
 							top_p = 0.9,
 						},
-						-- Llama.cpp does not support the `suffix` option in FIM completion.
+						-- Llama.cpp used in the container does not support the `suffix` option in FIM completion.
 						-- Therefore, we must disable it and manually populate the special
 						-- tokens required for FIM completion.
 						template = {
@@ -57,9 +60,4 @@ return {
 			})
 		end,
 	},
-	{ "nvim-lua/plenary.nvim" },
-	-- optional, if you are using virtual-text frontend, nvim-cmp is not required.
-	{ "hrsh7th/nvim-cmp" },
-	-- optional, if you are using virtual-text frontend, blink is not required.
-	{ "Saghen/blink.cmp" },
 }

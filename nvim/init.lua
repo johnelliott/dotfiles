@@ -248,6 +248,28 @@ vim.keymap.set("n", "g<PageDown>", ":lcl<CR>")
 -- My date command
 vim.keymap.set("n", "<leader>d", [[o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>I# <esc>o<esc>0]])
 
+-- AI completion toggle functions
+vim.keymap.set("n", "<leader>am", function()
+	-- Enable Minuet, disable Copilot
+	vim.cmd("Copilot disable")
+	vim.cmd("Minuet blink enable")
+	print("Minuet enabled, Copilot disabled")
+end, { desc = "[A]I: Enable [M]inuet" })
+
+vim.keymap.set("n", "<leader>ac", function()
+	-- Enable Copilot, disable Minuet
+	vim.cmd("Minuet blink disable")
+	vim.cmd("Copilot enable")
+	print("Copilot enabled, Minuet disabled")
+end, { desc = "[A]I: Enable [C]opilot" })
+
+vim.keymap.set("n", "<leader>ad", function()
+	-- Disable both
+	vim.cmd("Minuet blink disable")
+	vim.cmd("Copilot disable")
+	print("All AI completion disabled")
+end, { desc = "[A]D: [D]isable all" })
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -363,18 +385,19 @@ require("lazy").setup({
 	-- options to `gitsigns.nvim`.
 	--
 	-- See `:help gitsigns` to understand what the configuration keys do
-	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-			},
-		},
-	},
+	-- JE: I actaully do this in a separate file now
+	-- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+	-- 	"lewis6991/gitsigns.nvim",
+	-- 	opts = {
+	-- 		signs = {
+	-- 			add = { text = "+" },
+	-- 			change = { text = "~" },
+	-- 			delete = { text = "_" },
+	-- 			topdelete = { text = "‾" },
+	-- 			changedelete = { text = "~" },
+	-- 		},
+	-- 	},
+	-- },
 
 	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
 	--
@@ -439,6 +462,7 @@ require("lazy").setup({
 				{ "<leader>f", group = "[F]ind" },
 				{ "<leader>t", group = "[T]oggle" },
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+				{ "<leader>a", group = "[A]I Completion" },
 			},
 		},
 	},
@@ -1149,7 +1173,7 @@ require("lazy").setup({
 	--    This is the easiest way to modularize your config.
 	--
 	--  Uncomment the following line and add your plugins to `lua//plugins/*.lua` to get going.
-	-- { import = "plugins" },
+	{ import = "plugins" },
 	--
 	-- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
 	-- Or use telescope!
