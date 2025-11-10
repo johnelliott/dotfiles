@@ -332,6 +332,10 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Load AI autocommands if the file exists (optional)
+-- Uncomment the line below to enable filetype-based AI completion switching
+-- require("config.ai-autocmds")
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -362,6 +366,7 @@ require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
 	"fatih/vim-go", -- Go support
+	"dearrrfish/vim-applescript",
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -938,7 +943,7 @@ require("lazy").setup({
 			},
 			"folke/lazydev.nvim",
 			-- AI autocomplete from ramalama, if it's there
-			require("plugins.minuet-ai"),
+			-- require("plugins.minuet-ai"),
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
