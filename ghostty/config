@@ -48,13 +48,13 @@ config-file = ?local-config
 
 theme = "dark:cyberdream, light:cyberdream-light"
 font-family = "MesloLGMDZ Nerd Font"
-font-size = 13
+font-size = 14
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
 
-window-width = 128
-window-height = 42
+#window-width = 128
+#window-height = 42
 # Avoid display edges with window-padding-x
 window-padding-x = 8
 
