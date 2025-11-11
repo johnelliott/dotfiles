@@ -1,0 +1,3 @@
+# MISE
+eval "$(mise activate bash)"
+# END MISE

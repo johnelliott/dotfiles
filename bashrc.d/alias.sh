@@ -1,0 +1,31 @@
+# Safety
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+set -o noclobber
+
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# Additional Shortcuts
+alias h="history | tail -n 150"
+alias j="jobs"
+alias du='du -ch'
+alias ll="ls -alrtFG"
+alias p='cat package.json |jq'
+
+# List all files colorized in long format
+alias l="ls -l"
+# List all files colorized in long format, including dot files
+alias la="ls -la"
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Net
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+alias tma="tmux attach -t"
