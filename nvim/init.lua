@@ -203,6 +203,15 @@ vim.o.scrolloff = 10 -- aka :se so=10
 -- See `:help 'confirm'`
 -- vim.o.confirm = true
 
+-- Configure netrw a bit like tree plugins
+vim.g.netrw_banner = 1
+vim.g.netrw_winsize = 28
+vim.g.netrw_liststyle = 3
+vim.g.netrw_browse_split = 4 -- Behave like the P (preview) window
+vim.g.netrw_altv = 0
+vim.g.netrw_hide = 0
+vim.g.netrw_fastbrowse = 0
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
