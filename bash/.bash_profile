@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Load shared shell configs
-for file in ~/.config/shell/{path,exports,aliases,functions}; do
+for file in ~/.bashrc.d}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 
@@ -48,15 +48,10 @@ if which brew > /dev/null && [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/la
   source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
 fi
 
-# set up fuzzy finder
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # Make NVM available
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm, try --no-use
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export GOPATH="$HOME/go"
 
 # Highlight the hostname when connected via SSH.
 if [[ "${SSH_TTY}" ]]; then

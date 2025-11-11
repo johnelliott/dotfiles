@@ -23,7 +23,7 @@ alias l="ls -l"
 alias la="ls -la"
 
 # Enable aliases to be sudo’ed
-alias sudo='sudo '
+#alias sudo='sudo '
 
 # Net
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

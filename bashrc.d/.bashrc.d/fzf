@@ -1,0 +1,8 @@
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
+
+# set up fuzzy finder, possibly the old way
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+#export FZF_DEFAULT_OPTS="--height=50% --preview 'bat --style=numbers --color=always {} | head -500' --color=16"
+
