@@ -248,28 +248,6 @@ vim.keymap.set("n", "g<PageDown>", ":lcl<CR>")
 -- My date command
 vim.keymap.set("n", "<leader>d", [[o<esc>:r!date "+\%a \%Y-\%m-\%d \%H:\%M"<CR>I# <esc>o<esc>0]])
 
--- AI completion toggle functions
-vim.keymap.set("n", "<leader>am", function()
-	-- Enable Minuet, disable Copilot
-	vim.cmd("Copilot disable")
-	vim.cmd("Minuet blink enable")
-	print("Minuet enabled, Copilot disabled")
-end, { desc = "[A]I: Enable [M]inuet" })
-
-vim.keymap.set("n", "<leader>ac", function()
-	-- Enable Copilot, disable Minuet
-	vim.cmd("Minuet blink disable")
-	vim.cmd("Copilot enable")
-	print("Copilot enabled, Minuet disabled")
-end, { desc = "[A]I: Enable [C]opilot" })
-
-vim.keymap.set("n", "<leader>ad", function()
-	-- Disable both
-	vim.cmd("Minuet blink disable")
-	vim.cmd("Copilot disable")
-	print("All AI completion disabled")
-end, { desc = "[A]D: [D]isable all" })
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -332,9 +310,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Load AI autocommands if the file exists (optional)
--- Uncomment the line below to enable filetype-based AI completion switching
--- require("config.ai-autocmds")
+require("local") -- local config
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -583,8 +559,6 @@ require("lazy").setup({
 			end, { desc = "[F]ind [N]eovim files" })
 		end,
 	},
-
-	-- LSP Plugins
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
@@ -942,8 +916,6 @@ require("lazy").setup({
 				opts = {},
 			},
 			"folke/lazydev.nvim",
-			-- AI autocomplete from ramalama, if it's there
-			-- require("plugins.minuet-ai"),
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
@@ -972,9 +944,6 @@ require("lazy").setup({
 				-- See :h blink-cmp-config-keymap for defining your own keymap
 				preset = "default",
 
-				-- Manually invoke minuet completion.
-				-- TODO: ["<A-y>"] = require("minuet").make_blink_map(),
-
 				-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
 				--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 			},
@@ -992,18 +961,18 @@ require("lazy").setup({
 			},
 
 			sources = {
-				default = { "lsp", "path", "buffer", "minuet", "snippets", "lazydev" },
+				default = { "lsp", "path", "buffer", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					minuet = {
-						name = "minuet",
-						module = "minuet.blink",
-						async = true,
-						-- Should match minuet.config.request_timeout * 1000,
-						-- since minuet.config.request_timeout is in seconds
-						timeout_ms = 3000,
-						score_offset = 50, -- Gives minuet higher priority among suggestions
-					},
+					-- minuet = {
+					-- 	name = "minuet",
+					-- 	module = "minuet.blink",
+					-- 	async = true,
+					-- 	-- Should match minuet.config.request_timeout * 1000,
+					-- 	-- since minuet.config.request_timeout is in seconds
+					-- 	timeout_ms = 3000,
+					-- 	score_offset = 50, -- Gives minuet higher priority among suggestions
+					-- },
 				},
 			},
 
