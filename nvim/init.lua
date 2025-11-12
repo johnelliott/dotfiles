@@ -298,6 +298,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Spelling and linebreaking in plaintext-like files",
+	group = vim.api.nvim_create_augroup("plaintext_types", { clear = true }),
+	pattern = { "text", "gitcommit", "markdown" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.spell = true
+	end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
