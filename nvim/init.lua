@@ -309,8 +309,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.spell = true
 	end,
 })
-
-require("local") -- local config
+local success, mymodule = pcall(require, "local")
+if not success then
+    -- print("Module not found")
+end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
