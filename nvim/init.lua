@@ -1,25 +1,5 @@
 --[[
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
 What is Kickstart?
 
   Kickstart.nvim is *not* a distribution.
@@ -42,16 +22,6 @@ What is Kickstart?
     - (or HTML version): https://neovim.io/doc/user/lua-guide.html
 
 Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
 
   Once you've completed that, you can continue working through **AND READING** the rest
   of the kickstart init.lua.
@@ -311,7 +281,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 local success, mymodule = pcall(require, "local")
 if not success then
-    -- print("Module not found")
+	-- print("Module not found")
 end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -1008,21 +978,7 @@ require("lazy").setup({
 			require("cyberdream").setup(opts)
 			-- load the theme
 			vim.cmd.colorscheme("cyberdream")
-			vim.opt.fillchars = {}
 		end,
-		extensions = {
-			lualine = false,
-		},
-		opts = {
-			variant = "auto",
-			-- Enable transparent background
-			transparent = true,
-			-- Enable italics comments
-			italic_comments = false,
-			-- Apply a modern borderless look to pickers like Telescope, Snacks Picker & Fzf-Lua
-			borderless_pickers = false,
-			extensions = { lualine = false },
-		},
 	},
 	{
 		"f-person/auto-dark-mode.nvim",
@@ -1032,16 +988,10 @@ require("lazy").setup({
 			-- or leave it empty to use the default settings
 			-- refer to the configuration section below
 			set_dark_mode = function()
-				-- vim.api.nvim_set_option_value("background", "dark", {})
 				vim.o.background = "dark"
-				vim.opt.fillchars = {}
-				-- vim.cmd("colorscheme dracula")
 			end,
 			set_light_mode = function()
-				-- vim.api.nvim_set_option_value("background", "light", {})
 				vim.o.background = "light"
-				-- vim.cmd("colorscheme lunaperche")
-				vim.opt.fillchars = {}
 			end,
 			update_interval = 3000,
 			fallback = "light",
