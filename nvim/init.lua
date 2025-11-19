@@ -974,6 +974,7 @@ require("lazy").setup({
 		"scottmckendry/cyberdream.nvim",
 		lazy = false,
 		priority = 1000,
+		opts = { variant = "auto" },
 		config = function(_, opts)
 			require("cyberdream").setup(opts)
 			-- load the theme
