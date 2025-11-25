@@ -37,6 +37,7 @@ brew "wget"
 brew "yq"
 
 # Cask
+cask "font-meslo-lg-nerd-font"
 cask "ghostty"
 cask "firefox"
 cask "vlc"
