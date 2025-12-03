@@ -279,6 +279,43 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.spell = true
 	end,
 })
+
+-- vim-go keymaps for Go files
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "vim-go keymaps for Go files",
+	group = vim.api.nvim_create_augroup("go_mappings", { clear = true }),
+	pattern = "go",
+	callback = function()
+		local opts = { buffer = true, silent = true }
+		-- Navigation and analysis
+		vim.keymap.set(
+			"n",
+			"gI",
+			":GoImplements<CR>",
+			vim.tbl_extend("force", opts, { desc = "Go: Show interfaces implemented by type" })
+		)
+		vim.keymap.set("n", "gR", ":GoReferrers<CR>", vim.tbl_extend("force", opts, { desc = "Go: Find references" }))
+		vim.keymap.set("n", "gi", ":GoInfo<CR>", vim.tbl_extend("force", opts, { desc = "Go: Show type info" }))
+		vim.keymap.set("n", "gD", ":GoDoc<CR>", vim.tbl_extend("force", opts, { desc = "Go: Show documentation" }))
+		vim.keymap.set(
+			"n",
+			"gA",
+			":GoAlternate<CR>",
+			vim.tbl_extend("force", opts, { desc = "Go: Alternate between test and implementation" })
+		)
+		-- Testing and building
+		vim.keymap.set("n", "<leader>gr", ":GoRun<CR>", vim.tbl_extend("force", opts, { desc = "Go: Run" }))
+		vim.keymap.set("n", "<leader>gb", ":GoBuild<CR>", vim.tbl_extend("force", opts, { desc = "Go: Build" }))
+		vim.keymap.set("n", "<leader>gt", ":GoTest<CR>", vim.tbl_extend("force", opts, { desc = "Go: Test" }))
+		vim.keymap.set(
+			"n",
+			"<leader>gf",
+			":GoTestFunc<CR>",
+			vim.tbl_extend("force", opts, { desc = "Go: Test function" })
+		)
+	end,
+})
+
 local success, mymodule = pcall(require, "local")
 if not success then
 	-- print("Module not found")
@@ -313,7 +350,7 @@ rtp:prepend(lazypath)
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
-	"fatih/vim-go", -- Go support
+	{ "fatih/vim-go", dependencies = { "junegunn/fzf.vim" } }, -- Go support
 	"dearrrfish/vim-applescript",
 
 	-- NOTE: Plugins can also be added by using a table,
