@@ -48,4 +48,5 @@ brew "reattach-to-user-namespace"
 brew "mas"
 cask "rectangle"
 cask "macvim-app"
-cask "stats"
+cask "stats" # menubar top
+brew "asitop" # GPU top
