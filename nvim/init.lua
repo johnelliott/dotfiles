@@ -135,8 +135,8 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
-vim.o.signcolumn = "yes"
+-- Keep signcolumn on by default, ehh, no auto good
+vim.o.signcolumn = "auto"
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -972,18 +972,18 @@ require("lazy").setup({
 			},
 
 			sources = {
-				default = { "lsp", "path", "buffer", "snippets", "lazydev" },
+				default = { "lsp", "path", "minuet", "buffer", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					-- minuet = {
-					-- 	name = "minuet",
-					-- 	module = "minuet.blink",
-					-- 	async = true,
-					-- 	-- Should match minuet.config.request_timeout * 1000,
-					-- 	-- since minuet.config.request_timeout is in seconds
-					-- 	timeout_ms = 3000,
-					-- 	score_offset = 50, -- Gives minuet higher priority among suggestions
-					-- },
+					minuet = {
+						name = "minuet",
+						module = "minuet.blink",
+						async = true,
+						-- Should match minuet.config.request_timeout * 1000,
+						-- since minuet.config.request_timeout is in seconds
+						timeout_ms = 3000,
+						score_offset = 50, -- Gives minuet higher priority among suggestions
+					},
 				},
 			},
 
@@ -1011,7 +1011,7 @@ require("lazy").setup({
 		"scottmckendry/cyberdream.nvim",
 		lazy = false,
 		priority = 1000,
-		opts = { variant = "auto" },
+		opts = { variant = "auto", transparent = true },
 		config = function(_, opts)
 			require("cyberdream").setup(opts)
 			-- load the theme

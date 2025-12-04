@@ -26,6 +26,6 @@ alias la="ls -la"
 #alias sudo='sudo '
 
 # Net
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 alias tma="tmux attach -t"
