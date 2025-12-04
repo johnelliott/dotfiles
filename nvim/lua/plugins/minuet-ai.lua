@@ -1,132 +1,111 @@
 ---@type LazySpec
 return {
-	-- {
-	-- 	"github/copilot.vim",
-	-- 	config = function()
-	-- 		-- Start with Copilot disabled by default
-	-- 		vim.cmd("Copilot disable")
+	{
+		"milanglacier/minuet-ai.nvim",
+		config = function()
+			require("minuet").setup({
+				provider = "openai_fim_compatible",
+				n_completions = 1, -- recommend for local model for resource saving
+				-- I recommend beginning with a small context window size and incrementally
+				-- expanding it, depending on your local computing power. A context window
+				-- of 512, serves as an good starting point to estimate your computing
+				-- power. Once you have a reliable estimate of your local computing power,
+				-- you should adjust the context window to a larger value.
+				context_window = 1024,
+				provider_options = {
+					openai_fim_compatible = {
+						-- For Windows users, TERM may not be present in environment variables.
+						-- Consider using APPDATA instead.
+						api_key = "TERM",
+						name = "Llama.cpp",
+						end_point = "http://0.0.0.0:8080/v1/completions",
+						-- The model is set by the llama-cpp server and cannot be altered
+						-- post-launch.
+						-- e.g: $ ramalama serve -c 0 -p 8080 --webui off hf://ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF --cache-reuse 256 --runtime-args "-fa -ub 1024 -b 1024"
+						model = "its_set_by_the_server",
+						optional = {
+							max_tokens = 56,
+							top_p = 0.9,
+						},
+						-- Llama.cpp does not support the `suffix` option in FIM completion.
+						-- Therefore, we must disable it and manually populate the special
+						-- tokens required for FIM completion.
+						template = {
+							prompt = function(context_before_cursor, context_after_cursor, _)
+								return "<|fim_prefix|>"
+									.. context_before_cursor
+									.. "<|fim_suffix|>"
+									.. context_after_cursor
+									.. "<|fim_middle|>"
+							end,
+							suffix = false,
+						},
+					},
+				},
+				-- Additional configs go here in presets
+				presets = {
+					Empty = {},
+					Claude = {
+						max_tokens = 256,
+						-- To get the exact model, do:
+						-- curl https://api.anthropic.com/v1/models \
+						--	  header "x-api-key: $ANTHROPIC_API_KEY" \
+						--	  header "anthropic-version: 2023-06-01"|jq
+						-- so you know the exact string or you'll get a 404
+						model = "claude-haiku-4-5-20251001",
+						stream = true,
+						api_key = "ANTHROPIC_API_KEY",
+						end_point = "https://api.anthropic.com/v1/messages",
+						optional = {},
+					},
+					Local_LlamaCpp = {
+						-- For Windows users, TERM may not be present in environment variables.
+						-- Consider using APPDATA instead.
+						api_key = "not-needed",
+						name = "Local_Llama.cpp",
+						end_point = "http://0.0.0.0:8080/v1/completions",
+						-- The model is set by the llama-cpp server and cannot be altered
+						-- post-launch.
+						-- e.g: $ ramalama serve -c 0 -p 8080 --webui off hf://ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF --cache-reuse 256 --runtime-args "-fa -ub 1024 -b 1024"
+						model = "PLACEHOLDER",
+						optional = {
+							max_tokens = 56,
+							top_p = 0.9,
+						},
+						-- Llama.cpp does not support the `suffix` option in FIM completion.
+						-- Therefore, we must disable it and manually populate the special
+						-- tokens required for FIM completion.
+						template = {
+							prompt = function(context_before_cursor, context_after_cursor, _)
+								return "<|fim_prefix|>"
+									.. context_before_cursor
+									.. "<|fim_suffix|>"
+									.. context_after_cursor
+									.. "<|fim_middle|>"
+							end,
+							suffix = false,
+						},
+					},
+				},
+			})
+			-- disable minuet by default
+			vim.cmd("silent Minuet blink disable")
+			vim.cmd("silent Minuet cmp disable")
+			--vim.cmd("Minuet change_preset blank")
 
-	-- 		-- vim.g.copilot_filetypes = {
-	-- 		-- 	python = true,
-	-- 		-- 	go = true,
-	-- 		-- 	typescript = true,
-	-- 		-- 	yaml = true,
-	-- 		-- 	"*" = false,
-	-- 		-- }
-	-- 		vim.cmd([[
-	-- 		  let g:copilot_filetypes = {
-	-- 		  \ '*': v:false,
-	-- 		  \ 'python': v:true,
-	-- 		  \ 'javascript': v:true,
-	-- 		  \ 'typescript': v:true,
-	-- 		  \ 'go': v:true,
-	-- 		  \ 'shell': v:true,
-	-- 		  \ 'bash': v:true,
-	-- 		  \ 'yaml': v:true,
-	-- 		  \ }
-	-- 		]])
-	-- 	end,
-	-- },
-	-- {
-	-- 	"milanglacier/minuet-ai.nvim",
-	-- 	config = function()
-	-- 		require("minuet").setup({
-	-- 			-- Enable or disable auto-completion. Note that you still need to add
-	-- 			-- Minuet to your cmp/blink sources. This option controls whether cmp/blink
-	-- 			-- will attempt to invoke minuet when minuet is included in cmp/blink
-	-- 			-- sources. This setting has no effect on manual completion; Minuet will
-	-- 			-- always be enabled when invoked manually. You can use the command
-	-- 			-- `Minuet cmp/blink toggle` to toggle this option.
+			-- AI completion toggle functions
+			vim.keymap.set("n", "<leader>ae", function()
+				vim.cmd("Minuet blink enable")
+				-- vim.cmd("Copilot disable")
+				--vim.cmd("Minuet change_preset blank")
+				print("Minuet enabled")
+			end, { desc = "[A]E: [A]I [E]nable" })
 
-	-- 			-- "Orginal" preset is configured here, if you're using presets
-	-- 			provider = "claude",
-	-- 			provider_options = {
-	-- 				claude = {
-	-- 					max_tokens = 256,
-	-- 					-- To get the exact model, do:
-	-- 					-- curl https://api.anthropic.com/v1/models \
-	-- 					--	  header "x-api-key: $ANTHROPIC_API_KEY" \
-	-- 					--	  header "anthropic-version: 2023-06-01"|jq
-	-- 					-- so you know the exact string or you'll get a 404
-	-- 					model = "claude-haiku-4-5-20251001",
-	-- 					stream = true,
-	-- 					api_key = "ANTHROPIC_API_KEY",
-	-- 					end_point = "https://api.anthropic.com/v1/messages",
-	-- 					optional = {},
-	-- 				},
-	-- 			},
-	-- 			-- Additional configs go here in presets
-	-- 			presets = {
-	-- 				-- https://github.com/milanglacier/minuet-ai.nvim#minuet-change_preset
-	-- 				blank = {},
-	-- 				ramalama = {
-	-- 					-- ramalama AKA openai_fim_compatible
-	-- 					api_key = "TERM",
-	-- 					name = "Ramalama-llama.cpp",
-	-- 					-- stream = false,
-	-- 					end_point = "http://0.0.0.0:8080/v1/completions",
-	-- 					model = "PLACEHOLDER",
-	-- 					optional = {
-	-- 						max_tokens = 56,
-	-- 						top_p = 0.9,
-	-- 					},
-	-- 					-- Llama.cpp used in the container does not support the `suffix` option in FIM completion.
-	-- 					-- Therefore, we must disable it and manually populate the special
-	-- 					-- tokens required for FIM completion.
-	-- 					template = {
-	-- 						prompt = function(context_before_cursor, context_after_cursor, _)
-	-- 							return "<|fim_prefix|>"
-	-- 								.. context_before_cursor
-	-- 								.. "<|fim_suffix|>"
-	-- 								.. context_after_cursor
-	-- 								.. "<|fim_middle|>"
-	-- 						end,
-	-- 						suffix = false,
-	-- 					},
-	-- 				},
-	-- 				claude = {
-	-- 					max_tokens = 256,
-	-- 					-- To get the exact model, do:
-	-- 					-- curl https://api.anthropic.com/v1/models \
-	-- 					--	  header "x-api-key: $ANTHROPIC_API_KEY" \
-	-- 					--	  header "anthropic-version: 2023-06-01"|jq
-	-- 					-- so you know the exact string or you'll get a 404
-	-- 					model = "claude-haiku-4-5-20251001",
-	-- 					stream = true,
-	-- 					api_key = "ANTHROPIC_API_KEY",
-	-- 					end_point = "https://api.anthropic.com/v1/messages",
-	-- 					optional = {},
-	-- 				},
-	-- 			},
-	-- 		}) -- end minuet setup
-
-	-- 		-- disable minuet by default
-	-- 		vim.cmd("silent Minuet blink disable")
-	-- 		vim.cmd("silent Minuet cmp disable")
-	-- 		--vim.cmd("Minuet change_preset blank")
-
-	-- 		-- AI completion toggle functions
-	-- 		vim.keymap.set("n", "<leader>am", function()
-	-- 			-- Enable Minuet, disable Copilot
-	-- 			vim.cmd("Minuet blink enable")
-	-- 			vim.cmd("Copilot disable")
-	-- 			vim.cmd("Minuet blink enable")
-	-- 			print("Minuet enabled, Copilot disabled")
-	-- 		end, { desc = "[A]I: Enable [M]inuet" })
-
-	-- 		vim.keymap.set("n", "<leader>ac", function()
-	-- 			-- Enable Copilot, disable Minuet
-	-- 			vim.cmd("Minuet blink disable")
-	-- 			vim.cmd("Copilot enable")
-	-- 			print("Copilot enabled, Minuet disabled")
-	-- 		end, { desc = "[A]I: Enable [C]opilot" })
-
-	-- 		vim.keymap.set("n", "<leader>ad", function()
-	-- 			-- Disable both
-	-- 			vim.cmd("Minuet blink disable")
-	-- 			vim.cmd("Copilot disable")
-	-- 			print("All AI completion disabled")
-	-- 		end, { desc = "[A]D: [D]isable all" })
-	-- 	end,
-	-- },
+			vim.keymap.set("n", "<leader>ad", function()
+				-- Disable both
+				vim.cmd("Minuet blink disable")
+				print("AI completion disabled")
+			end, { desc = "[A]D: [A]I [D]isable" })
+		end,
+	},
 }
