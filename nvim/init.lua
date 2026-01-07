@@ -177,7 +177,15 @@ vim.o.scrolloff = 10 -- aka :se so=10
 vim.g.netrw_banner = 1
 vim.g.netrw_winsize = 28
 vim.g.netrw_liststyle = 3
-vim.g.netrw_browse_split = 4 -- Behave like the P (preview) window
+--[[
+  From :h g:netrw_browse_split:
+    =0: re-using the same window  (default)
+    =1: horizontally splitting the window first
+    =2: vertically   splitting the window first
+    =3: open file in new tab
+    =4: act like "P" (ie. open previous window)
+]]
+vim.g.netrw_browse_split = 2
 vim.g.netrw_altv = 0
 vim.g.netrw_hide = 0
 vim.g.netrw_fastbrowse = 0
@@ -1053,6 +1061,17 @@ require("lazy").setup({
 			--  - yinq - [Y]ank [I]nside [N]ext [Q]uote
 			--  - ci'  - [C]hange [I]nside [']quote
 			require("mini.ai").setup({ n_lines = 500 })
+
+			-- File explorer with Miller columns
+			require("mini.files").setup({
+				windows = {
+					preview = true,
+					width_preview = 80,
+				},
+			})
+			vim.keymap.set("n", "<leader>m", function()
+				MiniFiles.open()
+			end, { desc = "[M]ini Files" })
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			--

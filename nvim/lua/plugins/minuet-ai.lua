@@ -14,15 +14,11 @@ return {
 				context_window = 1024,
 				provider_options = {
 					openai_fim_compatible = {
-						-- For Windows users, TERM may not be present in environment variables.
-						-- Consider using APPDATA instead.
-						api_key = "TERM",
-						name = "Llama.cpp",
-						end_point = "http://0.0.0.0:8080/v1/completions",
-						-- The model is set by the llama-cpp server and cannot be altered
-						-- post-launch.
-						-- e.g: $ ramalama serve -c 0 -p 8080 --webui off hf://ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF --cache-reuse 256 --runtime-args "-fa -ub 1024 -b 1024"
-						model = "its_set_by_the_server",
+						-- https://github.com/milanglacier/minuet-ai.nvim?tab=readme-ov-file#ollama-qwen-25-coder7b
+						api_key = "TERM", -- ollama uses "TERM" as a special value
+						name = "Local_Models",
+						end_point = "http://0.0.0.0:11434/v1/completions",
+						model = "qwen2.5-coder:1.5b",
 						optional = {
 							max_tokens = 56,
 							top_p = 0.9,
@@ -58,16 +54,11 @@ return {
 						end_point = "https://api.anthropic.com/v1/messages",
 						optional = {},
 					},
-					Local_LlamaCpp = {
-						-- For Windows users, TERM may not be present in environment variables.
-						-- Consider using APPDATA instead.
-						api_key = "not-needed",
-						name = "Local_Llama.cpp",
-						end_point = "http://0.0.0.0:8080/v1/completions",
-						-- The model is set by the llama-cpp server and cannot be altered
-						-- post-launch.
-						-- e.g: $ ramalama serve -c 0 -p 8080 --webui off hf://ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF --cache-reuse 256 --runtime-args "-fa -ub 1024 -b 1024"
-						model = "PLACEHOLDER",
+					Local_Models = {
+						api_key = "TERM",
+						name = "Local_Models",
+						end_point = "http://0.0.0.0:11434/v1/completions",
+						model = "qwen2.5-coder:1.5b",
 						optional = {
 							max_tokens = 56,
 							top_p = 0.9,
