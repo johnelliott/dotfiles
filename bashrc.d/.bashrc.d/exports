@@ -13,20 +13,7 @@ export HISTCONTROL='ignoreboth';
 export LANG='en_US.UTF-8';
 export LC_ALL='en_US.UTF-8';
 
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}";
-
 # Don’t clear the screen after quitting a manual page.
-export MANPAGER='less -X';
-
-# Always enable colored `grep` output.
-export GREP_OPTIONS='--color=auto';
-# export GREP_COLOR="1;31" # green for matches, this may break?!
+export MANPAGER=’less -X’;
 
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
-
-#export FZF_DEFAULT_OPTS="--height=50% --preview 'bat --style=numbers --color=always {} | head -500' --color=16"
-
-# Link Homebrew casks in `/Applications` rather than `~/Applications`
-# export HOMEBREW_CASK_OPTS="--appdir=/Applications";
-# export HOMEBREW_NO_AUTO_UPDATE=1
