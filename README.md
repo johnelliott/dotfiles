@@ -1,13 +1,27 @@
 # dotfiles
 
-This repo strikes a balance between automation and ecosystem churn. I've found maintaining an automated setup is rarely worth it and new machines are a good time to try new things.
+Cross-platform dotfiles for macOS and Linux (Fedora Silverblue/Bazzite).
+Uses [GNU Stow](https://www.gnu.org/software/stow/) to symlink configs into place.
 
-| Quick Link                                                                                           | Quick Commandline                                                                                                    |
-| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| [get .vimrc](https://raw.githubusercontent.com/johnelliott/dotfiles/main/vim/.vimrc)                 | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/.vimrc > ~/.vimrc 2>&1`                       |
-| [get .tmux.conf](https://raw.githubusercontent.com/johnelliott/dotfiles/main/tmux/.tmux.conf)        | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/.tmux.conf > ~/.tmux.conf 2>&1`               |
-| [run applestore.sh](https://raw.githubusercontent.com/johnelliott/dotfiles/main/MacOS/applestore.sh) | `curl -fsL https://raw.githubusercontent.com/johnelliott/dotfiles/main/MacOS/applestore.sh \| sh `                   |
+Each directory mirrors the target location in your home directory.
+`stow -t ~ git` symlinks `git/.gitconfig` → `~/.gitconfig`.
 
-## notes
-- Add starship setup notes
-- Add stow documentation
+## Install
+
+```bash
+git clone https://github.com/johnelliott/dotfiles ~/code/dotfiles
+cd ~/code/dotfiles
+bash install.sh
+```
+
+On Linux, the companion [silverblue-setup](https://github.com/johnelliott/silverblue-setup)
+repo handles system packages, Flatpaks, and GNOME settings, then calls
+this repo's `install.sh`.
+
+## Shell config on Linux (Fedora)
+
+Fedora's default `~/.bashrc` automatically sources every file in `~/.bashrc.d/`.
+This repo's `bashrc.d/` directory contains modular configs (aliases, exports,
+PATH, fzf, mise) that get symlinked there by stow.
+
+Machine-specific settings go in `~/.extra` (not tracked by git).
