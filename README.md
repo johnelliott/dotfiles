@@ -14,7 +14,7 @@ cd ~/code/dotfiles
 bash install.sh
 ```
 
-On Linux, the companion [silverblue-setup](https://github.com/johnelliott/silverblue-setup)
+On Linux, the companion [silverblue setup](https://github.com/johnelliott/fedora-silverblue-setup)
 repo handles system packages, Flatpaks, and GNOME settings, then calls
 this repo's `install.sh`.
 
