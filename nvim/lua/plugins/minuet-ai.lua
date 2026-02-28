@@ -17,7 +17,7 @@ return {
 						-- https://github.com/milanglacier/minuet-ai.nvim?tab=readme-ov-file#ollama-qwen-25-coder7b
 						api_key = "TERM", -- ollama uses "TERM" as a special value
 						name = "Local_Models",
-						end_point = "http://0.0.0.0:11434/v1/completions",
+						end_point = "http://0.0.0.0:11000/v1/completions",
 						model = "qwen2.5-coder:1.5b",
 						optional = {
 							max_tokens = 56,

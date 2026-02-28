@@ -176,7 +176,7 @@ vim.o.scrolloff = 10 -- aka :se so=10
 -- Configure netrw a bit like tree plugins
 vim.g.netrw_banner = 1
 vim.g.netrw_winsize = 28
-vim.g.netrw_liststyle = 3
+vim.g.netrw_liststyle = 0
 --[[
   From :h g:netrw_browse_split:
     =0: re-using the same window  (default)
