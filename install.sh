@@ -37,6 +37,10 @@ stow -t ~ curl wget ripgrep npm psql
 # Editors
 stow -t ~ tmux vim
 
+# Local scripts (~/.local/bin)
+mkdir -p ~/.local/bin
+stow -t ~ local
+
 mkdir -p ~/.config/nvim
 stow -t ~/.config/nvim nvim
 
