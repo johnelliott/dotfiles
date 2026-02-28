@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Load shared shell configs
-for file in ~/.bashrc.d}; do
+for file in ~/.bashrc.d/*; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 

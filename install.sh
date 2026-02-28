@@ -12,7 +12,14 @@ esac
 
 # Homebrew installs
 # https://docs.brew.sh/Brew-Bundle-and-Brewfile
-brew bundle check || brew bundle install
+#brew bundle check || brew bundle install
+
+# Write OS-specific git credential helper
+if [ "$os" = "Darwin" ]; then
+  printf '[credential]\n  helper = osxkeychain\n' > ~/.gitconfig-os
+elif [ "$os" = "Linux" ]; then
+  printf '[credential]\n  helper = /usr/libexec/git-core/git-credential-libsecret\n' > ~/.gitconfig-os
+fi
 
 # use gnu-stow to install
 stow -t ~ tmux vim readline curl git ripgrep wget
@@ -24,5 +31,4 @@ mkdir -p ~/.config/ghostty
 stow -t ~/.config/ghostty ghostty
 
 # Starship config
-mkdir -p ~/.config/starship
-stow -t ~/.config/starship starship
+stow -t ~/.config starship

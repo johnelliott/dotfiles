@@ -143,8 +143,8 @@
   pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
-[credential]
-  helper = osxkeychain
+[include]
+  path = ~/.gitconfig-os
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f

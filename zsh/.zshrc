@@ -30,7 +30,11 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-z}={A-Z} r:|[._-]=*
 export GOPATH=$HOME/go
 
 # Config brew completion
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 autoload -Uz compinit
 compinit
 
@@ -43,4 +47,6 @@ export FZF_CTRL_T_OPTS="
   # --preview 'bat -n --color=always {}'
 
 # SSH agent
-eval "$(ssh-agent -s)" && ssh-add
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" && ssh-add
+fi
