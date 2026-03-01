@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+# Claude Code usage for tmux status-right.
+# Outputs nothing (noop) if ccusage is not available.
+
+# ${VAR:-fallback} means: use $VAR if set and non-empty, otherwise use "fallback".
+# $XDG_RUNTIME_DIR is a per-user tmpfs directory on Linux (e.g. /run/user/1000).
+# It's faster and auto-cleaned on logout compared to /tmp.
+CACHE="${XDG_RUNTIME_DIR:-/tmp}/claude-status.cache"
+TTL=60  # seconds between refreshes
+
+# -f tests that the path exists and is a regular file (not a directory, socket, etc.)
+if [[ -f "$CACHE" ]]; then
+    # $(( ... )) is arithmetic expansion — evaluates the expression as an integer.
+    # $(date +%s) returns current Unix time (seconds since epoch).
+    # stat -c %Y prints a file's last-modification time as Unix seconds.
+    age=$(( $(date +%s) - $(stat -c %Y "$CACHE") ))
+
+    # (( ... )) is an arithmetic conditional — true if the result is non-zero.
+    if (( age < TTL )); then
+        cat "$CACHE"
+        exit 0
+    fi
+fi
+
+# Locate the ccusage binary. Tries three places in order:
+#   1. ccusage already on PATH (global npm install, homebrew, etc.)
+#   2. mise shim at the standard location (~/.local/share/mise/shims/)
+#   3. Any mise-managed node install that includes ccusage in its bin/
+# Prints the path to the binary, or nothing if not found.
+find_ccusage() {
+    # `command -v` is the POSIX way to ask "is this name on PATH and executable?".
+    # Redirecting stdout+stderr to /dev/null suppresses any output — we only care
+    # about the exit code (0 = found, non-zero = not found).
+    if command -v ccusage &>/dev/null; then
+        # Print the resolved path so the caller can use it.
+        command -v ccusage
+        return
+    fi
+
+    # `local` scopes the variable to this function — it won't leak into the caller.
+    local shim="$HOME/.local/share/mise/shims/ccusage"
+    # -x tests that the path exists AND is executable.
+    if [[ -x "$shim" ]]; then
+        echo "$shim"
+        return
+    fi
+
+    # Glob over all installed node versions managed by mise.
+    # The pattern */bin expands to every bin/ directory one level deep under
+    # the node installs root. If the directory doesn't exist the glob produces
+    # no matches and the for loop body never runs.
+    local node_installs="$HOME/.local/share/mise/installs/node"
+    if [[ -d "$node_installs" ]]; then
+        for bin_dir in "$node_installs"/*/bin; do
+            if [[ -x "$bin_dir/ccusage" ]]; then
+                # ccusage's shebang is `#!/usr/bin/env node`, so `node` must also
+                # be findable. We stash the bin dir in a variable so the caller
+                # can prepend it to PATH before running ccusage.
+                # `export` makes the variable visible to child processes.
+                export _CCUSAGE_NODE_BIN="$bin_dir"
+                echo "$bin_dir/ccusage"
+                return
+            fi
+        done
+    fi
+}
+
+# $(...) is command substitution — runs the command and captures its stdout.
+# The result is assigned to ccusage_bin.
+ccusage_bin=$(find_ccusage)
+
+# [[ -z STRING ]] is true if STRING is empty (zero length).
+# && is short-circuit AND: the right side only runs if the left side succeeds.
+# If ccusage isn't found, exit 0 (success, no output) — tmux shows nothing.
+[[ -z "$ccusage_bin" ]] && exit 0
+
+# Prepend the node bin dir to PATH so ccusage's `#!/usr/bin/env node` resolves.
+# Only needed when we found ccusage inside a mise node install (not via shim/PATH).
+[[ -n "$_CCUSAGE_NODE_BIN" ]] && export PATH="$_CCUSAGE_NODE_BIN:$PATH"
+
+# Run ccusage and capture its JSON output.
+# --offline skips the LiteLLM pricing fetch (uses cached prices — fast, ~200ms).
+# 2>/dev/null discards any error output so tmux status bar stays clean.
+json=$("$ccusage_bin" daily --json --offline 2>/dev/null)
+[[ -z "$json" ]] && exit 0
+
+# Parse the JSON with jq. The -r flag outputs raw strings (no JSON quotes).
+# .daily[-1] selects the last element of the daily array (today's entry).
+# The | inside jq pipes the object through the string interpolation expression.
+# \(...) inside a jq string is string interpolation (like $() in bash).
+# round and floor are jq's built-in math functions.
+today=$(printf '%s' "$json" | jq -r '
+  .daily[-1] |
+  "$\((.totalCost * 100 | round) / 100) | \(.totalTokens / 1000000 | floor)M tok"
+' 2>/dev/null)
+[[ -z "$today" ]] && exit 0
+
+# `tee FILE` writes stdin to both stdout and FILE simultaneously.
+# This prints the result to the terminal (so tmux captures it) AND saves the
+# cache file in one pass, without needing a separate `echo > file` step.
+printf '%s' "$today" | tee "$CACHE"
