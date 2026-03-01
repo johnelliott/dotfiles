@@ -117,6 +117,9 @@
   tool = vimdiff
   guitool = gvimdiff
 
+[mergetool]
+  vimdiff.path=nvim
+
 [rerere]
   enabled = false
 

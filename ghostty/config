@@ -75,3 +75,5 @@ keybind=shift+ctrl+9=last_tab
 
 # ghostty +list-themes
 
+keybind = shift+enter=text:\x1b\r
+

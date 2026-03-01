@@ -360,6 +360,10 @@ require("lazy").setup({
 	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
 	{ "fatih/vim-go", dependencies = { "junegunn/fzf.vim" } }, -- Go support
 	"dearrrfish/vim-applescript",
+	{
+		"onlyati/quadlet-lsp.nvim",
+		lazy = false,
+	},
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
