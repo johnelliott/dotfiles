@@ -26,7 +26,7 @@ fi
 # For example, git/.gitconfig becomes ~/.gitconfig.
 
 # Shell
-stow -t ~ readline
+stow -t ~ bash bashrc.d readline
 
 # Git
 stow -t ~ git
