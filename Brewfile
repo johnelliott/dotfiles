@@ -41,6 +41,7 @@ cask "ghostty"
 cask "firefox"
 cask "vlc"
 cask "wireshark-app"
+cask "macdown-3000"
 cask "moonlight"
 
 # Mac only

@@ -25,3 +25,7 @@ This repo's `bashrc.d/` directory contains modular configs (aliases, exports,
 PATH, fzf, mise) that get symlinked there by stow.
 
 Machine-specific settings go in `~/.extra` (not tracked by git).
+
+## notes
+- Add starship setup notes
+- Add stow documentation
