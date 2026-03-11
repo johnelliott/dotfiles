@@ -12,7 +12,7 @@ esac
 
 # Homebrew installs
 # https://docs.brew.sh/Brew-Bundle-and-Brewfile
-#brew bundle check || brew bundle install
+brew bundle check || brew bundle install
 
 # Write OS-specific git credential helper (~/.gitconfig includes this file)
 if [ "$os" = "Darwin" ]; then
