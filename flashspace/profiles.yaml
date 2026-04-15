@@ -1,0 +1,97 @@
+profiles:
+- id: 5B37CFFA-320F-40A4-986D-CD86B2E65C93
+  name: Default
+  workspaces:
+  - id: C17808D4-960D-49D8-876E-922158AEBB88
+    name: 1 Slack
+    display: LG UltraFine
+    shortcut: cmd+1
+    assignAppShortcut: cmd+ctrl+1
+    apps:
+    - name: Slack
+      bundleIdentifier: com.tinyspeck.slackmacgap
+      iconPath: /Applications/Slack.app/Contents/Resources/electron.icns
+    - name: Google Chrome
+      bundleIdentifier: com.google.Chrome
+      iconPath: /Applications/Google Chrome.app/Contents/Resources/app.icns
+    - name: Firefox
+      bundleIdentifier: org.mozilla.firefox
+      iconPath: /Applications/Firefox.app/Contents/Resources/firefox.icns
+    - name: Ghostty
+      bundleIdentifier: com.mitchellh.ghostty
+      iconPath: /Applications/Ghostty.app/Contents/Resources/Ghostty.icns
+    appToFocus:
+      name: Slack
+      bundleIdentifier: com.tinyspeck.slackmacgap
+      iconPath: /Applications/Slack.app/Contents/Resources/electron.icns
+    symbolIconName: bolt.fill
+    openAppsOnActivation: false
+  - id: 06C5A04C-8479-416A-90B1-7F899C88F871
+    name: 2 Term
+    display: LG UltraFine
+    shortcut: cmd+2
+    assignAppShortcut: cmd+ctrl+2
+    apps:
+    - name: Google Chrome
+      bundleIdentifier: com.google.Chrome
+      iconPath: /Applications/Google Chrome.app/Contents/Resources/app.icns
+    - name: Zed
+      bundleIdentifier: dev.zed.Zed
+      iconPath: /Applications/Zed.app/Contents/Resources/Zed.icns
+    - name: Cursor
+      bundleIdentifier: com.todesktop.230313mzl4w4u92
+      iconPath: /Applications/Cursor.app/Contents/Resources/Cursor.icns
+    - name: Ghostty
+      bundleIdentifier: com.mitchellh.ghostty
+      iconPath: /Applications/Ghostty.app/Contents/Resources/Ghostty.icns
+    - name: Firefox
+      bundleIdentifier: org.mozilla.firefox
+      iconPath: /Applications/Firefox.app/Contents/Resources/firefox.icns
+    appToFocus:
+      name: Ghostty
+      bundleIdentifier: com.mitchellh.ghostty
+      iconPath: /Applications/Ghostty.app/Contents/Resources/Ghostty.icns
+      autoOpen: true
+    symbolIconName: bolt.fill
+    openAppsOnActivation: false
+  - id: 606E3DB1-A1CC-4895-848E-0E5EB20BDA0A
+    name: 3 Chrome
+    display: BenQ PD3226G
+    shortcut: cmd+3
+    assignAppShortcut: cmd+ctrl+3
+    apps:
+    - name: Google Chrome
+      bundleIdentifier: com.google.Chrome
+      iconPath: /Applications/Google Chrome.app/Contents/Resources/app.icns
+    - name: Ghostty
+      bundleIdentifier: com.mitchellh.ghostty
+      iconPath: /Applications/Ghostty.app/Contents/Resources/Ghostty.icns
+    - name: Firefox
+      bundleIdentifier: org.mozilla.firefox
+      iconPath: /Applications/Firefox.app/Contents/Resources/firefox.icns
+    appToFocus:
+      name: Google Chrome
+      bundleIdentifier: com.google.Chrome
+      iconPath: /Applications/Google Chrome.app/Contents/Resources/app.icns
+    symbolIconName: bolt.fill
+    openAppsOnActivation: false
+  - id: 06BB0F66-2D3D-4B2D-960C-B438B7BC0E1E
+    name: 4 Dual
+    display: LG UltraFine
+    shortcut: cmd+4
+    assignAppShortcut: cmd+ctrl+4
+    apps:
+    - name: NetNewsWire
+      bundleIdentifier: com.ranchero.NetNewsWire-Evergreen
+      iconPath: /Applications/NetNewsWire.app/Contents/Resources/AppIcon.icns
+    symbolIconName: bolt.fill
+    openAppsOnActivation: false
+  - id: 1D1F95A1-5DFF-4C13-BBD2-918B01F314BF
+    name: 5 Extras
+    display: LG UltraFine
+    apps: []
+    symbolIconName: bolt.fill
+    openAppsOnActivation: false
+- id: 3E638642-ECCB-4221-82CB-217D5861CA79
+  name: Meeting
+  workspaces: []

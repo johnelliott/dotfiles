@@ -48,5 +48,9 @@ stow -t ~/.config/nvim nvim
 mkdir -p ~/.config/ghostty
 stow -t ~/.config/ghostty ghostty
 
+# Workspace manager
+mkdir -p ~/.config/flashspace
+stow -t ~/.config/flashspace flashspace
+
 # Prompt
 stow -t ~/.config starship
